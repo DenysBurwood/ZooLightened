@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Zoo.DL.Entities.Humans
+{
+    public class User//:BaseEntity
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; } = null!;
+        public string LastName { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string Password { get; set; } = null!;
+        public bool IsEmployee { get; set; }
+        public bool IsSubscribed { get; set; }
+        //  public List<Tickets>? {get; set;}
+    }
+}
