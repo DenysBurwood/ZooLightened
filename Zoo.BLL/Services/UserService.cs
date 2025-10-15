@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Isopoh.Cryptography.Argon2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zoo.BLL.Exceptions;
 using Zoo.DAL.Repositories;
 using Zoo.DL.Entities.Humans;
 
@@ -17,11 +19,25 @@ namespace Zoo.BLL.Services
         }
         public void Register(User user) 
         {
+            if(_userRepository.GetByEmail(user.Email) is not null)
+            {
+                    throw new RegisterException("Email already registered");
+            }
+            //  Hash of password
+            user!.Password=Argon2.Hash(user.Password);
             _userRepository.Add(user);
         }
-        public User? Login(string email) 
+        public User Login(string email, string password) 
         {
             User? user = _userRepository.GetByEmail(email);
+            if(user is null)
+            {
+                throw new LoginException("Bad login or password.");
+            }
+            if(!Argon2.Verify(user.Password,password))
+            {
+                throw new LoginException("Bad login or password.");
+            }
             return user;
         }
     }

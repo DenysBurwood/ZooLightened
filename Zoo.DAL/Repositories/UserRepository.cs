@@ -25,6 +25,7 @@ namespace Zoo.DAL.Repositories
 
         public override void Add(User entity)
         {
+            //if (entity.)
             _users.Add(entity);
             _context.SaveChanges();
         }

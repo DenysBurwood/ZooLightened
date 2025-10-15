@@ -1,12 +1,11 @@
 ﻿using Isopoh.Cryptography.Argon2;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Zoo.API.DTOs;
 using Zoo.API.Mappers;
 using Zoo.API.Services;
+using Zoo.BLL.Exceptions;
 using Zoo.BLL.Services;
-using Zoo.DAL.Contexts;
 using Zoo.DL.Entities.Humans;
 
 namespace Zoo.API.Controllers
@@ -28,12 +27,12 @@ namespace Zoo.API.Controllers
         [HttpPost("Register")]
         public ActionResult Register([FromBody] UserFormDTO user) 
         {
-            if(user is null||!ModelState.IsValid) 
-            {
-                return BadRequest();
-            }
-            //  Hash of password
-            user.Password=Argon2.Hash(user.Password);
+            //if(user is null||!ModelState.IsValid) 
+            //{
+            //    return BadRequest();
+            //}
+            ////  Hash of password
+            //user.Password=Argon2.Hash(user.Password);
 
             _userService.Register(user.FromUserForm());
             return Ok();
@@ -46,20 +45,20 @@ namespace Zoo.API.Controllers
             {
                 return BadRequest();
             }
-            User? user = _userService.Login(userLogin.Email);
+            User user = _userService.Login(userLogin.Email, userLogin.Password);
             //  if password wrong || user is null <- exception
-            if(user is null) 
-            {
-                return BadRequest("Bad login or password");
-            }
-            if(!Argon2.Verify(user.Password,userLogin.Password)) 
-            {
-                return BadRequest("Bad login or password");
-            }
-
-
+            //if(user is null) 
+            //{
+            //    throw new LoginException(400,"Bad login or password.");
+            //}
+            //if(!Argon2.Verify(user.Password,userLogin.Password)) 
+            //{
+            //    throw new LoginException("Bad login or password.");
+            //}
             string token = _authService.GenerateToken(user);
-            return Ok(user);
+            return Ok(new { token });
         }
+
+
     }
 }
