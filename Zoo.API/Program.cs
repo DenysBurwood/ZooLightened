@@ -54,12 +54,15 @@ builder.Services.AddDbContext<ZooContext>(b =>
 #endregion
 
 #region Repositories
+//builder.Services.AddScoped<BaseRepository<Tentity, TId>>();
 builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<AnimalRepository>();
 #endregion
 
 #region Services
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AnimalService>();
 #endregion
 
 builder.Services.AddAuthentication(option =>

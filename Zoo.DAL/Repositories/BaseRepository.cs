@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,7 +11,8 @@ namespace Zoo.DAL.Repositories
 {
     public abstract class BaseRepository<TEntity, TId> where TEntity : class
     {
-        protected readonly string _connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=BookDb;Trusted_Connection=True;";
+        private readonly DbSet<TEntity> _tEntity;
+        protected readonly string _connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=ZooVerviers;Trusted_Connection=True;";
         protected abstract string TableName { get; }
         protected abstract string ColumnIdName { get; }
 
@@ -21,6 +23,30 @@ namespace Zoo.DAL.Repositories
             using(SqlCommand command = connection.CreateCommand())
             {
                 command.CommandText=$@"SELECT * FROM {TableName};";
+
+                OpenConnection(connection);
+
+                using(SqlDataReader reader = command.ExecuteReader())
+                {
+                    List<TEntity> entities = [];
+                    while(reader.Read())
+                    {
+                        entities.Add(MapEntity(reader));
+                    }
+                    return entities;
+                }
+            }
+        }
+
+        public List<TEntity> GetAll(int page, int sizePage)
+        {
+            using(SqlConnection connection = new SqlConnection(_connectionString))
+            using(SqlCommand command = connection.CreateCommand())
+            {
+                command.CommandText=$@"select * from {TableName} 
+                                        order by {ColumnIdName} 
+                                        offset {page}*{sizePage} rows 
+                                        fetch next {sizePage} rows only;";
 
                 OpenConnection(connection);
 

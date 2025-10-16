@@ -60,6 +60,52 @@ namespace Zoo.DAL.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Zoo.DL.Entities.Animal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SpeciesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpeciesId");
+
+                    b.ToTable("Animal", (string)null);
+                });
+
+            modelBuilder.Entity("Zoo.DL.Entities.AnimalSpecies", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AnimalSpecies", (string)null);
+                });
+
             modelBuilder.Entity("Zoo.DL.Entities.Humans.User", b =>
                 {
                     b.Property<int>("Id")
@@ -126,6 +172,17 @@ namespace Zoo.DAL.Migrations
                     b.HasDiscriminator().HasValue("Employee");
                 });
 
+            modelBuilder.Entity("Zoo.DL.Entities.Animal", b =>
+                {
+                    b.HasOne("Zoo.DL.Entities.AnimalSpecies", "Species")
+                        .WithMany("Animals")
+                        .HasForeignKey("SpeciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Species");
+                });
+
             modelBuilder.Entity("Zoo.DL.Entities.Humans.Employee", b =>
                 {
                     b.HasOne("Zoo.DL.Entities.Address", "Address")
@@ -140,6 +197,11 @@ namespace Zoo.DAL.Migrations
             modelBuilder.Entity("Zoo.DL.Entities.Address", b =>
                 {
                     b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("Zoo.DL.Entities.AnimalSpecies", b =>
+                {
+                    b.Navigation("Animals");
                 });
 #pragma warning restore 612, 618
         }

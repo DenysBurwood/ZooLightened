@@ -30,6 +30,20 @@ namespace Zoo.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AnimalSpecies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnimalSpecies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -56,6 +70,32 @@ namespace Zoo.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Animal",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sex = table.Column<int>(type: "int", nullable: false),
+                    SpeciesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Animal", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Animal_AnimalSpecies_SpeciesId",
+                        column: x => x.SpeciesId,
+                        principalTable: "AnimalSpecies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Animal_SpeciesId",
+                table: "Animal",
+                column: "SpeciesId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_User_AddressId",
                 table: "User",
@@ -72,7 +112,13 @@ namespace Zoo.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Animal");
+
+            migrationBuilder.DropTable(
                 name: "User");
+
+            migrationBuilder.DropTable(
+                name: "AnimalSpecies");
 
             migrationBuilder.DropTable(
                 name: "Address");

@@ -39,6 +39,9 @@ namespace Zoo.API.Middlewares
                 case RegisterException e:
                     await SendResponse(context,e);
                     break;
+                case NotFoundException e:
+                    await SendResponse(context,e);
+                    break;
                 case Exception:
                     statusCode=500;
                     context.Response.StatusCode = statusCode;
