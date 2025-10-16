@@ -40,5 +40,18 @@ namespace Zoo.BLL.Services
             }
             return user;
         }
+        public void Subscribe(int id) 
+        {
+            User? user = _userRepository.GetById(id);
+            if(user is null) 
+            {
+                throw new UserNotFoundException($"User with id: {id} not found.");
+            }
+            if(user.IsSubscribed) 
+            {
+                throw new NotAllowedException("Already subscribed.");
+            }
+            _userRepository.Subscribe(user);
+        }
     }
 }

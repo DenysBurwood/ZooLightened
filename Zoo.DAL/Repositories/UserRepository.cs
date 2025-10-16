@@ -48,5 +48,15 @@ namespace Zoo.DAL.Repositories
         {
             return _users.FirstOrDefault(y => y.Email==email);
         }
+        public User? GetById(int id) 
+        {
+            return _users.FirstOrDefault(y => y.Id==id);
+        }
+        public void Subscribe(User user) 
+        {
+            user.IsSubscribed= true;
+            _users.Update(user);
+            _context.SaveChanges();
+        }
     }
 }

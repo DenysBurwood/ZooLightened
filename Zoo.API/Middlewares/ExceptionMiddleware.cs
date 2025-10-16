@@ -32,7 +32,8 @@ namespace Zoo.API.Middlewares
             int statusCode = 400;
             switch(ex) 
             {
-                // Special exceptions to implement a unique behaviour.
+                //  Special exceptions to implement a unique behaviour.
+                //  At the current time, everything is identical, we'll discuss on it later.
                 case LoginException e:
                     await SendResponse(context, e);
                     break;
@@ -42,8 +43,10 @@ namespace Zoo.API.Middlewares
                 case NotFoundException e:
                     await SendResponse(context,e);
                     break;
+                case NotAllowedException e:
+                    await SendResponse(context,e);
+                    break;
                 case Exception:
-                    statusCode=500;
                     context.Response.StatusCode = statusCode;
                     var response = new
                     {

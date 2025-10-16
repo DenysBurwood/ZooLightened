@@ -35,5 +35,26 @@ namespace Zoo.API.Controllers
             AnimalIndexDTO animal = _animalService.GetAnimal(id).ToAnimalIndexDTO();
             return Ok(animal);
         }
+
+        [HttpPost("Birth")]
+        public ActionResult<AnimalFormDTO> AddOne([FromForm] AnimalFormDTO animal) 
+        {
+            _animalService.AddAnimal(animal.FromAnimalFormDTO());
+            return Ok();
+        }
+
+        [HttpPatch("Modification")]
+        public ActionResult<AnimalFormDTO> Modify([FromForm] AnimalFormDTO animal,[FromForm] int id) 
+        {
+            _animalService.Modify(id, animal.FromAnimalFormDTO());
+            return Ok();
+        }
+
+        [HttpPost("Death")]
+        public ActionResult<AnimalFormDTO> DeleteOne([FromForm] int id) 
+        {
+            _animalService.DeleteAnimal(id);
+            return Ok();
+        }
     }
 }

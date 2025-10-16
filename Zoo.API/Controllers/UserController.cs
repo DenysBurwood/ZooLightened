@@ -40,6 +40,13 @@ namespace Zoo.API.Controllers
             return Ok(new { token });
         }
 
+        [HttpPut("Subscription")]
+        public ActionResult Subscribe([FromQuery] int id) 
+        {
+            _userService.Subscribe(id);
+            return Ok();
+        }
+
 
     }
 }

@@ -34,8 +34,6 @@ namespace Zoo.DAL.Repositories
         {
             List<Animal> animals = _animals.Skip(page*sizePage).Take(sizePage).ToList();
             animals.ForEach(animal => { animal.Species=_animalSpecies.FirstOrDefault(x => x.Id==animal.SpeciesId)!; });
-            //_animalSpecies.Select(a => a.Id==1);
-            //animals.ForEach(animal => { _animalSpecies.Select(a => a.Id==(int)animal.Species) });
             return animals;
         }
 
@@ -46,8 +44,11 @@ namespace Zoo.DAL.Repositories
             {
                 animal.Species=_animalSpecies.FirstOrDefault(x => x.Id==animal.SpeciesId)!;
             }
-            //animal.Species.Name=_animals.FirstOrDefault(x => x.Id==id).Name;
             return animal;
+        }
+        public AnimalSpecies? GetSpeciesName(Animal animal) 
+        {
+            return _animalSpecies.FirstOrDefault(x => x.Id==animal.SpeciesId);
         }
 
         public void Add(Animal entity)
@@ -56,17 +57,25 @@ namespace Zoo.DAL.Repositories
             _context.SaveChanges();
         }
 
-
-        public void Update(int id,Animal entity)
+        //  Update not working properly. Need to further inquire inside.
+        public void Update(Animal entity)
         {
-            Animal? animal=_animals.FirstOrDefault(x => x.Id == id);
-            if(animal is not null) 
+            Animal current = _animals.FirstOrDefault(x => x.Id==entity.Id)!;
+            if(current is not null) 
             {
-                _animals.Update(entity);
-                _context.SaveChanges();
+                current.Name=entity.Name;
+                current.SpeciesId=entity.SpeciesId;
+                current.Sex=entity.Sex;
+                current.Species=entity.Species;
             }
+            _context.SaveChanges();
         }
 
+        public void Delete(Animal animal) 
+        {
+            _animals.Remove(animal);
+            _context.SaveChanges();
+        }
         //public string GetSpeciesName(Animal animal) 
         //{
         //    AnimalSpecies species = new AnimalSpecies();

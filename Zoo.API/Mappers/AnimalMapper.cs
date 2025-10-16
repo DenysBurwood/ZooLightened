@@ -14,5 +14,24 @@ namespace Zoo.API.Mappers
                 Sex=Animal.Sex,
             };
         }
+
+        public static AnimalFormDTO ToAnimalFormDTO(this Animal animal) 
+        {
+            return new AnimalFormDTO()
+            {
+                Name=animal.Name,
+                Sex=animal.Sex,
+                SpeciesId=animal.Species.Id,
+            };
+        }
+        public static Animal FromAnimalFormDTO(this AnimalFormDTO animalForm) 
+        {
+            return new Animal()
+            {
+                Name=animalForm.Name,
+                SpeciesId=animalForm.SpeciesId,
+                Sex = animalForm.Sex,
+            };
+        }
     }
 }
