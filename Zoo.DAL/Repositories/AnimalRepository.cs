@@ -1,13 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using Zoo.DAL.Contexts;
 using Zoo.DL.Entities;
-using Zoo.DL.Enum;
 
 namespace Zoo.DAL.Repositories
 {
@@ -46,9 +39,21 @@ namespace Zoo.DAL.Repositories
             }
             return animal;
         }
-        public AnimalSpecies? GetSpeciesName(Animal animal) 
+        public AnimalSpecies? GetSpeciesById(int speciesId) 
         {
-            return _animalSpecies.FirstOrDefault(x => x.Id==animal.SpeciesId);
+            return _animalSpecies.FirstOrDefault(x => x.Id==speciesId);
+        }
+
+        public List<AnimalSpecies> GetSpecies()
+        {
+            List<AnimalSpecies> species = _animalSpecies.ToList();
+            species.GroupBy(sp => sp.Name);
+            return species;
+        }
+
+        public int NumberAnimalSpecies(string speciesName) 
+        {
+            return _animals.Count(a => a.Species.Name==speciesName);
         }
 
         public void Add(Animal entity)
@@ -60,14 +65,11 @@ namespace Zoo.DAL.Repositories
         //  Update not working properly. Need to further inquire inside.
         public void Update(Animal entity)
         {
-            Animal current = _animals.FirstOrDefault(x => x.Id==entity.Id)!;
-            if(current is not null) 
-            {
-                current.Name=entity.Name;
-                current.SpeciesId=entity.SpeciesId;
-                current.Sex=entity.Sex;
-                current.Species=entity.Species;
-            }
+            //Animal current = _animals.FirstOrDefault(x => x.Id==entity.Id)!;
+            //current.Name=entity.Name;
+            //current.SpeciesId=entity.SpeciesId;
+            //current.Sex=entity.Sex;
+            //current.Species=entity.Species;
             _context.SaveChanges();
         }
 

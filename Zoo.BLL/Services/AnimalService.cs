@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zoo.BLL.Exceptions;
+﻿using Zoo.BLL.Exceptions;
 using Zoo.DAL.Repositories;
 using Zoo.DL.Entities;
 
@@ -47,13 +42,24 @@ namespace Zoo.BLL.Services
             return _animalRepository.GetAnimalById(id)!;
         }
 
+        public List<AnimalSpecies> GetSpecies()
+        {
+            List<AnimalSpecies> animalSpecies = _animalRepository.GetSpecies();
+            return animalSpecies;
+        }
+
+        public int NumberAnimalSpecies(string speciesName) 
+        {
+            return _animalRepository.NumberAnimalSpecies(speciesName);
+        }
+
         public void AddAnimal(Animal animal) 
         {
             if(animal is null) 
             {
                 throw new AnimalNotFoundException();
             }
-            if(_animalRepository.GetSpeciesName(animal) is null) 
+            if(_animalRepository.GetSpeciesById(animal.SpeciesId) is null) 
             {
                 throw new AnimalNotFoundException($"Species name of animal {animal.Name} with spieciesId: {animal.SpeciesId} not found");
             }
@@ -66,11 +72,16 @@ namespace Zoo.BLL.Services
             {
                 throw new AnimalNotFoundException();
             }
-            if(_animalRepository.GetSpeciesName(animal) is null || _animalRepository.GetAnimalById(id) is null)
+            Animal? current = _animalRepository.GetAnimalById(id);
+            if(_animalRepository.GetSpeciesById(animal.SpeciesId) is null || current is null)
             {
                 throw new AnimalNotFoundException($"Species name of animal with id {id} and spieciesId: {animal.SpeciesId} not found");
             }
-            _animalRepository.Update(animal);
+            current.Name=animal.Name;
+            current.SpeciesId=animal.SpeciesId;
+            current.Sex=animal.Sex;
+            current.Species=animal.Species;
+            _animalRepository.Update(current);
         }
         public void DeleteAnimal(int id) 
         {

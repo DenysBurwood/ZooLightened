@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zoo.DL.Entities.Humans;
+﻿using Zoo.DL.Entities.Humans;
 
 namespace Zoo.DL.Entities
 {

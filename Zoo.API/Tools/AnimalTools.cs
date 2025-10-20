@@ -1,5 +1,4 @@
-﻿using Zoo.DL.Entities;
-
+﻿
 namespace Zoo.API.Tools
 {
     public static class AnimalTools

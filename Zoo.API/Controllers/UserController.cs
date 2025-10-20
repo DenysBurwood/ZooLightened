@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Zoo.API.DTOs;
 using Zoo.API.Mappers;
 using Zoo.API.Services;
+using Zoo.API.Tools;
+using Zoo.BLL.Exceptions;
 using Zoo.BLL.Services;
 using Zoo.DL.Entities.Humans;
 
 namespace Zoo.API.Controllers
 {
-    [Route("api/User/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UserController:ControllerBase
     {
@@ -24,7 +27,12 @@ namespace Zoo.API.Controllers
         [HttpPost("Register")]
         public ActionResult Register([FromBody] UserFormDTO user) 
         {
+            if(user is null || !ModelState.IsValid) 
+            {
+                throw new RegisterException("A valid form is required");
+            }
             _userService.Register(user.FromUserForm());
+            Console.WriteLine(User.GetUserID());
             return Ok();
         }
 
@@ -37,12 +45,16 @@ namespace Zoo.API.Controllers
             }
             User user = _userService.Login(userLogin.Email, userLogin.Password);
             string token = _authService.GenerateToken(user);
+            Console.WriteLine(token);
             return Ok(new { token });
         }
 
+        [Authorize]
         [HttpPut("Subscription")]
-        public ActionResult Subscribe([FromQuery] int id) 
+        public ActionResult Subscribe() 
         {
+
+            int id = User.GetUserID();
             _userService.Subscribe(id);
             return Ok();
         }

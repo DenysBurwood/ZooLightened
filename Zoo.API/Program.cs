@@ -27,7 +27,7 @@ builder.Services.AddSwaggerGen(c =>
         In=ParameterLocation.Header,
         Description="JWT Authorization: Entrez : 'Bearer [token]'"
     });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {       //  Permet de rajouter un cadenas sur les routes
         {
             new OpenApiSecurityScheme

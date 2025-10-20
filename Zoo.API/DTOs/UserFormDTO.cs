@@ -1,10 +1,22 @@
-﻿namespace Zoo.API.DTOs
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace Zoo.API.DTOs
 {
     public class UserFormDTO
     {
+        [Required]
         public string FirstName { get; set; } = null!;
+
+        [Required]
         public string LastName { get; set; } = null!;
+
+        [Required]
+        [EmailAddress]
         public string Email { get; set; } = null!;
+
+        [Required(ErrorMessage = "A strong password is required")]
+        [PasswordPropertyText]
         public string Password { get; set; } = null!;
     }
 }

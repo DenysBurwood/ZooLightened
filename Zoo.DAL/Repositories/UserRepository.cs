@@ -21,20 +21,6 @@ namespace Zoo.DAL.Repositories
             _context.SaveChanges();
         }
 
-        //public override User MapEntity(SqlDataReader reader)
-        //{
-        //    User user = new User()
-        //    {
-        //        Id=(int)reader["id"],
-        //        FirstName=(string)reader["firstname"],
-        //        LastName=(string)reader["lastname"],
-        //        Email=(string)reader["email"],
-        //        Password=(string)reader["password"],
-        //        IsEmployee=(bool)reader["isEmployee"],
-        //    };
-        //    return user;
-        //}
-
         public void Update(int id,User entity)
         {
             User? user=_users.FirstOrDefault(x => x.Id==id);

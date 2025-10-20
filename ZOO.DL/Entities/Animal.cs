@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zoo.DL.Enum;
+﻿using Zoo.DL.Enum;
 
 namespace Zoo.DL.Entities
 {

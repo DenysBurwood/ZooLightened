@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Zoo.BLL.Exceptions;
 
 namespace Zoo.API.Middlewares
