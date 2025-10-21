@@ -32,6 +32,7 @@ namespace Zoo.API.Mappers
                 SpeciesId=animalForm.SpeciesId,
                 OwnerId=animalForm.OwnerId,
                 Sex = animalForm.Sex,
+                BirthDate=animalForm.BirthDate,
             };
         }
 

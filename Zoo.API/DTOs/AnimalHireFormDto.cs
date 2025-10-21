@@ -4,6 +4,10 @@ namespace Zoo.API.DTOs
 {
     public class AnimalHireFormDto
     {
+
+        [Required]
+        public int Id { get; set; }
+
         [Required]
         public DateTime StartDate { get; set; }
 

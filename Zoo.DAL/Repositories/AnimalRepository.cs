@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Zoo.DAL.Contexts;
 using Zoo.DL.Entities;
+using Zoo.DL.Enum;
 
 namespace Zoo.DAL.Repositories
 {
@@ -58,12 +59,11 @@ namespace Zoo.DAL.Repositories
             return _animals.Count(a => a.Species.Name==speciesName);
         }
 
-        public int Add(Animal entity)
+        public void Add(Animal entity)
         {
             _animals.Add(entity);
             _context.SaveChanges();
 
-            return entity.Id;
         }
 
         //  Update not working properly. Need to further inquire inside.
@@ -88,11 +88,11 @@ namespace Zoo.DAL.Repositories
 
         //}
 
-        public bool IsAnimalAvailableForRent(Animal animal, DateTime startdate, DateTime? enddate)
+        public bool IsAnimalAvailableForMovement(Animal animal, DateTime startdate, DateTime? enddate)
         {
                 var requestedEndDate = enddate ?? DateTime.MaxValue;
 
-                bool isRented =_animalMovements
+                bool isOccupied =_animalMovements
                     .Any(m => m.AnimalId == animal.Id &&
                               (
                                   // Cas 1 : location en cours sans fin et commence avant ou pendant la période demandée
@@ -104,16 +104,16 @@ namespace Zoo.DAL.Repositories
                                       m.EndDate >= startdate)
                               ));
 
-                return !isRented;
+                return !isOccupied;
         }
 
-        public void UpdateAnimalRent(Animal animal, DateTime startdate, DateTime? enddate)
+        public void InsertAnimalMovement(Animal animal, DateTime startdate, DateTime? enddate, Direction direction)
         {
-            _animals.Find(animal.Id)!.IsAvailable = false;
+            //_animals.Find(animal.Id)!.IsAvailable = false;
 
             AnimalMovement movement = new()
             {
-                Direction = DL.Enum.Direction.OUT,
+                Direction = direction,
                 Animal = animal,
                 StartDate = startdate,
                 EndDate = enddate,

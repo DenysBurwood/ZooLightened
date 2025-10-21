@@ -110,24 +110,48 @@ namespace Zoo.BLL.Services
                 throw new AnimalNotAvailableForRentException($"The animal with id: {id} doesn't belong to our zoo.");
             }
 
-            if (!_animalRepository.IsAnimalAvailableForRent(animal, startdate, enddate))
+            if (!_animalRepository.IsAnimalAvailableForMovement(animal, startdate, enddate))
             {
                 throw new AnimalNotAvailableForRentException($"The animal with id: {id} is not available to rent from {startdate} till {enddate}.");
             }
 
-            _animalRepository.UpdateAnimalRent(animal, startdate, enddate);
+            _animalRepository.InsertAnimalMovement(animal, startdate, enddate, DL.Enum.Direction.OUT);
         }
 
-        public void HireAnimal(Animal animal, DateTime startdate, DateTime? enddate)
+        public void HireNewAnimal(Animal animal, DateTime startdate, DateTime? enddate)
         {
             if (animal.OwnerId == 1)
             {
                 throw new AnimalNotAvailableForHireException($"Impossible to hire an animal which belongs to our zoo.");
             }
 
+            _animalRepository.Add(animal);
 
-            int id = _animalRepository.Add(animal);
+            _animalRepository.InsertAnimalMovement(animal, startdate, enddate, DL.Enum.Direction.IN);
+        }
 
+        public void HireExistingAnimal(int id, DateTime startdate, DateTime? enddate)
+        {
+            Animal? animal = _animalRepository.GetAnimalById(id);
+
+            if (_animalRepository.GetAnimalById(id) is null)
+            {
+                throw new AnimalNotFoundException($"No animal with id: {id} is not to be found.");
+            }
+            if (animal!.RIPDate is not null)
+            {
+                throw new AnimalNotAvailableForHireException($"You may not hire a dead animal. (id: {id})");
+            }
+            if (animal!.OwnerId == 1)
+            {
+                throw new AnimalNotAvailableForHireException($"Impossible to hire an animal which belongs to our zoo.");
+            }
+            if (!_animalRepository.IsAnimalAvailableForMovement(animal, startdate, enddate))
+            {
+                throw new AnimalNotAvailableForHireException($"The animal with id: {id} is not available to hire from {startdate} till {enddate}.");
+            }
+
+            _animalRepository.InsertAnimalMovement(animal, startdate, enddate, DL.Enum.Direction.IN);
 
         }
     }

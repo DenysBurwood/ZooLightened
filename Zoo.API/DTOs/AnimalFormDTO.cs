@@ -17,5 +17,8 @@ namespace Zoo.API.DTOs
         [Range(1, int.MaxValue, ErrorMessage = ("A positive owner Id"))]
         public int OwnerId { get; set; }
 
+        [Required]
+        public DateTime BirthDate { get; set; }
+
     }
 }
