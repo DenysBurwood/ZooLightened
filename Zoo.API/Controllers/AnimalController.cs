@@ -69,5 +69,19 @@ namespace Zoo.API.Controllers
             _animalService.DeleteAnimal(id);
             return Ok();
         }
+
+        [HttpPost("Rent")]
+        public ActionResult<AnimalRentFormDto> RentAnimal([FromForm] AnimalRentFormDto animal)
+        {
+            _animalService.RentAnimal(animal.Id, animal.StartDate, animal.EndDate);
+            return Ok();
+        }
+
+        [HttpPost("Hire")]
+        public ActionResult<AnimalIndexDTO> HireAnimal([FromForm] AnimalFormDTO animalform, [FromForm] AnimalHireFormDto hireform)
+        {
+            _animalService.HireAnimal(animalform.FromAnimalFormDTO(), hireform.StartDate, hireform.EndDate);
+            return Ok();
+        }
     }
 }

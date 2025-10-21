@@ -1,0 +1,90 @@
+﻿-- 1️⃣ Adresses
+INSERT INTO Address (Street, Number, City, PostalCode, Country)
+VALUES
+('Rue du Zoo', 1, 'Verviers', 4800, 'Belgium'),
+('Avenue des Animaux', 15, 'Liège', 4000, 'Belgium'),
+('Boulevard de la Jungle', 27, 'Namur', 5000, 'Belgium'),
+('Chemin du Safari', 12, 'Mons', 7000, 'Belgium'),
+('Allée des Félins', 8, 'Charleroi', 6000, 'Belgium'),
+('Rue des Oiseaux', 22, 'Arlon', 6700, 'Belgium'),
+('Place des Reptiles', 5, 'Tournai', 7500, 'Belgium'),
+('Route du Zoo', 101, 'Spa', 4900, 'Belgium'),
+('Rue des Mammifères', 44, 'Bruxelles', 1000, 'Belgium'),
+('Chemin des Singes', 3, 'Namur', 5000, 'Belgium');
+
+-- 2️⃣ Propriétaires
+INSERT INTO Owner (Name, AddressId, ContactName, PhoneNumber, Email)
+VALUES
+('Zoo de Verviers', 1, 'Jean Dupont', '+32471111111', 'jean.dupont@zoo-verviers.be'),
+('Zoo de Liège', 2, 'Sophie Martin', '+32472222222', 'sophie.martin@zoo-liege.be'),
+('Safari Mons', 4, 'Luc Leroy', '+32473333333', 'luc.leroy@safari-mons.be'),
+('Zoo de Namur', 3, 'Claire Dubois', '+32474444444', 'claire.dubois@zoo-namur.be'),
+('Reptile Center', 7, 'Marc Lambert', '+32475555555', 'marc.lambert@reptilecenter.be');
+
+-- 3️⃣ Espèces (20)
+INSERT INTO AnimalSpecies (Name, Description)
+VALUES
+('Lion', 'Grand félin africain'),
+('Tigre', 'Grand félin asiatique'),
+('Girafe', 'Grand herbivore à long cou'),
+('Éléphant', 'Grand mammifère herbivore'),
+('Zèbre', 'Mammifère rayé d’Afrique'),
+('Ours brun', 'Mammifère omnivore'),
+('Panda', 'Ours noir et blanc de Chine'),
+('Gorille', 'Grand primate'),
+('Chimpanzé', 'Primate intelligent'),
+('Léopard', 'Félin agile et rapide'),
+('Panthère noire', 'Variante mélanique du léopard'),
+('Serpent python', 'Grand serpent constricteur'),
+('Crocodile du Nil', 'Reptile semi-aquatique'),
+('Perroquet', 'Oiseau coloré'),
+('Aigle royal', 'Rapace majestueux'),
+('Pingouin', 'Oiseau marin incapable de voler'),
+('Loutre', 'Mammifère aquatique joueur'),
+('Koala', 'Marsupial d’Australie'),
+('Kangourou', 'Grand marsupial bondissant'),
+('Hippopotame', 'Mammifère semi-aquatique massif');
+
+-- 4️⃣ Animaux (200)
+DECLARE @i INT = 1;
+WHILE @i <= 200
+BEGIN
+    INSERT INTO Animal (Name, Sex, SpeciesId, OwnerId, IsAvailable, BirthDate, RIPDate)
+    VALUES (
+        CONCAT('Animal_', @i),
+        CASE WHEN @i % 2 = 0 THEN 0 ELSE 1 END,  -- 0 = Male, 1 = Female
+        ((@i - 1) % 20) + 1,                     -- rotation sur 20 espèces
+        ((@i - 1) % 5) + 1,                      -- rotation sur 5 propriétaires
+        CASE WHEN @i % 7 = 0 THEN 0 ELSE 1 END,  -- certains indisponibles
+        DATEADD(DAY, -(@i * 20), GETDATE()),     -- dates de naissance variées
+        NULL
+    );
+    SET @i += 1;
+END;
+
+-- 5️⃣ Mouvements (environ 30 animaux déjà loués)
+INSERT INTO AnimalMovement (AnimalId, Direction, StartDate, EndDate)
+VALUES
+(5, 1, '2025-10-01', NULL),
+(7, 1, '2025-09-15', '2025-11-15'),
+(14, 1, '2025-01-01', NULL),
+(21, 1, '2025-05-20', '2025-07-01'),
+(30, 1, '2024-12-15', NULL),
+(42, 1, '2025-09-01', NULL),
+(50, 1, '2025-06-10', '2025-09-20'),
+(63, 1, '2025-10-10', NULL),
+(77, 1, '2025-07-01', '2025-08-15'),
+(85, 1, '2025-09-05', NULL),
+(90, 1, '2025-03-01', '2025-03-20'),
+(100, 1, '2025-10-01', NULL),
+(111, 1, '2025-01-15', '2025-02-15'),
+(120, 1, '2025-04-10', NULL),
+(135, 1, '2025-09-01', NULL),
+(140, 1, '2025-08-10', '2025-09-10'),
+(150, 1, '2025-05-01', NULL),
+(160, 1, '2025-02-01', '2025-02-28'),
+(170, 1, '2025-10-01', NULL),
+(180, 1, '2025-06-15', NULL),
+(190, 1, '2025-03-10', '2025-04-10'),
+(200, 1, '2025-09-20', NULL);
+

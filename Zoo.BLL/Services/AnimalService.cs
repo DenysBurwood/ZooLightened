@@ -92,5 +92,43 @@ namespace Zoo.BLL.Services
             }
             _animalRepository.Delete(animal!);
         }
+
+        public void RentAnimal(int id, DateTime startdate, DateTime? enddate)
+        {
+            Animal? animal = _animalRepository.GetAnimalById(id);
+            if (_animalRepository.GetAnimalById(id) is null)
+            {
+                throw new AnimalNotFoundException($"No animal with id: {id} is not to be found.");
+            }
+            if (animal!.RIPDate is not null)
+            {
+                throw new AnimalNotAvailableForRentException($"You may not rent a dead animal. (id: {id})");
+            }
+
+            if (animal!.OwnerId != 1)
+            {
+                throw new AnimalNotAvailableForRentException($"The animal with id: {id} doesn't belong to our zoo.");
+            }
+
+            if (!_animalRepository.IsAnimalAvailableForRent(animal, startdate, enddate))
+            {
+                throw new AnimalNotAvailableForRentException($"The animal with id: {id} is not available to rent from {startdate} till {enddate}.");
+            }
+
+            _animalRepository.UpdateAnimalRent(animal, startdate, enddate);
+        }
+
+        public void HireAnimal(Animal animal, DateTime startdate, DateTime? enddate)
+        {
+            if (animal.OwnerId == 1)
+            {
+                throw new AnimalNotAvailableForHireException($"Impossible to hire an animal which belongs to our zoo.");
+            }
+
+
+            int id = _animalRepository.Add(animal);
+
+
+        }
     }
 }

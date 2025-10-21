@@ -8,6 +8,7 @@ namespace Zoo.DAL.Repositories
     {
         private readonly DbSet<Animal> _animals;
         private readonly DbSet<AnimalSpecies> _animalSpecies;       //  Adjoindre les espèces animales pour pouvoir récupérer le nom dans la liste d'animaux
+        private readonly DbSet<AnimalMovement> _animalMovements;
         private readonly ZooContext _context;
 
         public AnimalRepository(ZooContext context)
@@ -15,6 +16,7 @@ namespace Zoo.DAL.Repositories
             _context=context;
             _animals=context.Animals;
             _animalSpecies=context.AnimalSpecies;
+            _animalMovements = context.AnimalMovements;
         }
 
         public List<Animal> GetAllAnimals() 
@@ -56,10 +58,12 @@ namespace Zoo.DAL.Repositories
             return _animals.Count(a => a.Species.Name==speciesName);
         }
 
-        public void Add(Animal entity)
+        public int Add(Animal entity)
         {
             _animals.Add(entity);
             _context.SaveChanges();
+
+            return entity.Id;
         }
 
         //  Update not working properly. Need to further inquire inside.
@@ -83,5 +87,41 @@ namespace Zoo.DAL.Repositories
         //    AnimalSpecies species = new AnimalSpecies();
 
         //}
+
+        public bool IsAnimalAvailableForRent(Animal animal, DateTime startdate, DateTime? enddate)
+        {
+                var requestedEndDate = enddate ?? DateTime.MaxValue;
+
+                bool isRented =_animalMovements
+                    .Any(m => m.AnimalId == animal.Id &&
+                              (
+                                  // Cas 1 : location en cours sans fin et commence avant ou pendant la période demandée
+                                  (m.EndDate == null && m.StartDate <= requestedEndDate)
+
+                                  // Cas 2 : chevauchement classique de deux périodes
+                                  || (m.EndDate != null &&
+                                      m.StartDate <= requestedEndDate &&
+                                      m.EndDate >= startdate)
+                              ));
+
+                return !isRented;
+        }
+
+        public void UpdateAnimalRent(Animal animal, DateTime startdate, DateTime? enddate)
+        {
+            _animals.Find(animal.Id)!.IsAvailable = false;
+
+            AnimalMovement movement = new()
+            {
+                Direction = DL.Enum.Direction.OUT,
+                Animal = animal,
+                StartDate = startdate,
+                EndDate = enddate,
+            };
+
+            _animalMovements.Add(movement);
+
+            _context.SaveChanges();
+        }
     }
 }

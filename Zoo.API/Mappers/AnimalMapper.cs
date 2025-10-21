@@ -30,6 +30,7 @@ namespace Zoo.API.Mappers
             {
                 Name=animalForm.Name,
                 SpeciesId=animalForm.SpeciesId,
+                OwnerId=animalForm.OwnerId,
                 Sex = animalForm.Sex,
             };
         }
@@ -41,6 +42,15 @@ namespace Zoo.API.Mappers
                 Name=species.Name,
                 Description=species.Description,
                 NumberAnimals=0,
+            };
+        }
+
+        public static Animal FromAnimalRentFormDto(this AnimalRentFormDto animalRentForm)
+        {
+            return new Animal()
+            {
+                Id = animalRentForm.Id,
+                Name = animalRentForm.Name,
             };
         }
     }
