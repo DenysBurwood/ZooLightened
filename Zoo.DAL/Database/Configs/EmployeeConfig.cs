@@ -12,16 +12,15 @@ namespace Zoo.DAL.Database.Configs
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
-            //builder.ToTable("Employee");
+            builder.ToTable("Employee");
 
-            //builder.HasKey(e => e.Id);
-            //builder.Property(e => e.Id).ValueGeneratedOnAdd();
+            builder.HasKey(e => e.Id);
+            builder.Property(e => e.Id).ValueGeneratedOnAdd();
 
-            //builder.Property(e => e.EmployeeType).IsRequired();
-            //builder.Property(e => e.Address).IsRequired();
-            //builder.Property(e => e.Email).IsRequired();
+            builder.Property(e => e.EmployeeType).IsRequired();
+            builder.Property(e => e.Address).IsRequired();
 
-            //builder.HasOne(e => e.User).WithOne(u => u.Employee).HasForeignKey<Employee>(e => e.Email);
+            builder.HasOne(e => e.User).WithOne(u => u.Employee);
 
         }
     }

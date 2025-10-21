@@ -21,7 +21,10 @@ namespace Zoo.DAL.Database.Configs
 
             builder.Property(u => u.Password).IsRequired();
 
-            builder.Property(u => u.IsEmployee).IsRequired();
+            
+            builder.HasOne(u => u.Employee).WithOne(e => e.User).HasForeignKey<Employee>(e => e.Id);
+
+
         }
     }
 }

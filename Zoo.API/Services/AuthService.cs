@@ -19,7 +19,7 @@ namespace Zoo.API.Services
         {
             List<Claim> claims = new List<Claim>(){
                     new Claim(ClaimTypes.Sid, user.Id.ToString()),
-                    new Claim(ClaimTypes.Role, user.IsEmployee.ToString()),
+                    //new Claim(ClaimTypes.Role, user.IsEmployee.ToString()),
                     new Claim(ClaimTypes.Email, user.Email),
                     //new Claim(ClaimTypes.)
                 };

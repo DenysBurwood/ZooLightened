@@ -9,17 +9,18 @@ namespace Zoo.DL.Entities
         public Sex Sex { get; set; }
         public int SpeciesId { get; set; }
 
-
- /*       //  Choices on next data
-        public DateTime ArrivalDate { get; set; }
-        public Dictionary<DateTime, DateTime?>? OwnershipSchedule { get; set; }
-        public List<string>? PhotoLinks { get; set; }
-        //  toys and other tables after
-        //  public Toys Toy {get set}
-        //  public string Photos
-        //  public int age
-        //  ...*/
-
         public AnimalSpecies Species { get; set; } = null!;
+
+        public int OwnerId { get; set; }
+
+        public Owner Owner { get; set; } = null!;
+
+        public bool IsAvailable { get; set; }
+
+        public DateTime BirthDate {  get; set; }
+
+        public DateTime? RIPDate {  get; set; }
+
+        public List<AnimalMovement>? AnimalMovements { get; set; }
     }
 }

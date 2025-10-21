@@ -8,8 +8,10 @@ namespace Zoo.DL.Entities.Humans
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string Password { get; set; } = null!;
-        public bool IsEmployee { get; set; }
+
+        public int? EmployeeId { get; set; }
+        public Employee? Employee { get; set; }
         public bool IsSubscribed { get; set; }
-        //  public List<Tickets>? {get; set;}
+
     }
 }

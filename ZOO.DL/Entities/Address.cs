@@ -10,6 +10,8 @@ namespace Zoo.DL.Entities
         public string City { get; set; } = null!;
         public int PostalCode { get; set; }
         public string Country { get; set; } = null!;
-        public List<Employee> Employees { get; set; } = [];
+        public List<Employee>? Employees { get; set; } = [];
+
+        public List<Owner>? Owners { get; set; } = [];
     }
 }
