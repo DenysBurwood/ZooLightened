@@ -22,6 +22,7 @@ namespace Zoo.API.Mappers
                 Name=animal.Name,
                 Sex=animal.Sex,
                 SpeciesId=animal.Species.Id,
+                OwnerId=animal.Owner.Id,
             };
         }
         public static Animal FromAnimalFormDTO(this AnimalFormDTO animalForm) 
@@ -31,6 +32,9 @@ namespace Zoo.API.Mappers
                 Name=animalForm.Name,
                 SpeciesId=animalForm.SpeciesId,
                 Sex = animalForm.Sex,
+                OwnerId=animalForm.OwnerId,
+                BirthDate=animalForm.BirthDate,
+                RIPDate=animalForm.RIPDate,
             };
         }
 

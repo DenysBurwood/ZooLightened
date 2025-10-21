@@ -15,10 +15,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.AddSecurityDefinition("bearer",new OpenApiSecurityScheme()
+    c.AddSecurityDefinition("Bearer",new OpenApiSecurityScheme()
     {           //  Ce sont les options sécuritaires de base. La doc existe pour d'autres options spécifiques au besoin.
         Name="Authorization",
         Type=SecuritySchemeType.ApiKey,
@@ -43,7 +43,8 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 
 #region DbContext
@@ -57,12 +58,14 @@ builder.Services.AddDbContext<ZooContext>(b =>
 //builder.Services.AddScoped<BaseRepository<Tentity, TId>>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AnimalRepository>();
+builder.Services.AddScoped<EmployeeRepository>();
 #endregion
 
 #region Services
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AnimalService>();
+builder.Services.AddScoped<EmployeeService>();
 #endregion
 
 builder.Services.AddAuthentication(option =>

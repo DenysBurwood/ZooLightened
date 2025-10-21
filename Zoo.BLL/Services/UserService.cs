@@ -48,5 +48,15 @@ namespace Zoo.BLL.Services
             }
             _userRepository.Subscribe(user);
         }
+
+        public User GetAccount(string email) 
+        {
+            User? user = _userRepository.GetByEmail(email);
+            if(user is null) 
+            {
+                throw new UserNotFoundException($"No user with email: {email} was found");
+            }
+            return user;
+        }
     }
 }

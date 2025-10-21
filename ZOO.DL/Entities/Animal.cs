@@ -13,7 +13,7 @@ namespace Zoo.DL.Entities
 
         public int OwnerId { get; set; }
 
-        public Owner Owner { get; set; } = null!;
+        public Owner? Owner { get; set; } = null!;
 
         public bool IsAvailable { get; set; }
 

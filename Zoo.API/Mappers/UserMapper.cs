@@ -25,5 +25,17 @@ namespace Zoo.API.Mappers
                 Password = user.Password,
             };
         }
+
+        public static UserAccountDTO ToUserAccountDTO(this User user) 
+        {
+            return new UserAccountDTO()
+            {
+                FirstName=user.FirstName,
+                LastName=user.LastName,
+                Email = user.Email,
+                EmployeeId = user.EmployeeId,
+                IsSubscribed = user.IsSubscribed,
+            };
+        }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Zoo.API.DTOs;
 using Zoo.API.Mappers;
 using Zoo.BLL.Services;
+using Zoo.DL.Entities.Humans;
 
 namespace Zoo.API.Controllers
 {
@@ -46,7 +47,7 @@ namespace Zoo.API.Controllers
             return animalSpecies;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Director")]
         [HttpPost("Birth")]
         public ActionResult<AnimalFormDTO> AddOne([FromForm] AnimalFormDTO animal) 
         {
@@ -54,7 +55,7 @@ namespace Zoo.API.Controllers
             return Ok();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Director")]
         [HttpPatch("Modification")]
         public ActionResult<AnimalFormDTO> Modify([FromForm] AnimalFormDTO animal,[FromForm] int id) 
         {
@@ -62,7 +63,7 @@ namespace Zoo.API.Controllers
             return Ok();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Director")]
         [HttpPost("Death")]
         public ActionResult<AnimalFormDTO> DeleteOne([FromForm] int id) 
         {

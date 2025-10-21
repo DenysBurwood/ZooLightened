@@ -15,11 +15,12 @@ namespace Zoo.API.Services
             _config=config;
         }
 
-        public string GenerateToken(User user)
+        public string GenerateToken(User user, Employee? employee)
         {
+
             List<Claim> claims = new List<Claim>(){
                     new Claim(ClaimTypes.Sid, user.Id.ToString()),
-                    //new Claim(ClaimTypes.Role, user.IsEmployee.ToString()),
+                    new Claim(ClaimTypes.Role, employee is null ? "Client" : employee.EmployeeType.ToString()),
                     new Claim(ClaimTypes.Email, user.Email),
                     //new Claim(ClaimTypes.)
                 };

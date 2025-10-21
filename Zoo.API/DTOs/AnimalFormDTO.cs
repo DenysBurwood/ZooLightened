@@ -17,5 +17,11 @@ namespace Zoo.API.DTOs
         //  public Toys Toy {get set}
         //  public string Photos
         //  public int age
+
+        public int OwnerId { get; set; }
+
+        [Required]
+        public DateTime BirthDate { get; set; }
+        public DateTime? RIPDate { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace Zoo.DAL.Contexts
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Animal> Animals { get; set; }
         public DbSet<AnimalSpecies> AnimalSpecies { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         //public DbSet<Employee> Employees { get; set; }
 
         public ZooContext(DbContextOptions<ZooContext> options) : base(options) { }
