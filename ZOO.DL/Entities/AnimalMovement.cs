@@ -7,9 +7,8 @@ using Zoo.DL.Enum;
 
 namespace Zoo.DL.Entities
 {
-    public class AnimalMovement
+    public class AnimalMovement : BaseEntity
     {
-        public int Id { get; set; }
 
         public Animal Animal { get; set; } = null!;
 

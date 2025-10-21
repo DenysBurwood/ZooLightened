@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Zoo.DL.Entities
 {
-    public class Owner
+    public class Owner : BaseEntity
     {
-        public int Id { get; set; }
 
         public string Name { get; set; } = null!;
 

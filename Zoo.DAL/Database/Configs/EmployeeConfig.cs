@@ -18,6 +18,7 @@ namespace Zoo.DAL.Database.Configs
             builder.Property(e => e.Id).ValueGeneratedOnAdd();
 
             builder.Property(e => e.EmployeeType).IsRequired();
+
             builder.HasOne(e => e.Address).WithMany(e => e.Employees).IsRequired();
 
             builder.HasOne(e => e.User).WithOne(u => u.Employee);

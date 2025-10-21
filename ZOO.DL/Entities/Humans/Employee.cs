@@ -2,9 +2,8 @@
 
 namespace Zoo.DL.Entities.Humans
 {
-    public class Employee
+    public class Employee : BaseEntity
     {
-        public int Id { get; set; }
         public Address Address { get; set; } = null!;
 
         public int AddressId { get; set; }

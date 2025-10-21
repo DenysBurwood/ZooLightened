@@ -45,6 +45,12 @@ namespace Zoo.API.Middlewares
                 case NotAllowedException e:
                     await SendResponse(context,e);
                     break;
+                case AnimalNotAvailableForRentException e:
+                    await SendResponse(context, e);
+                    break;
+                case AnimalNotAvailableForHireException e:
+                    await SendResponse(context, e);
+                    break;
                 case Exception:
                     context.Response.StatusCode = statusCode;
                     var response = new

@@ -13,11 +13,8 @@ namespace Zoo.API.DTOs
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = ("A positive species Id"))]
         public int SpeciesId { get; set; }
-        //  toys and other tables after
-        //  public Toys Toy {get set}
-        //  public string Photos
-        //  public int age
-
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = ("A positive owner Id"))]
         public int OwnerId { get; set; }
 
         [Required]
