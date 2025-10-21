@@ -17,6 +17,9 @@ namespace Zoo.DAL.Contexts
 
         public DbSet<Owner> Owners { get; set; }
 
+        public DbSet<Toy> Toys { get; set; }
+
+        public DbSet<ToyDonation> ToyDonations { get; set; }
 
         public ZooContext(DbContextOptions<ZooContext> options) : base(options) { }
 

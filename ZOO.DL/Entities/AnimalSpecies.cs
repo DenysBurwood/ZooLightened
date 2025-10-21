@@ -8,5 +8,7 @@ namespace Zoo.DL.Entities
 
 
         public List<Animal>? Animals { get; set; }
+
+        public List<Toy>? Toys { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zoo.DL.Enum;
 
 namespace Zoo.DL.Entities
 {
@@ -18,13 +19,17 @@ namespace Zoo.DL.Entities
 
         public string Description { get; set; } = null!;
 
-        public string ImagePath { get; set; } = null!;
+        public string? ImagePath { get; set; } = null!;
 
-        public int WishedAmount { get; set; }
+        public int MinimumAmountperDonation { get; set; }
+
+        public int WishedTotalAmount { get; set; }
 
         public DateTime StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
+
+        public ToyStatus Status { get; set; }
 
     }
 }
