@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zoo.DAL.Contexts;
+using Zoo.DL.Entities;
 
 namespace Zoo.DAL.Repositories
 {
@@ -22,7 +23,7 @@ namespace Zoo.DAL.Repositories
             _entities = context.Set<T>();
         }
 
-        public IEnumerable<T> GetAll(int page = 0, Func<T, bool>? predicate = null)
+        public IEnumerable<T> GetAll(int page = 0, int nbPage = 10, Func<T, bool>? predicate = null)
         {
 
             IEnumerable<T> query = _entities;
@@ -34,8 +35,8 @@ namespace Zoo.DAL.Repositories
 
             return query
                 .OrderBy(p => p.Id)
-                .Skip(page * 10)
-                .Take(10);
+                .Skip(page * nbPage)
+                .Take(nbPage);
         }
 
         public T? GetEntity(int id)

@@ -2,9 +2,8 @@
 
 namespace Zoo.DL.Entities
 {
-    public class Animal
+    public class Animal : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; } = null!;
         public Sex Sex { get; set; }
         public int SpeciesId { get; set; }

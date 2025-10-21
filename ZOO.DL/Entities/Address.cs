@@ -2,9 +2,8 @@
 
 namespace Zoo.DL.Entities
 {
-    public class Address
+    public class Address : BaseEntity
     {
-        public int Id { get; set; }
         public string Street { get; set; } = null!;
         public int Number { get; set; }
         public string City { get; set; } = null!;
