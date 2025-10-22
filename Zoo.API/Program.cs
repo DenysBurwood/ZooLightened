@@ -8,6 +8,7 @@ using Zoo.API.Services;
 using Zoo.BLL.Services;
 using Zoo.DAL.Contexts;
 using Zoo.DAL.Repositories;
+using Zoo.DL.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +60,8 @@ builder.Services.AddDbContext<ZooContext>(b =>
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AnimalRepository>();
 builder.Services.AddScoped<EmployeeRepository>();
+builder.Services.AddScoped<ToyRepository>();
+builder.Services.AddScoped<ToyDonationRepository>();
 #endregion
 
 #region Services
@@ -66,6 +69,7 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AnimalService>();
 builder.Services.AddScoped<EmployeeService>();
+builder.Services.AddScoped<ToyService>();
 #endregion
 
 builder.Services.AddAuthentication(option =>

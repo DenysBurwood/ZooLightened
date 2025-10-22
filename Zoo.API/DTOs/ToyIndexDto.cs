@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Zoo.DL.Entities;
 using Zoo.DL.Enum;
 
-namespace Zoo.DL.Entities
+namespace Zoo.API.DTOs
 {
-    public class Toy :BaseEntity
+    public class ToyIndexDto
     {
-        public int SpeciesId { get; set; }
+        public int Id { get; set; }
 
-        public AnimalSpecies Species { get; set; } = null!;
-
-        public List<ToyDonation>? Donations { get; set; }
+        public string SpeciesName { get; set; } = null!;
 
         public string Name { get; set; } = null!;
 
@@ -32,8 +25,6 @@ namespace Zoo.DL.Entities
 
         public ToyStatus Status { get; set; }
 
-        [NotMapped]
         public decimal TotalAmountSoFar { get; set; }
-
     }
 }
