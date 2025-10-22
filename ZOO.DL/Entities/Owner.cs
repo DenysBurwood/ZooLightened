@@ -13,6 +13,8 @@ namespace Zoo.DL.Entities
 
         public Address Address { get; set; } = null!;
 
+        public int AddressId { get; set; }
+
         public string ContactName { get; set; } = null!;
 
         public string PhoneNumber { get; set; } = null!;

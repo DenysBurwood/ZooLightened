@@ -86,6 +86,33 @@ namespace Zoo.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Toy",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SpeciesId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MinimumAmountperDonation = table.Column<int>(type: "int", nullable: false),
+                    WishedTotalAmount = table.Column<int>(type: "int", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Toy", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Toy_AnimalSpecies_SpeciesId",
+                        column: x => x.SpeciesId,
+                        principalTable: "AnimalSpecies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Employee",
                 columns: table => new
                 {
@@ -145,6 +172,34 @@ namespace Zoo.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ToyDonation",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ToyId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false),
+                    DonationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ToyDonation", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ToyDonation_Toy_ToyId",
+                        column: x => x.ToyId,
+                        principalTable: "Toy",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ToyDonation_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AnimalMovement",
                 columns: table => new
                 {
@@ -192,6 +247,21 @@ namespace Zoo.DAL.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Toy_SpeciesId",
+                table: "Toy",
+                column: "SpeciesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ToyDonation_ToyId",
+                table: "ToyDonation",
+                column: "ToyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ToyDonation_UserId",
+                table: "ToyDonation",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_User_Email",
                 table: "User",
                 column: "Email",
@@ -208,16 +278,22 @@ namespace Zoo.DAL.Migrations
                 name: "Employee");
 
             migrationBuilder.DropTable(
+                name: "ToyDonation");
+
+            migrationBuilder.DropTable(
                 name: "Animal");
+
+            migrationBuilder.DropTable(
+                name: "Toy");
 
             migrationBuilder.DropTable(
                 name: "User");
 
             migrationBuilder.DropTable(
-                name: "AnimalSpecies");
+                name: "Owner");
 
             migrationBuilder.DropTable(
-                name: "Owner");
+                name: "AnimalSpecies");
 
             migrationBuilder.DropTable(
                 name: "Address");
