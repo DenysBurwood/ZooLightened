@@ -39,12 +39,12 @@ namespace Zoo.DAL.Repositories
                 .Take(nbPage);
         }
 
-        public T? GetEntity(int id)
+        public T? GetEntityById(int id)
         {
             return _entities.Find(id);
         }
 
-        public void Add(T entity)
+        public virtual void Add(T entity)
         {
             _entities.Add(entity);
             _context.SaveChanges();
@@ -56,7 +56,7 @@ namespace Zoo.DAL.Repositories
             _context.SaveChanges();
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             _entities.Update(entity);
             _context.SaveChanges();

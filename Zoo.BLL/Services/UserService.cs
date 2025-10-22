@@ -37,7 +37,7 @@ namespace Zoo.BLL.Services
         }
         public void Subscribe(int id) 
         {
-            User? user = _userRepository.GetById(id);
+            User? user = _userRepository.GetEntityById(id);
             if(user is null) 
             {
                 throw new UserNotFoundException($"User with id: {id} not found.");
@@ -57,6 +57,33 @@ namespace Zoo.BLL.Services
                 throw new UserNotFoundException($"No user with email: {email} was found");
             }
             return user;
+        }
+
+        public void EditAccount(User user, int id)
+        {
+            User? currentUser = _userRepository.GetEntityById(id);
+            if(currentUser is null) 
+            {
+                throw new UserNotFoundException($"User with id: {id} was not found");
+            }
+            if(!Argon2.Verify(currentUser.Password,user.Password)) 
+            {
+                throw new NotAllowedException("Wrong password");
+            }
+            user.Password=Argon2.Hash(user.Password);
+            user.Email=currentUser.Email;
+            _userRepository.Update(user);
+        }
+
+        public void SetEmployeeId(User user,int emplyeeId) 
+        {
+            user.EmployeeId=emplyeeId;
+            _userRepository.Update(user);
+        }
+
+        public void Delete(User user) 
+        {
+            _userRepository.Delete(user);
         }
     }
 }

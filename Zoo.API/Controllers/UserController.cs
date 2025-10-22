@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Zoo.API.DTOs;
+using Zoo.API.DTOs.Employees;
+using Zoo.API.DTOs.Users;
 using Zoo.API.Mappers;
 using Zoo.API.Services;
 using Zoo.API.Tools;
@@ -77,7 +78,7 @@ namespace Zoo.API.Controllers
             return Ok(user);
         }
 
-        [Authorize(Roles = $"Veterinarian,Reception,Director,Guide,Guard,Cleaner,Janitor,Treasurer")]
+        [Authorize(Roles = $"Veterinarian,Administration,Director,Guide,Treasurer,Other,Admin")]
         [HttpGet("MyAccount/MyEmployeeSheet")]
         public ActionResult<EmployeeAccountDTO> MyEmployeeAccount() 
         {
@@ -89,6 +90,32 @@ namespace Zoo.API.Controllers
             Employee employee = _employeeService.GetEmployeeByEmployeeId(user.EmployeeId.Value)!;
             employee.User=user;
             return Ok(employee.ToEmployeeAccountDTO());
+        }
+
+        [Authorize]
+        [HttpPost("MyAccount")]
+        public ActionResult<UserEditFormDTO> MyAccount([FromForm] UserEditFormDTO user)
+        {
+            if(user is null||!ModelState.IsValid) 
+            {
+                throw new RegisterException("Incomplete informations to fill edit the account.");
+            }
+            int id=User.GetUserID();
+            _userService.EditAccount(user.FromUserEditForm(), id);
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpGet("Delete")]
+        public ActionResult Delete() 
+        {
+            if(!User.GetRole().Equals("Client")) 
+            {
+                throw new NotAllowedException("An employee cannot delete its user account");
+            }
+
+            _userService.Delete(_userService.GetAccount(User.GetUserEmail()));
+            return Ok();
         }
     }
 }

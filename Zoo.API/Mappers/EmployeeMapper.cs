@@ -1,4 +1,5 @@
-﻿using Zoo.API.DTOs;
+﻿using Zoo.API.DTOs.Employees;
+using Zoo.DL.Entities;
 using Zoo.DL.Entities.Humans;
 
 namespace Zoo.API.Mappers
@@ -19,5 +20,100 @@ namespace Zoo.API.Mappers
             };
         }
 
+        public static EmployeeFormDTO ToEmployeeFormDto(this Employee employee) 
+        {
+            return new EmployeeFormDTO()
+            {
+                AddressId=employee.AddressId,
+                EmployeeType = employee.EmployeeType,
+                StartDate = employee.StartDate,
+                EndDate = employee.EndDate,
+                UserId=employee.UserId,
+            };
+        }
+        public static Employee FromEmployeeFormDTO(this EmployeeFormDTO employee) 
+        {
+            return new Employee()
+            {
+                AddressId=employee.AddressId,
+                EmployeeType=employee.EmployeeType,
+                StartDate=employee.StartDate,
+                EndDate=employee.EndDate,
+                UserId=employee.UserId,
+            };
+        }
+
+        public static Employee FromFullEmployeeFormDTO(this FullEmployeeFormDTO employee) 
+        {
+            //User user = new User();
+            //user.FirstName = employee.FirstName;
+            //user.LastName = employee.LastName;
+            //user.Email = employee.Email;
+            //user.Password = employee.Password;
+
+            //Address address = new Address();
+            //address.Street = employee.Street;
+            //address.City = employee.City;
+            //address.Number = employee.Number;
+            //address.PostalCode = employee.PostalCode;
+            //address.Country = employee.Country;
+
+            return new Employee()
+            {
+                EmployeeType=employee.EmployeeType,
+                StartDate=employee.StartDate,
+                EndDate=employee.EndDate,
+                //UserId=employee
+                User=employee.UserFromFullEmployeeFormDTO(),
+                Address=employee.AddressFromFullEmployeeFormDTO(),
+            };
+        }
+
+        public static Address AddressFromFullEmployeeFormDTO(this FullEmployeeFormDTO employee) 
+        {
+            return new Address()
+            {
+                Street=employee.Street,
+                City=employee.City,
+                Number=employee.Number,
+                PostalCode=employee.PostalCode,
+                Country=employee.Country
+            };
+        }
+
+        public static Employee EmployeeFromFullEmployeeFormDTO(this FullEmployeeFormDTO employee) 
+        {
+            return new Employee()
+            {
+                //AddressId=employee.AddressId,
+                EmployeeType=employee.EmployeeType,
+                StartDate=employee.StartDate,
+                EndDate=employee.EndDate,
+                //UserId=employee.UserId,
+            };
+        }
+
+        public static User UserFromFullEmployeeFormDTO(this FullEmployeeFormDTO employee) 
+        {
+            return new User()
+            {
+                FirstName=employee.FirstName,
+                LastName=employee.LastName,
+                Email=employee.Email,
+                Password=employee.Password,
+            };
+        }
+
+        public static EmployeeFormDTO FromFullEmployeeToEmployeeFormDTO(this FullEmployeeFormDTO employee) 
+        {
+            return new EmployeeFormDTO()
+            {
+                //AddressId=employee.AddressId,
+                EmployeeType=employee.EmployeeType,
+                StartDate=employee.StartDate,
+                EndDate=employee.EndDate,
+                //UserId=employee.UserId,
+            };
+        }
     }
 }

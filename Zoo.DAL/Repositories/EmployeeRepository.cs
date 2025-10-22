@@ -1,19 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zoo.DAL.Contexts;
 using Zoo.DL.Entities.Humans;
 
 namespace Zoo.DAL.Repositories
 {
-    public class EmployeeRepository
+    public class EmployeeRepository:BaseRepository<Employee>
     {
         private ZooContext _context;
         private DbSet<Employee> _employees;
-        public EmployeeRepository(ZooContext context) 
+        public EmployeeRepository(ZooContext context):base(context)
         {
             _context=context;
             _employees=context.Employees;
@@ -23,5 +18,15 @@ namespace Zoo.DAL.Repositories
         {
             return _employees.FirstOrDefault(y => y.Id==employeeId);
         }
+        public Employee? GetEmployeeByUserId(int userId)
+        {
+            return _employees.FirstOrDefault(y => y.UserId==userId);
+        }
+
+        //public override void Add(Employee entity)
+        //{
+        //    _employees.Add(entity);
+        //    _context.SaveChanges();
+        //}
     }
 }

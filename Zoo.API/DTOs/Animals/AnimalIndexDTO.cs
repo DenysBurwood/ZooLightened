@@ -1,6 +1,6 @@
 ﻿using Zoo.DL.Enum;
 
-namespace Zoo.API.DTOs
+namespace Zoo.API.DTOs.Animals
 {
     public class AnimalIndexDTO
     {

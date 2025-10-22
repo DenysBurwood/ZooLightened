@@ -14,6 +14,9 @@ namespace Zoo.API.Tools
             return claim.FindFirst(ClaimTypes.Email)!.Value;
         }
 
-        //public static string GetRole()
+        public static string GetRole(this ClaimsPrincipal claim) 
+        {
+            return claim.FindFirst(ClaimTypes.Role)!.Value;
+        }
     }
 }

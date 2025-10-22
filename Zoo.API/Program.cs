@@ -59,6 +59,7 @@ builder.Services.AddDbContext<ZooContext>(b =>
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AnimalRepository>();
 builder.Services.AddScoped<EmployeeRepository>();
+builder.Services.AddScoped<AddressRepository>();
 #endregion
 
 #region Services
@@ -66,6 +67,7 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AnimalService>();
 builder.Services.AddScoped<EmployeeService>();
+builder.Services.AddScoped<AddressService>();
 #endregion
 
 builder.Services.AddAuthentication(option =>

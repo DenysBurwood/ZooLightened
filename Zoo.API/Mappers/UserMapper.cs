@@ -1,4 +1,4 @@
-﻿using Zoo.API.DTOs;
+﻿using Zoo.API.DTOs.Users;
 using Zoo.DL.Entities.Humans;
 
 namespace Zoo.API.Mappers
@@ -23,6 +23,16 @@ namespace Zoo.API.Mappers
                 LastName= user.LastName,
                 Email = user.Email,
                 Password = user.Password,
+            };
+        }
+
+        public static User FromUserEditForm(this UserEditFormDTO user)
+        {
+            return new User()
+            {
+                FirstName=user.FirstName,
+                LastName=user.LastName,
+                Password=user.Password,
             };
         }
 

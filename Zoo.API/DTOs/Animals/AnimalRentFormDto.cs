@@ -1,12 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Zoo.DL.Enum;
 
-namespace Zoo.API.DTOs
+namespace Zoo.API.DTOs.Animals
 {
-    public class AnimalHireFormDto
+    public class AnimalRentFormDto
     {
+        [Required]
+
+        public int Id { get; set; }
 
         [Required]
-        public int Id { get; set; }
+        public string Name { get; set; } = null!;
 
         [Required]
         public DateTime StartDate { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace Zoo.API.DTOs
+﻿namespace Zoo.API.DTOs.Animals
 {
     public class AnimalSpeciesDTO
     {

@@ -4,45 +4,37 @@ using Zoo.DL.Entities.Humans;
 
 namespace Zoo.DAL.Repositories
 {
-    public class UserRepository
+    public class UserRepository:BaseRepository<User>
     {
         private readonly ZooContext _context;
         private readonly DbSet<User> _users;
-        public UserRepository(ZooContext zooContext)
+        public UserRepository(ZooContext zooContext):base(zooContext)
         {
             _context=zooContext;
             _users=zooContext.Users;
         }
 
-        public void Add(User entity)
-        {
-            //if (entity.)
-            _users.Add(entity);
-            _context.SaveChanges();
-        }
-
-        public void Update(int id,User entity)
-        {
-            User? user=_users.FirstOrDefault(x => x.Id==id);
-            if(user!=null) 
-            {
-                _users.Update(entity);
-                _context.SaveChanges();
-            }
-        }
         public User? GetByEmail(string email) 
         {
             return _users.FirstOrDefault(y => y.Email==email);
         }
-        public User? GetById(int id) 
-        {
-            return _users.FirstOrDefault(y => y.Id==id);
-        }
+
         public void Subscribe(User user) 
         {
             user.IsSubscribed= true;
             _users.Update(user);
             _context.SaveChanges();
         }
+
+        public override void Update(User user) 
+        {
+            User CurrentUser = _users.FirstOrDefault(u => u.Email==user.Email)!;
+            CurrentUser.FirstName=user.FirstName;
+            CurrentUser.LastName=user.LastName;
+            CurrentUser.Email=user.Email;
+            CurrentUser.Password=user.Password;
+            _context.SaveChanges();
+        }
+
     }
 }

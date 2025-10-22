@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Zoo.DL.Enum;
 
-namespace Zoo.API.DTOs
+namespace Zoo.API.DTOs.Animals
 {
     public class AnimalFormDTO
     {
@@ -11,10 +11,10 @@ namespace Zoo.API.DTOs
         public Sex Sex { get; set; }
 
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = ("A positive species Id"))]
+        [Range(1, int.MaxValue, ErrorMessage = "A positive species Id")]
         public int SpeciesId { get; set; }
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = ("A positive owner Id"))]
+        [Range(1, int.MaxValue, ErrorMessage = "A positive owner Id")]
         public int OwnerId { get; set; }
 
         [Required]

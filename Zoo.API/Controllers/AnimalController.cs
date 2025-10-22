@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Zoo.API.DTOs;
+using Zoo.API.DTOs.Animals;
 using Zoo.API.Mappers;
 using Zoo.BLL.Services;
 using Zoo.DL.Entities.Humans;
@@ -47,7 +47,7 @@ namespace Zoo.API.Controllers
             return animalSpecies;
         }
 
-        [Authorize(Roles = "Director")]
+        [Authorize(Roles = "Admin,Veterinarian")]
         [HttpPost("Birth")]
         public ActionResult<AnimalFormDTO> AddOne([FromForm] AnimalFormDTO animal) 
         {
@@ -55,7 +55,7 @@ namespace Zoo.API.Controllers
             return Ok();
         }
 
-        [Authorize(Roles = "Director")]
+        [Authorize(Roles = "Admin,Veterinarian")]
         [HttpPatch("Modification")]
         public ActionResult<AnimalFormDTO> Modify([FromForm] AnimalFormDTO animal,[FromForm] int id) 
         {
@@ -63,7 +63,7 @@ namespace Zoo.API.Controllers
             return Ok();
         }
 
-        [Authorize(Roles = "Director")]
+        [Authorize(Roles = "Admin,Veterinarian")]
         [HttpPost("Death")]
         public ActionResult<AnimalFormDTO> DeleteOne([FromForm] int id) 
         {
@@ -71,6 +71,7 @@ namespace Zoo.API.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Admin,Director,Administration")]
         [HttpPost("Rent")]
         public ActionResult<AnimalRentFormDto> RentAnimal([FromForm] AnimalRentFormDto animal)
         {
@@ -78,6 +79,7 @@ namespace Zoo.API.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Admin,Director,Treasurer")]
         [HttpPost("HireNew")]
         public ActionResult<AnimalIndexDTO> HireNewAnimal([FromForm] AnimalFormDTO animalform, [FromForm] AnimalHireFormDto hireform)
         {
@@ -85,6 +87,7 @@ namespace Zoo.API.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Admin,Director,Treasurer")]
         [HttpPost("HireExisting")]
         public ActionResult<AnimalIndexDTO> HireExistingAnimal([FromForm] AnimalHireFormDto animal)
         {

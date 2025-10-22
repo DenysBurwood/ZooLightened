@@ -1,4 +1,4 @@
-﻿using Zoo.API.DTOs;
+﻿using Zoo.API.DTOs.Animals;
 using Zoo.DL.Entities;
 
 namespace Zoo.API.Mappers
@@ -33,7 +33,6 @@ namespace Zoo.API.Mappers
                 SpeciesId=animalForm.SpeciesId,
                 OwnerId=animalForm.OwnerId,
                 Sex = animalForm.Sex,
-                OwnerId=animalForm.OwnerId,
                 BirthDate=animalForm.BirthDate,
                 RIPDate=animalForm.RIPDate,
             };

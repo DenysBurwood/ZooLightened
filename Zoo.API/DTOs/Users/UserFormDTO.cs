@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Zoo.API.DTOs
+namespace Zoo.API.DTOs.Users
 {
     public class UserFormDTO
     {
