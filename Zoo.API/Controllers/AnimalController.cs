@@ -91,6 +91,5 @@ namespace Zoo.API.Controllers
             _animalService.HireExistingAnimal(animal.Id, animal.StartDate, animal.EndDate);
             return Ok();
         }
-
     }
 }
