@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Zoo.API.DTOs;
+using Zoo.API.DTOs.Animals;
 using Zoo.API.Mappers;
 using Zoo.BLL.Services;
 using Zoo.DAL.Repositories;

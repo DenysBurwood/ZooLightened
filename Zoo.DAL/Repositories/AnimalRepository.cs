@@ -44,7 +44,6 @@ namespace Zoo.DAL.Repositories
             }
             return animal;
         }
-        public AnimalSpecies? GetSpeciesById(int speciesId)
 
         public Animal? GetAnimalByName(string name) 
         {

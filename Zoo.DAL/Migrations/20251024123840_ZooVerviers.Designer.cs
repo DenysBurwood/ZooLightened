@@ -12,11 +12,7 @@ using Zoo.DAL.Contexts;
 namespace Zoo.DAL.Migrations
 {
     [DbContext(typeof(ZooContext))]
-<<<<<<<< HEAD:Zoo.DAL/Migrations/20251024082133_ZooVerviers.Designer.cs
-    [Migration("20251024082133_ZooVerviers")]
-========
-    [Migration("20251024111145_ZooVerviers")]
->>>>>>>> joel:Zoo.DAL/Migrations/20251024111145_ZooVerviers.Designer.cs
+    [Migration("20251024123840_ZooVerviers")]
     partial class ZooVerviers
     {
         /// <inheritdoc />
@@ -264,9 +260,6 @@ namespace Zoo.DAL.Migrations
 
                     b.HasIndex("AddressId");
 
-<<<<<<<< HEAD:Zoo.DAL/Migrations/20251024082133_ZooVerviers.Designer.cs
-                    b.ToTable("Owners");
-========
                     b.ToTable("Owner", (string)null);
                 });
 
@@ -341,7 +334,6 @@ namespace Zoo.DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ToyDonation", (string)null);
->>>>>>>> joel:Zoo.DAL/Migrations/20251024111145_ZooVerviers.Designer.cs
                 });
 
             modelBuilder.Entity("Zoo.DL.Entities.Animal", b =>

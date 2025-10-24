@@ -1,4 +1,5 @@
-﻿using Zoo.API.DTOs.Animals;
+﻿using Zoo.API.DTOs;
+using Zoo.API.DTOs.Animals;
 using Zoo.DL.Entities;
 
 namespace Zoo.API.Mappers

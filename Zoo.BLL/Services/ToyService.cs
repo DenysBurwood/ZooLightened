@@ -35,7 +35,7 @@ namespace Zoo.BLL.Services
 
         public Toy GetToy(int id)
         {
-            return _toyRepository.GetEntity(id)!;
+            return _toyRepository.GetEntityById(id)!;
         }
 
         public void Donate(ToyDonation donation)

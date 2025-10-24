@@ -63,7 +63,7 @@ namespace Zoo.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Owners",
+                name: "Owner",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -76,9 +76,9 @@ namespace Zoo.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Owners", x => x.Id);
+                    table.PrimaryKey("PK_Owner", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Owners_Address_AddressId",
+                        name: "FK_Owner_Address_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Address",
                         principalColumn: "Id",
@@ -116,8 +116,7 @@ namespace Zoo.DAL.Migrations
                 name: "Employee",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int",nullable: false)
-                        .Annotation("SqlServer:Identity","1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false),
                     EmployeeType = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -133,12 +132,12 @@ namespace Zoo.DAL.Migrations
                         principalTable: "Address",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    //table.ForeignKey(
-                    //    name: "FK_Employee_User_Id",
-                    //    column: x => x.Id,
-                    //    principalTable: "User",
-                    //    principalColumn: "Id",
-                    //    onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Employee_User_Id",
+                        column: x => x.Id,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -165,9 +164,9 @@ namespace Zoo.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Animal_Owners_OwnerId",
+                        name: "FK_Animal_Owner_OwnerId",
                         column: x => x.OwnerId,
-                        principalTable: "Owners",
+                        principalTable: "Owner",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -255,8 +254,8 @@ namespace Zoo.DAL.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Owners_AddressId",
-                table: "Owners",
+                name: "IX_Owner_AddressId",
+                table: "Owner",
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
@@ -306,11 +305,7 @@ namespace Zoo.DAL.Migrations
                 name: "Owner");
 
             migrationBuilder.DropTable(
-<<<<<<<< HEAD:Zoo.DAL/Migrations/20251024082133_ZooVerviers.cs
-                name: "Owners");
-========
                 name: "AnimalSpecies");
->>>>>>>> joel:Zoo.DAL/Migrations/20251024111145_ZooVerviers.cs
 
             migrationBuilder.DropTable(
                 name: "Address");

@@ -40,7 +40,7 @@ namespace Zoo.BLL.Services
 
             //    func=(animal) => (animal.Name.Equals());
             //}
-            List<Animal>? animals = _animalRepository.GetAll(page,sizePage, func).ToList();
+            List<Animal>? animals = _animalRepository.GetAll(page,sizePage).ToList();
             if(animals.Count()==0) 
             {
                 throw new AnimalNotFoundException();
