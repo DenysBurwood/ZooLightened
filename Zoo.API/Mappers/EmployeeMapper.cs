@@ -43,7 +43,7 @@ namespace Zoo.API.Mappers
                 EmployeeType = employee.EmployeeType,
                 StartDate = employee.StartDate,
                 EndDate = employee.EndDate,
-                UserId=employee.UserId,
+                UserEmail=employee.User.Email,
             };
         }
         public static Employee FromEmployeeFormDTO(this EmployeeFormDTO employee) 
@@ -54,25 +54,11 @@ namespace Zoo.API.Mappers
                 EmployeeType=employee.EmployeeType,
                 StartDate=employee.StartDate,
                 EndDate=employee.EndDate,
-                UserId=employee.UserId,
             };
         }
 
         public static Employee FromFullEmployeeFormDTO(this FullEmployeeFormDTO employee) 
         {
-            //User user = new User();
-            //user.FirstName = employee.FirstName;
-            //user.LastName = employee.LastName;
-            //user.Email = employee.Email;
-            //user.Password = employee.Password;
-
-            //Address address = new Address();
-            //address.Street = employee.Street;
-            //address.City = employee.City;
-            //address.Number = employee.Number;
-            //address.PostalCode = employee.PostalCode;
-            //address.Country = employee.Country;
-
             return new Employee()
             {
                 EmployeeType=employee.EmployeeType,

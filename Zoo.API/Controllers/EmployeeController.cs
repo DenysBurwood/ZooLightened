@@ -53,10 +53,10 @@ namespace Zoo.API.Controllers
             {
                 throw new RegisterException("Form not valid. Creation of employee aborted.");
             }
-            User? user = _userService.GetUser(employee.UserId);
+            User? user = _userService.GetAccount(employee.UserEmail);
             if(user is null) 
             {
-                throw new UserNotFoundException($"No user with id:{employee.UserId} was found. Use instead the \"New employee\" form.");
+                throw new UserNotFoundException($"No user with email:{employee.UserEmail} was found. Use instead the \"New employee\" form.");
             }
             if(user.EmployeeId is not null) 
             {
@@ -84,7 +84,7 @@ namespace Zoo.API.Controllers
             employeeTemp.UserId=userTemp.Id;
             employeeTemp.User=userTemp;
             employeeTemp.AddressId=addressTemp.Id;
-            _employeeService.CreateEmployeeSheet(employeeTemp);
+            employeeTemp.Id=_employeeService.CreateEmployeeSheet(employeeTemp).Id;
             _userService.SetEmployeeId(userTemp,employeeTemp.Id);
             return Created();
         }
@@ -103,7 +103,7 @@ namespace Zoo.API.Controllers
             {
                 throw new UserNotFoundException("An employee with no user account was found with employeeId: {employeeId}. Please fix this problem quickly.");
             }
-            employee.User=user;
+            //employee.User=user;
             _employeeService.FireEmployee(employee, employeeId);
             _userService.UnSetEmployeeId(user, employeeId);
             return NoContent();

@@ -44,8 +44,8 @@ namespace Zoo.BLL.Services
 
         public void FireEmployee(Employee employee, int employeeId) 
         {
-            employee.EndDate = DateTime.Now;
-            _employeeRepository.Update(employee);
+            //employee.EndDate = DateTime.Now;
+            _employeeRepository.FireEmployee(employee);
         }
     }
 }

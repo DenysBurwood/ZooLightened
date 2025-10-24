@@ -19,6 +19,6 @@ namespace Zoo.API.DTOs.Employees
         public DateTime? EndDate { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public string UserEmail { get; set; }
     }
 }

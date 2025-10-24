@@ -31,6 +31,13 @@ namespace Zoo.DAL.Repositories
             return employee;
         }
 
+        public void FireEmployee(Employee employee) 
+        {
+            employee.EndDate=DateTime.Now;
+            _employees.Update(employee);
+            _context.SaveChanges();
+        }
+
         public Employee? GetEmployeeByEmployeeId(int employeeId) 
         {
             return _employees.FirstOrDefault(y => y.Id==employeeId);
