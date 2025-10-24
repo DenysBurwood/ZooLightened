@@ -111,6 +111,9 @@ namespace Zoo.DAL.Migrations
                     b.Property<int>("AnimalId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CounterPartId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Direction")
                         .HasColumnType("int");
 
@@ -120,9 +123,14 @@ namespace Zoo.DAL.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AnimalId");
+
+                    b.HasIndex("CounterPartId");
 
                     b.ToTable("AnimalMovement", (string)null);
                 });
@@ -249,7 +257,80 @@ namespace Zoo.DAL.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("Owners");
+                    b.ToTable("Owner", (string)null);
+                });
+
+            modelBuilder.Entity("Zoo.DL.Entities.Toy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MinimumAmountperDonation")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SpeciesId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WishedTotalAmount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpeciesId");
+
+                    b.ToTable("Toy", (string)null);
+                });
+
+            modelBuilder.Entity("Zoo.DL.Entities.ToyDonation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DonationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ToyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ToyId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ToyDonation", (string)null);
                 });
 
             modelBuilder.Entity("Zoo.DL.Entities.Animal", b =>
@@ -279,7 +360,15 @@ namespace Zoo.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Zoo.DL.Entities.Owner", "CounterPart")
+                        .WithMany("AnimalMovements")
+                        .HasForeignKey("CounterPartId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("Animal");
+
+                    b.Navigation("CounterPart");
                 });
 
             modelBuilder.Entity("Zoo.DL.Entities.Humans.Employee", b =>
@@ -312,6 +401,36 @@ namespace Zoo.DAL.Migrations
                     b.Navigation("Address");
                 });
 
+            modelBuilder.Entity("Zoo.DL.Entities.Toy", b =>
+                {
+                    b.HasOne("Zoo.DL.Entities.AnimalSpecies", "Species")
+                        .WithMany("Toys")
+                        .HasForeignKey("SpeciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Species");
+                });
+
+            modelBuilder.Entity("Zoo.DL.Entities.ToyDonation", b =>
+                {
+                    b.HasOne("Zoo.DL.Entities.Toy", "Toy")
+                        .WithMany("Donations")
+                        .HasForeignKey("ToyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Zoo.DL.Entities.Humans.User", "User")
+                        .WithMany("Donations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Toy");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Zoo.DL.Entities.Address", b =>
                 {
                     b.Navigation("Employees");
@@ -327,16 +446,27 @@ namespace Zoo.DAL.Migrations
             modelBuilder.Entity("Zoo.DL.Entities.AnimalSpecies", b =>
                 {
                     b.Navigation("Animals");
+
+                    b.Navigation("Toys");
                 });
 
             modelBuilder.Entity("Zoo.DL.Entities.Humans.User", b =>
                 {
+                    b.Navigation("Donations");
+
                     b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Zoo.DL.Entities.Owner", b =>
                 {
+                    b.Navigation("AnimalMovements");
+
                     b.Navigation("Animals");
+                });
+
+            modelBuilder.Entity("Zoo.DL.Entities.Toy", b =>
+                {
+                    b.Navigation("Donations");
                 });
 #pragma warning restore 612, 618
         }

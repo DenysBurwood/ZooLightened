@@ -39,8 +39,14 @@ namespace Zoo.API.Middlewares
                 case RegisterException e:
                     await SendResponse(context,e);
                     break;
+                case ToyNotFoundException e:
+                    await SendResponse(context, e);
+                    break;
                 case NotFoundException e:
                     await SendResponse(context,e);
+                    break;
+                case ToyNotAllowedException e:
+                    await SendResponse(context, e);
                     break;
                 case NotAllowedException e:
                     await SendResponse(context,e);
@@ -51,6 +57,7 @@ namespace Zoo.API.Middlewares
                 case AnimalNotAvailableForHireException e:
                     await SendResponse(context, e);
                     break;
+
                 case Exception:
                     context.Response.StatusCode = statusCode;
                     var response = new

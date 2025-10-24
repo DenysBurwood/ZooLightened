@@ -1,16 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+﻿using Microsoft.EntityFrameworkCore;
 using Zoo.BLL.Exceptions;
 using Zoo.DAL.Repositories;
 using Zoo.DL.Entities;
+using Zoo.DL.Enum;
 
 namespace Zoo.BLL.Services
 {
     public class AnimalService
     {
         private readonly AnimalRepository _animalRepository;
-        public AnimalService(AnimalRepository animalRepository) 
+        private readonly AnimalMovementRepository _animalMovementRepository;
+        public AnimalService(AnimalRepository animalRepository, AnimalMovementRepository animalMovementRepository) 
         {
             _animalRepository = animalRepository;
+            _animalMovementRepository = animalMovementRepository;
         }
 
         public List<Animal> DisplayAnimals(int page,int sizePage,string? query)
@@ -128,71 +131,5 @@ namespace Zoo.BLL.Services
             }
             _animalRepository.Delete(animal!);
         }
-
-        public void RentAnimal(int id, DateTime startdate, DateTime? enddate)
-        {
-            Animal? animal = _animalRepository.GetEntityById(id);
-            if (_animalRepository.GetEntityById(id) is null)
-            {
-                throw new AnimalNotFoundException($"No animal with id: {id} is not to be found.");
-            }
-            if (animal!.RIPDate is not null)
-            {
-                throw new AnimalNotAvailableForRentException($"You may not rent a dead animal. (id: {id})");
-            }
-
-            if (animal!.OwnerId != 1)
-            {
-                throw new AnimalNotAvailableForRentException($"The animal with id: {id} doesn't belong to our zoo.");
-            }
-
-            if (!_animalRepository.IsAnimalAvailableForMovement(animal, startdate, enddate))
-            {
-                throw new AnimalNotAvailableForRentException($"The animal with id: {id} is not available to rent from {startdate} till {enddate}.");
-            }
-
-            _animalRepository.InsertAnimalMovement(animal, startdate, enddate, DL.Enum.Direction.OUT);
-        }
-
-        public void HireNewAnimal(Animal animal, DateTime startdate, DateTime? enddate)
-        {
-            if (animal.OwnerId == 1)
-            {
-                throw new AnimalNotAvailableForHireException($"Impossible to hire an animal which belongs to our zoo.");
-            }
-
-            _animalRepository.Add(animal);
-
-            _animalRepository.InsertAnimalMovement(animal, startdate, enddate, DL.Enum.Direction.IN);
-        }
-
-        public void HireExistingAnimal(int id, DateTime startdate, DateTime? enddate)
-        {
-            Animal? animal = _animalRepository.GetEntityById(id);
-
-            if (_animalRepository.GetEntityById(id) is null)
-            {
-                throw new AnimalNotFoundException($"No animal with id: {id} is not to be found.");
-            }
-            if (animal!.RIPDate is not null)
-            {
-                throw new AnimalNotAvailableForHireException($"You may not hire a dead animal. (id: {id})");
-            }
-            if (animal!.OwnerId == 1)
-            {
-                throw new AnimalNotAvailableForHireException($"Impossible to hire an animal which belongs to our zoo.");
-            }
-            if (!_animalRepository.IsAnimalAvailableForMovement(animal, startdate, enddate))
-            {
-                throw new AnimalNotAvailableForHireException($"The animal with id: {id} is not available to hire from {startdate} till {enddate}.");
-            }
-
-            _animalRepository.InsertAnimalMovement(animal, startdate, enddate, DL.Enum.Direction.IN);
-
-        }
-
-
-
-
     }
 }

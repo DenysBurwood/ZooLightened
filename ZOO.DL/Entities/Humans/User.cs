@@ -10,6 +10,8 @@ namespace Zoo.DL.Entities.Humans
 
         public int? EmployeeId { get; set; }
         public Employee? Employee { get; set; }
+
+        public List<ToyDonation>? Donations { get; set; }
         public bool IsSubscribed { get; set; }
     }
 }

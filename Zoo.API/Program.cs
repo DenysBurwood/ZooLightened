@@ -8,6 +8,7 @@ using Zoo.API.Services;
 using Zoo.BLL.Services;
 using Zoo.DAL.Contexts;
 using Zoo.DAL.Repositories;
+using Zoo.DL.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,7 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition("Bearer",new OpenApiSecurityScheme()
-    {           //  Ce sont les options sécuritaires de base. La doc existe pour d'autres options spécifiques au besoin.
+    {           //  Ce sont les options sï¿½curitaires de base. La doc existe pour d'autres options spï¿½cifiques au besoin.
         Name="Authorization",
         Type=SecuritySchemeType.ApiKey,
         Scheme="Bearer",
@@ -59,6 +60,9 @@ builder.Services.AddDbContext<ZooContext>(b =>
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AnimalRepository>();
 builder.Services.AddScoped<EmployeeRepository>();
+builder.Services.AddScoped<ToyRepository>();
+builder.Services.AddScoped<ToyDonationRepository>();
+builder.Services.AddScoped<AnimalMovementRepository>();
 builder.Services.AddScoped<AddressRepository>();
 #endregion
 
@@ -67,6 +71,8 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AnimalService>();
 builder.Services.AddScoped<EmployeeService>();
+builder.Services.AddScoped<ToyService>();
+builder.Services.AddScoped<AnimalRentalService>();
 builder.Services.AddScoped<AddressService>();
 #endregion
 
