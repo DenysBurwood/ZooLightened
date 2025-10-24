@@ -56,5 +56,21 @@ namespace Zoo.API.Mappers
                 Name = animalRentForm.Name,
             };
         }
+
+        public static AnimalMovementDto ToAnimalMovementDto(this AnimalMovement m)
+        {
+            return new AnimalMovementDto()
+            {
+                Id = m.Id,
+                Type = m.Type.ToString(),
+                StartDate = m.StartDate,
+                EndDate = m.EndDate,
+
+                AnimalId = m.Animal.Id,
+                AnimalName = m.Animal.Name,
+                SpeciesName = m.Animal.Species.Name,
+                OwnerName = m.Animal.Owner!.Name
+            };
+        }
     }
 }

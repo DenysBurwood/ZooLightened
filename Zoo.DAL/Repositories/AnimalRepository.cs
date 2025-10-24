@@ -14,37 +14,37 @@ namespace Zoo.DAL.Repositories
 
         public AnimalRepository(ZooContext context)
         {
-            _context=context;
-            _animals=context.Animals;
-            _animalSpecies=context.AnimalSpecies;
+            _context = context;
+            _animals = context.Animals;
+            _animalSpecies = context.AnimalSpecies;
             _animalMovements = context.AnimalMovements;
         }
 
-        public List<Animal> GetAllAnimals() 
+        public List<Animal> GetAllAnimals()
         {
             List<Animal> animals = _animals.ToList();
-            animals.ForEach(animal => { animal.Species=_animalSpecies.FirstOrDefault(x => x.Id==animal.SpeciesId)!; });
+            animals.ForEach(animal => { animal.Species = _animalSpecies.FirstOrDefault(x => x.Id == animal.SpeciesId)!; });
             return animals;
         }
-        public List<Animal> GetSomeAnimals(int page, int sizePage) 
+        public List<Animal> GetSomeAnimals(int page, int sizePage)
         {
-            List<Animal> animals = _animals.Skip(page*sizePage).Take(sizePage).ToList();
-            animals.ForEach(animal => { animal.Species=_animalSpecies.FirstOrDefault(x => x.Id==animal.SpeciesId)!; });
+            List<Animal> animals = _animals.Skip(page * sizePage).Take(sizePage).ToList();
+            animals.ForEach(animal => { animal.Species = _animalSpecies.FirstOrDefault(x => x.Id == animal.SpeciesId)!; });
             return animals;
         }
 
-        public Animal? GetAnimalById(int id) 
+        public Animal? GetAnimalById(int id)
         {
-            Animal? animal = _animals.FirstOrDefault(x => x.Id==id);
-            if(animal is not null) 
+            Animal? animal = _animals.FirstOrDefault(x => x.Id == id);
+            if (animal is not null)
             {
-                animal.Species=_animalSpecies.FirstOrDefault(x => x.Id==animal.SpeciesId)!;
+                animal.Species = _animalSpecies.FirstOrDefault(x => x.Id == animal.SpeciesId)!;
             }
             return animal;
         }
-        public AnimalSpecies? GetSpeciesById(int speciesId) 
+        public AnimalSpecies? GetSpeciesById(int speciesId)
         {
-            return _animalSpecies.FirstOrDefault(x => x.Id==speciesId);
+            return _animalSpecies.FirstOrDefault(x => x.Id == speciesId);
         }
 
         public List<AnimalSpecies> GetSpecies()
@@ -54,9 +54,9 @@ namespace Zoo.DAL.Repositories
             return species;
         }
 
-        public int NumberAnimalSpecies(string speciesName) 
+        public int NumberAnimalSpecies(string speciesName)
         {
-            return _animals.Count(a => a.Species.Name==speciesName);
+            return _animals.Count(a => a.Species.Name == speciesName);
         }
 
         public void Add(Animal entity)
@@ -77,7 +77,7 @@ namespace Zoo.DAL.Repositories
             _context.SaveChanges();
         }
 
-        public void Delete(Animal animal) 
+        public void Delete(Animal animal)
         {
             _animals.Remove(animal);
             _context.SaveChanges();
@@ -90,38 +90,53 @@ namespace Zoo.DAL.Repositories
 
         public bool IsAnimalAvailableForMovement(Animal animal, DateTime startdate, DateTime? enddate)
         {
-                var requestedEndDate = enddate ?? DateTime.MaxValue;
+            var requestedEndDate = enddate ?? DateTime.MaxValue;
 
-                bool isOccupied =_animalMovements
-                    .Any(m => m.AnimalId == animal.Id &&
-                              (
-                                  // Cas 1 : location en cours sans fin et commence avant ou pendant la période demandée
-                                  (m.EndDate == null && m.StartDate <= requestedEndDate)
+            bool isOccupied = _animalMovements
+                .Any(m => m.AnimalId == animal.Id &&
+                          (
+                              // Cas 1 : location en cours sans fin et commence avant ou pendant la période demandée
+                              (m.EndDate == null && m.StartDate <= requestedEndDate)
 
-                                  // Cas 2 : chevauchement classique de deux périodes
-                                  || (m.EndDate != null &&
-                                      m.StartDate <= requestedEndDate &&
-                                      m.EndDate >= startdate)
-                              ));
+                              // Cas 2 : chevauchement classique de deux périodes
+                              || (m.EndDate != null &&
+                                  m.StartDate <= requestedEndDate &&
+                                  m.EndDate >= startdate)
+                          ));
 
-                return !isOccupied;
+            return !isOccupied;
         }
 
         public void InsertAnimalMovement(Animal animal, DateTime startdate, DateTime? enddate, Direction direction)
         {
-            //_animals.Find(animal.Id)!.IsAvailable = false;
+            AnimalMovementType type;
 
-            AnimalMovement movement = new()
+            if (direction == Direction.OUT)
             {
-                Direction = direction,
-                Animal = animal,
-                StartDate = startdate,
-                EndDate = enddate,
-            };
+                type = startdate <= DateTime.Now ? AnimalMovementType.Opened : AnimalMovementType.Initialized;
+            }
+            else
+            {
+                type = startdate <= DateTime.Now ? AnimalMovementType.ToReceive : AnimalMovementType.Initialized;
+            }
+
+                AnimalMovement movement = new()
+                {
+                    Direction = direction,
+                    Animal = animal,
+                    StartDate = startdate,
+                    EndDate = enddate,
+                    Type = type,
+                };
 
             _animalMovements.Add(movement);
 
             _context.SaveChanges();
+        }
+
+        public AnimalMovement? GetAnimalMovementById(int id)
+        {
+            return _animalMovements.FirstOrDefault(x => x.AnimalId == id && x.Type.ToString() != "Closed" && x.Type.ToString() != "ToDispatch")!;
         }
     }
 }

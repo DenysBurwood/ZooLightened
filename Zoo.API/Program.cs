@@ -62,6 +62,7 @@ builder.Services.AddScoped<AnimalRepository>();
 builder.Services.AddScoped<EmployeeRepository>();
 builder.Services.AddScoped<ToyRepository>();
 builder.Services.AddScoped<ToyDonationRepository>();
+builder.Services.AddScoped<AnimalMovementRepository>();
 #endregion
 
 #region Services
@@ -70,6 +71,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AnimalService>();
 builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<ToyService>();
+builder.Services.AddScoped<AnimalRentalService>();
 #endregion
 
 builder.Services.AddAuthentication(option =>

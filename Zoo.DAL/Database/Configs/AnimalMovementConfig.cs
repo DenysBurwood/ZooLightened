@@ -24,6 +24,8 @@ namespace Zoo.DAL.Database.Configs
             builder.Property(am => am.StartDate).IsRequired();
             builder.Property(am => am.EndDate);
 
+            builder.Property(am => am.Type).IsRequired();
+
         }
     }
 }
