@@ -208,7 +208,9 @@ namespace Zoo.DAL.Migrations
                     AnimalId = table.Column<int>(type: "int", nullable: false),
                     Direction = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    CounterPartId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -219,6 +221,11 @@ namespace Zoo.DAL.Migrations
                         principalTable: "Animal",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AnimalMovement_Owner_CounterPartId",
+                        column: x => x.CounterPartId,
+                        principalTable: "Owner",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -235,6 +242,11 @@ namespace Zoo.DAL.Migrations
                 name: "IX_AnimalMovement_AnimalId",
                 table: "AnimalMovement",
                 column: "AnimalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AnimalMovement_CounterPartId",
+                table: "AnimalMovement",
+                column: "CounterPartId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employee_AddressId",

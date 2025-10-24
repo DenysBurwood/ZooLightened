@@ -22,5 +22,7 @@ namespace Zoo.DL.Entities
         public string Email { get; set; } = null!;
 
         public List<Animal>? Animals { get; set; }
+
+        public List<AnimalMovement>? AnimalMovements { get; set; }
     }
 }

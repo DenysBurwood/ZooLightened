@@ -22,5 +22,9 @@ namespace Zoo.DL.Entities
 
         public AnimalMovementType Type { get; set; }
 
+        public Owner CounterPart { get; set; }
+
+        public int CounterPartId { get; set; }
+
     }
 }

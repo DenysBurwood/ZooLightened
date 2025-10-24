@@ -23,13 +23,13 @@ namespace Zoo.API.Controllers
             return Ok();
         }
 
-        [HttpGet("GetMovementsToHandle")]
-        public ActionResult<AnimalMovementDto> GetMovementsToHandle()
+        [HttpPost("GetMovementsToHandle")]
+        public ActionResult<List<AnimalMovementDto>> GetMovementsToHandle([FromForm] int page = 0, [FromForm] int nbPage = 10)
         {
-            var movements = _animalRentalService.GetAll(
+            var movements = _animalRentalService.GetAll(page, nbPage,
                 predicate: m => m.Type == AnimalMovementType.ToReceive
                              || m.Type == AnimalMovementType.ToDispatch,
-                includes: new[] { "Animal", "Animal.Owner", "Animal.Species" }
+                includes: new[] { "Animal", "Animal.Owner", "Animal.Species", "CounterPart" }
                 );
 
             var movementDtos = movements.Select(m => m.ToAnimalMovementDto());
@@ -59,9 +59,16 @@ namespace Zoo.API.Controllers
         }
 
         [HttpPost("Receive")]
-        public ActionResult<AnimalRentFormDto> ReceiveAnimal([FromForm] AnimalReceptionFormDto animal)
+        public ActionResult<AnimalReceptionFormDto> ReceiveAnimal([FromForm] AnimalReceptionFormDto animal)
         {
-            _animalRentalService.ReceiveAnimal(animal.Id, animal.ReceptionDate);
+            _animalRentalService.ReceiveAnimal(animal.AnimalId, animal.ReceptionDate);
+            return Ok($"The animal {animal.AnimalId} has just been received !");
+        }
+
+        [HttpPost("Dispatch")]
+        public ActionResult<AnimalDispatchingFormDto> DispatchAnimal([FromForm] AnimalDispatchingFormDto animal)
+        {
+            _animalRentalService.DispatchAnimal(animal.AnimalId, animal.DispatchingDate);
             return Ok();
         }
     }

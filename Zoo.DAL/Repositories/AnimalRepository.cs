@@ -134,9 +134,15 @@ namespace Zoo.DAL.Repositories
             _context.SaveChanges();
         }
 
-        public AnimalMovement? GetAnimalMovementById(int id)
+        public AnimalMovement? GetMovementToReceiveById(int id)
         {
-            return _animalMovements.FirstOrDefault(x => x.AnimalId == id && x.Type.ToString() != "Closed" && x.Type.ToString() != "ToDispatch")!;
+            return _animalMovements.FirstOrDefault(x => x.AnimalId == id && x.Type != AnimalMovementType.Closed && x.Type != AnimalMovementType.ToDispatch)!;
         }
+
+        public AnimalMovement? GetMovementToDispatchById(int id)
+        {
+            return _animalMovements.FirstOrDefault(x => x.AnimalId == id && x.Type != AnimalMovementType.Closed && x.Type != AnimalMovementType.ToReceive)!;
+        }
+        
     }
 }

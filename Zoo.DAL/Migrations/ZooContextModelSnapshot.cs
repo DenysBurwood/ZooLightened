@@ -111,6 +111,9 @@ namespace Zoo.DAL.Migrations
                     b.Property<int>("AnimalId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CounterPartId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Direction")
                         .HasColumnType("int");
 
@@ -120,9 +123,14 @@ namespace Zoo.DAL.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AnimalId");
+
+                    b.HasIndex("CounterPartId");
 
                     b.ToTable("AnimalMovement", (string)null);
                 });
@@ -352,7 +360,15 @@ namespace Zoo.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Zoo.DL.Entities.Owner", "CounterPart")
+                        .WithMany("AnimalMovements")
+                        .HasForeignKey("CounterPartId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("Animal");
+
+                    b.Navigation("CounterPart");
                 });
 
             modelBuilder.Entity("Zoo.DL.Entities.Humans.Employee", b =>
@@ -443,6 +459,8 @@ namespace Zoo.DAL.Migrations
 
             modelBuilder.Entity("Zoo.DL.Entities.Owner", b =>
                 {
+                    b.Navigation("AnimalMovements");
+
                     b.Navigation("Animals");
                 });
 

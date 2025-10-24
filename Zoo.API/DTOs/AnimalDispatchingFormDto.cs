@@ -2,12 +2,12 @@
 
 namespace Zoo.API.DTOs
 {
-    public class AnimalReceptionFormDto
+    public class AnimalDispatchingFormDto
     {
         [Required]
         public int AnimalId { get; set; }
 
         [Required]
-        public DateTime ReceptionDate { get; set; } = DateTime.Now;
+        public DateTime DispatchingDate { get; set; } = DateTime.Now;
     }
 }

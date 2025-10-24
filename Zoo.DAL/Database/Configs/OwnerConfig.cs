@@ -20,6 +20,7 @@ namespace Zoo.DAL.Database.Configs
 
             builder.Property(o => o.Name).IsRequired();
             builder.HasOne(o => o.Address).WithMany(a => a.Owners).IsRequired();
+            builder.HasMany(o => o.AnimalMovements).WithOne(am => am.CounterPart);
 
             builder.Property(o => o.ContactName).IsRequired();
             builder.Property(o => o.PhoneNumber).IsRequired();

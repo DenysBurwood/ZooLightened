@@ -69,7 +69,8 @@ namespace Zoo.API.Mappers
                 AnimalId = m.Animal.Id,
                 AnimalName = m.Animal.Name,
                 SpeciesName = m.Animal.Species.Name,
-                OwnerName = m.Animal.Owner!.Name
+                OwnerName = m.Animal.Owner!.Name,
+                CounterPartName = m.CounterPart.Name,
             };
         }
     }

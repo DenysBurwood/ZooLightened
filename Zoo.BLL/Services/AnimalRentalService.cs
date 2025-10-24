@@ -126,18 +126,18 @@ namespace Zoo.BLL.Services
             }
             if (animal!.RIPDate is not null)
             {
-                throw new AnimalNotAvailableForHireException($"You may not receive a dead animal. (id: {id})");
+                throw new AnimalNotAvailableException($"You may not receive a dead animal. (id: {id})");
             }
             if (animal.IsAvailable)
             {
-                throw new AnimalNotAvailableForHireException($"The animal has already been received. (id: {id})");
+                throw new AnimalNotAvailableException($"The animal has already been received. (id: {id})");
             }
 
-            AnimalMovement? movement = _animalRepository.GetAnimalMovementById(id)!;
+            AnimalMovement? movement = _animalRepository.GetMovementToReceiveById(id)!;
 
             if (movement is null)
             {
-                throw new AnimalNotAvailableForHireException($"No pending movement (Opened or ToReceive) has been found for this animal. (id: {id})");
+                throw new AnimalNotAvailableException($"No pending movement (Opened or ToReceive) has been found for this animal. (id: {id})");
             }
 
             animal.IsAvailable = true;
@@ -152,6 +152,47 @@ namespace Zoo.BLL.Services
             {
                 movement.StartDate = receptiondate;
                 movement.Type = AnimalMovementType.Opened;
+            }
+
+            _animalMovementRepository.Update(movement);
+        }
+
+        public void DispatchAnimal(int id, DateTime dispatchingdate)
+        {
+            Animal? animal = _animalRepository.GetAnimalById(id);
+
+            if (_animalRepository.GetAnimalById(id) is null)
+            {
+                throw new AnimalNotFoundException($"No animal with id: {id} is not to be found.");
+            }
+            if (animal!.RIPDate is not null)
+            {
+                throw new AnimalNotAvailableException($"You may not dispatch a dead animal. (id: {id})");
+            }
+            if (!animal.IsAvailable)
+            {
+                throw new AnimalNotAvailableException($"The animal has already been dispatched. (id: {id})");
+            }
+
+            AnimalMovement? movement = _animalRepository.GetMovementToDispatchById(id)!;
+
+            if (movement is null)
+            {
+                throw new AnimalNotAvailableException($"No pending movement (Opened or ToDispatch) has been found for this animal. (id: {id})");
+            }
+
+            animal.IsAvailable = false;
+            _animalRepository.Update(animal);
+
+            if (movement.Direction == Direction.OUT)
+            {
+                movement.StartDate = dispatchingdate;
+                movement.Type = AnimalMovementType.Opened;
+            }
+            else if (movement.Direction == Direction.IN)
+            {
+                movement.EndDate = dispatchingdate;
+                movement.Type = AnimalMovementType.Closed;
             }
 
             _animalMovementRepository.Update(movement);

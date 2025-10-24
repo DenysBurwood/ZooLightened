@@ -1,145 +1,138 @@
-﻿-- 1️⃣ Adresses
-INSERT INTO "Address" (Street, Number, City, PostalCode, Country)
+﻿-- ======================================
+-- 1) Address
+-- ======================================
+INSERT INTO Address (Street, Number, City, PostalCode, Country)
 VALUES
 ('Rue du Zoo', 1, 'Verviers', 4800, 'Belgium'),
-('Avenue des Animaux', 15, 'Liège', 4000, 'Belgium'),
-('Boulevard de la Jungle', 27, 'Namur', 5000, 'Belgium'),
-('Chemin du Safari', 12, 'Mons', 7000, 'Belgium'),
-('Allée des Félins', 8, 'Charleroi', 6000, 'Belgium'),
-('Rue des Oiseaux', 22, 'Arlon', 6700, 'Belgium'),
-('Place des Reptiles', 5, 'Tournai', 7500, 'Belgium'),
-('Route du Zoo', 101, 'Spa', 4900, 'Belgium'),
-('Rue des Mammifères', 44, 'Bruxelles', 1000, 'Belgium'),
-('Chemin des Singes', 3, 'Namur', 5000, 'Belgium');
+('Main Street', 10, 'Brussels', 1000, 'Belgium'),
+('Zoo Avenue', 5, 'Antwerp', 2000, 'Belgium'),
+('Safari Road', 12, 'Liege', 4000, 'Belgium');
 
--- 2️⃣ Propriétaires
-INSERT INTO "Owner" ("Name", AddressId, ContactName, PhoneNumber, Email)
+-- ======================================
+-- 2) Owner
+-- ======================================
+INSERT INTO Owner (Name, AddressId, ContactName, PhoneNumber, Email)
 VALUES
-('Zoo de Verviers', 1, 'Jean Dupont', '+32471111111', 'jean.dupont@zoo-verviers.be'),
-('Zoo de Liège', 2, 'Sophie Martin', '+32472222222', 'sophie.martin@zoo-liege.be'),
-('Safari Mons', 4, 'Luc Leroy', '+32473333333', 'luc.leroy@safari-mons.be'),
-('Zoo de Namur', 3, 'Claire Dubois', '+32474444444', 'claire.dubois@zoo-namur.be'),
-('Reptile Center', 7, 'Marc Lambert', '+32475555555', 'marc.lambert@reptilecenter.be');
+('Zoo Verviers', 1, 'Alice Martin', '0123456789', 'info@zooverviers.be'),
+('Zoo Brussels', 2, 'Bob Dupont', '0234567890', 'contact@zoobrussels.be'),
+('Zoo Antwerp', 3, 'Carla Janssen', '0345678901', 'info@zooantwerp.be'),
+('Safari Liege', 4, 'David Leroy', '0456789012', 'contact@safariliege.be');
 
--- 3️⃣ Espèces (20)
-INSERT INTO AnimalSpecies ("Name", "Description")
+-- ======================================
+-- 3) AnimalSpecies
+-- ======================================
+INSERT INTO AnimalSpecies (Name, Description)
 VALUES
-('Lion', 'Grand félin africain'),
-('Tigre', 'Grand félin asiatique'),
-('Girafe', 'Grand herbivore à long cou'),
-('Éléphant', 'Grand mammifère herbivore'),
-('Zèbre', 'Mammifère rayé d’Afrique'),
-('Ours brun', 'Mammifère omnivore'),
-('Panda', 'Ours noir et blanc de Chine'),
-('Gorille', 'Grand primate'),
-('Chimpanzé', 'Primate intelligent'),
-('Léopard', 'Félin agile et rapide'),
-('Panthère noire', 'Variante mélanique du léopard'),
-('Serpent python', 'Grand serpent constricteur'),
-('Crocodile du Nil', 'Reptile semi-aquatique'),
-('Perroquet', 'Oiseau coloré'),
-('Aigle royal', 'Rapace majestueux'),
-('Pingouin', 'Oiseau marin incapable de voler'),
-('Loutre', 'Mammifère aquatique joueur'),
-('Koala', 'Marsupial d’Australie'),
-('Kangourou', 'Grand marsupial bondissant'),
-('Hippopotame', 'Mammifère semi-aquatique massif');
+('Lion', 'Big cat'),
+('Giraffe', 'Tall animal'),
+('Elephant', 'Huge mammal'),
+('Panda', 'Bamboo eater'),
+('Kangaroo', 'Marsupial'),
+('Penguin', 'Flightless bird');
 
--- 4️⃣ Animaux (200)
-DECLARE @i INT = 1;
-WHILE @i <= 200
-BEGIN
-    INSERT INTO Animal ("Name", Sex, SpeciesId, OwnerId, IsAvailable, BirthDate, RIPDate)
-    VALUES (
-        CONCAT('Animal_', @i),
-        CASE WHEN @i % 2 = 0 THEN 0 ELSE 1 END,  -- 0 = Male, 1 = Female
-        ((@i - 1) % 20) + 1,                     -- rotation sur 20 espèces
-        ((@i - 1) % 5) + 1,                      -- rotation sur 5 propriétaires
-        CASE WHEN @i % 7 = 0 THEN 0 ELSE 1 END,  -- certains indisponibles
-        DATEADD(DAY, -(@i * 20), GETDATE()),     -- dates de naissance variées
-        NULL
-    );
-    SET @i += 1;
-END;
-
--- 5️⃣ Mouvements (environ 30 animaux déjà loués)
-INSERT INTO AnimalMovement (AnimalId, Direction, StartDate, EndDate, Type)
+-- ======================================
+-- 4) Animal
+-- ======================================
+INSERT INTO Animal (Name, Sex, SpeciesId, OwnerId, IsAvailable, BirthDate, RIPDate)
 VALUES
-(5, 1, '2025-10-01', NULL, 3),
-(7, 1, '2025-09-15', '2025-11-15', 3),
-(14, 1, '2025-01-01', NULL, 3),
-(21, 1, '2025-05-20', '2025-07-01', 4),
-(30, 1, '2024-12-15', NULL, 3),
-(42, 1, '2025-09-01', NULL, 3),
-(50, 1, '2025-06-10', '2025-09-20', 4),
-(63, 1, '2025-10-10', NULL, 3),
-(77, 1, '2025-07-01', '2025-08-15', 4),
-(85, 1, '2025-09-05', NULL, 3),
-(90, 1, '2025-03-01', '2025-03-20', 4),
-(100, 1, '2025-10-01', NULL, 3),
-(111, 1, '2025-01-15', '2025-02-15', 4),
-(120, 1, '2025-04-10', NULL, 3),
-(135, 1, '2025-09-01', NULL, 3),
-(140, 1, '2025-08-10', '2025-09-10', 4),
-(150, 1, '2025-05-01', NULL, 3),
-(160, 1, '2025-02-01', '2025-02-28', 4),
-(170, 1, '2025-10-01', NULL, 3),
-(180, 1, '2025-06-15', NULL, 3),
-(190, 1, '2025-03-10', '2025-04-10', 4),
-(200, 1, '2025-09-20', NULL, 3);
+('Leo', 0, 1, 2, 0, '2018-05-10', NULL),
+('Gigi', 0, 2, 3, 0, '2019-07-15', NULL),
+('Tiggy', 0, 1, 4, 0, '2017-03-20', NULL),
+('Dumbo', 0, 3, 1, 0, '2015-01-01', NULL),
+('Zara', 0, 2, 2, 0, '2016-11-11', NULL),
+('Pandy', 0, 4, 3, 0, '2020-02-02', NULL),
+('Kanga', 0, 5, 1, 0, '2018-08-08', NULL),
+('Pingu', 0, 6, 4, 0, '2021-01-01', NULL),
+('Flamy', 0, 6, 1, 0, '2019-09-09', NULL),
+('Bear', 0, 1, 2, 0, '2016-12-12', NULL),
+('Wolfie', 0, 1, 1, 0, '2017-07-07', NULL),
+('Momo', 0, 2, 3, 0, '2018-10-10', NULL),
+('Foxy', 0, 1, 1, 0, '2019-03-03', NULL),
+('Hippo', 0, 3, 4, 0, '2015-05-05', NULL),
+('Rhiny', 0, 3, 2, 0, '2014-04-04', NULL),
+('Chee', 0, 1, 1, 0, '2020-06-06', NULL),
+('Leo2', 0, 1, 3, 0, '2017-09-09', NULL),
+('Cammy', 0, 5, 1, 0, '2016-01-01', NULL),
+('Otto', 0, 6, 4, 0, '2018-12-12', NULL),
+('Koala', 0, 5, 2, 0, '2019-11-11', NULL),
+('Deer', 0, 2, 1, 0, '2017-02-02', NULL),
+('Eagle', 0, 6, 3, 1, '2016-03-03', NULL);
 
-
-INSERT INTO Toy (SpeciesId, "Name", Description, ImagePath, MinimumAmountperDonation, WishedTotalAmount, StartDate, EndDate, Status)
+-- ======================================
+-- 5) AnimalMovement
+-- ======================================
+-- Direction: 0 = IN, 1 = OUT
+-- Type: 0 = Initialized, 3 = ToReceive, 4 = ToDispatch
+INSERT INTO AnimalMovement (AnimalId, Direction, StartDate, EndDate, Type, CounterPartId)
 VALUES
-(1, 'Balle géante renforcée pour lions', 'Balle en caoutchouc indestructible pour stimuler les lions du parc.', '/images/toys/lion_ball.jpg', 10, 3000, '2025-10-01', '2025-12-31', 0),
-(3, 'Structure à grimper pour girafes', 'Grand portique en bois massif pour enrichir l’enclos des girafes.', '/images/toys/giraffe_structure.jpg', 25, 8000, '2025-09-15', '2025-12-31', 0),
-(4, 'Bassin d''eau interactif pour éléphants', 'Système de jets d’eau contrôlés par boutons pour les éléphants.', '/images/toys/elephant_pool.jpg', 20, 12000, '2025-08-01', '2025-12-31', 0),
-(7, 'Parc à bambou et jeux sensoriels pour pandas', 'Ajout de structures et de bambous pour stimuler les pandas.', '/images/toys/panda_bamboo.jpg', 15, 10000, '2025-09-01', '2025-12-31', 0),
-(8, 'Tyrolienne pour gorilles', 'Corde suspendue de 10m avec systèmes de balancement pour les gorilles.', '/images/toys/gorilla_rope.jpg', 10, 6000, '2025-10-05', '2026-01-31', 0),
-(14, 'Aire de vol libre pour perroquets', 'Grande volière immersive avec enrichissements sonores.', '/images/toys/parrot_area.jpg', 20, 9000, '2025-07-01', '2025-12-15', 1),
-(15, 'Plateforme d’observation pour aigles royaux', 'Perchoir surélevé avec abris et supports pour vol d’entraînement.', '/images/toys/eagle_platform.jpg', 25, 7000, '2025-09-01', '2025-11-30', 1),
-(16, 'Toboggan glacial pour pingouins', 'Structure glacée avec toboggans et tunnels aquatiques.', '/images/toys/penguin_slide.jpg', 15, 5000, '2025-10-10', '2025-12-31', 0),
-(18, 'Eucalyptus frais pour koalas', 'Plantation de nouveaux eucalyptus pour l’enclos des koalas.', '/images/toys/koala_eucalyptus.jpg', 10, 4000, '2025-09-20', '2025-12-31', 0),
-(20, 'Fontaine aquatique pour hippopotames', 'Fontaine d’eau ludique avec jets pour les hippos.', '/images/toys/hippo_fountain.jpg', 20, 11000, '2025-08-20', '2025-12-31', 0);
+-- IN movements (vers Zoo Verviers)
+(1, 0, '2025-10-01', NULL, 3, 1),
+(2, 0, '2025-09-15', '2025-11-15', 3, 1),
+(3, 0, '2025-01-01', NULL, 3, 1),
+(5, 0, '2025-12-01', NULL, 0, 1),
+(6, 0, '2025-09-01', NULL, 3, 1),
+(8, 0, '2025-10-10', NULL, 3, 1),
+(10, 0, '2025-09-05', NULL, 3, 1),
+(12, 0, '2025-10-01', NULL, 3, 1),
+(14, 0, '2025-04-10', NULL, 3, 1),
+(15, 0, '2025-09-01', NULL, 3, 1),
+(17, 0, '2025-05-01', NULL, 3, 1),
+(19, 0, '2025-10-01', NULL, 3, 1),
+(20, 0, '2025-06-15', NULL, 3, 1),
+(22, 0, '2025-11-10', NULL, 0, 1);
 
-INSERT INTO [User] (FirstName, LastName, Email, [Password], EmployeeId, IsSubscribed)
+-- OUT movements (depuis Zoo Verviers)
+INSERT INTO AnimalMovement (AnimalId, Direction, StartDate, EndDate, Type, CounterPartId)
 VALUES
-('Alice', 'Dupont', 'alice.dupont@gmail.com', 'MotDePasse123!', NULL, 1),
-('Benoît', 'Martin', 'benoit.martin@hotmail.com', 'SecurePass456!', NULL, 1),
-('Claire', 'Renard', 'claire.renard@outlook.com', 'ZooLover789!', NULL, 0),
-('David', 'Petit', 'david.petit@gmail.com', 'PassElephant!', NULL, 1),
-('Émilie', 'Durand', 'emilie.durand@yahoo.fr', 'LionQueen!', NULL, 0),
-('François', 'Leclerc', 'francois.leclerc@gmail.com', 'BananaGorilla!', 3, 1),
-('Gabriel', 'Moreau', 'gabriel.moreau@gmail.com', 'TigerPower!', 5, 1),
-('Hélène', 'Lambert', 'helene.lambert@zoolovers.be', 'HappyKoala!', NULL, 1),
-('Isabelle', 'Colin', 'isabelle.colin@gmail.com', 'PenguinSlide!', NULL, 0),
-('Julien', 'Verbeeck', 'julien.verbeeck@gmail.com', 'StrongHippo!', NULL, 1);
+(4, 1, '2025-05-20', '2025-07-01', 4, 2),
+(7, 1, '2025-06-10', '2025-09-20', 4, 3),
+(9, 1, '2025-07-01', '2025-08-15', 4, 4),
+(11, 1, '2025-03-01', '2025-03-20', 4, 2),
+(13, 1, '2025-01-15', '2025-02-15', 4, 3),
+(16, 1, '2025-08-10', '2025-09-10', 4, 4),
+(18, 1, '2025-02-01', '2025-02-28', 4, 2),
+(21, 1, '2025-03-10', '2025-04-10', 4, 3);
 
+-- ======================================
+-- 6) User
+-- ======================================
+INSERT INTO [User] (FirstName, LastName, Email, Password, EmployeeId, IsSubscribed)
+VALUES
+('Alice', 'Martin', 'alice.martin@zooverviers.be', 'Password123!', NULL, 1),
+('Bob', 'Dupont', 'bob.dupont@zoobrussels.be', 'Password123!', NULL, 1),
+('Carla', 'Janssen', 'carla.janssen@zooantwerp.be', 'Password123!', NULL, 1),
+('David', 'Leroy', 'david.leroy@safariliege.be', 'Password123!', NULL, 1),
+('Eve', 'Thomas', 'eve.thomas@zooverviers.be', 'Password123!', NULL, 1);
 
+-- ======================================
+-- 7) Employee
+-- ======================================
+INSERT INTO Employee (AddressId, EmployeeType, StartDate, EndDate, UserId)
+VALUES
+(1, 2, '2020-01-01', NULL, 1),
+(2, 0, '2021-06-01', NULL, 2),
+(3, 1, '2022-03-01', NULL, 3),
+(4, 3, '2019-09-01', NULL, 4),
+(1, 4, '2020-05-01', NULL, 5);
+
+-- ======================================
+-- 8) Toy
+-- ======================================
+INSERT INTO Toy (SpeciesId, Name, Description, ImagePath, MinimumAmountperDonation, WishedTotalAmount, StartDate, EndDate, Status)
+VALUES
+(1, 'Lion Ball', 'Soft toy for lions', NULL, 10, 100, '2025-01-01', NULL, 0),
+(2, 'Giraffe Rope', 'Chew rope for giraffes', NULL, 15, 120, '2025-02-01', NULL, 0),
+(3, 'Elephant Drum', 'Toy drum for elephants', NULL, 20, 200, '2025-03-01', NULL, 0),
+(4, 'Panda Bamboo Toy', 'Bamboo shaped toy', NULL, 5, 50, '2025-04-01', NULL, 0),
+(5, 'Kangaroo Pouch Toy', 'Interactive pouch toy', NULL, 8, 80, '2025-05-01', NULL, 0);
+
+-- ======================================
+-- 9) ToyDonation
+-- ======================================
 INSERT INTO ToyDonation (ToyId, UserId, Amount, DonationDate)
 VALUES
-(1, 1, 50, '2025-10-05'),
-(1, 2, 25, '2025-10-06'),
-(1, 3, 100, '2025-10-10'),
-(2, 4, 75, '2025-10-12'),
-(2, 5, 200, '2025-10-13'),
-(3, 6, 150, '2025-10-07'),
-(3, 7, 50, '2025-10-09'),
-(3, 8, 400, '2025-10-15'),
-(4, 2, 60, '2025-10-08'),
-(4, 9, 120, '2025-10-11'),
-(5, 10, 30, '2025-10-10'),
-(5, 3, 70, '2025-10-13'),
-(6, 4, 90, '2025-10-05'),
-(7, 5, 110, '2025-10-14'),
-(8, 6, 45, '2025-10-16'),
-(8, 7, 60, '2025-10-18'),
-(9, 8, 25, '2025-10-15'),
-(9, 1, 50, '2025-10-17'),
-(10, 2, 150, '2025-10-10'),
-(10, 3, 80, '2025-10-11');
-
-INSERT INTO [Employee] (Id, AddressId, EmployeeType, StartDate, EndDate, UserId)
-VALUES
-(6, 1, 1, '2024-05-01', NULL, 6),  -- François Leclerc, employé administratif au Zoo de Verviers
-(7, 2, 2, '2024-06-15', NULL, 7);  -- Gabriel Moreau, soigneur animalier au Zoo de Liège
+(1, 1, 50, '2025-06-01'),
+(2, 2, 30, '2025-06-15'),
+(3, 3, 100, '2025-07-01'),
+(4, 4, 25, '2025-07-10'),
+(5, 5, 40, '2025-07-20');
