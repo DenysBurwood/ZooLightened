@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using Zoo.API.DTOs;
 using Zoo.API.Mappers;
+using Zoo.BLL.Exceptions;
 using Zoo.BLL.Services;
 using Zoo.DL.Entities;
 using Zoo.DL.Entities.Humans;
@@ -33,10 +34,15 @@ namespace Zoo.API.Controllers
             return Ok(dtos);
         }
 
+        [Authorize]
         [HttpPost("Donation")]
 
         public ActionResult<ToyIndexDto> Donate([FromBody] ToyDonationFormDto form)
         {
+            if (form is null || !ModelState.IsValid)
+            {
+                throw new ToyNotAllowedException("Form not valid. Donation aborted.");
+            }
 
             ToyDonation donation = form.ToToyDonation();
 
