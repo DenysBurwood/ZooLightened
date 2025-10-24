@@ -12,7 +12,7 @@ namespace Zoo.API.DTOs.Employees
         public Address Address { get; set; } = null!;
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public EmployeeType EmployeeType { get; set; }
+        public string EmployeeType { get; set; } = null!;
         public User User { get; set; } = null!;
 
     }

@@ -249,7 +249,7 @@ namespace Zoo.DAL.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("Owner");
+                    b.ToTable("Owners");
                 });
 
             modelBuilder.Entity("Zoo.DL.Entities.Animal", b =>

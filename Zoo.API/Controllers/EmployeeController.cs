@@ -33,13 +33,16 @@ namespace Zoo.API.Controllers
         public ActionResult<EmployeeAccountDTO> MyEmployeeAccount()
         {
             User user = _userService.GetAccount(User.GetUserEmail());
+            Address address = new Address();
             if(user.EmployeeId is null)
             {
                 throw new UserNotFoundException("No Employee found");
             }
             Employee employee = _employeeService.GetEmployeeByEmployeeId(user.EmployeeId.Value)!;
-            employee.User=user;
-            return Ok(employee.ToEmployeeAccountDTO());
+            address.Id=employee.AddressId;
+            address=_addressService.GetAddress(address.Id);
+            EmployeeAccountDTO displayedEmployee = employee.ToEmployeeAccountDTO(user, address);
+            return Ok(displayedEmployee);
         }
 
         [Authorize(Roles = "Administration,Director,Admin")]
@@ -50,12 +53,21 @@ namespace Zoo.API.Controllers
             {
                 throw new RegisterException("Form not valid. Creation of employee aborted.");
             }
-            _employeeService.CreateEmployeeSheet(employee.FromEmployeeFormDTO());
+            User? user = _userService.GetUser(employee.UserId);
+            if(user is null) 
+            {
+                throw new UserNotFoundException($"No user with id:{employee.UserId} was found. Use instead the \"New employee\" form.");
+            }
+            if(user.EmployeeId is not null) 
+            {
+                throw new NotAllowedException("This user already works in the zoo.");
+            }
+            Employee newEmployee = _employeeService.CreateEmployeeSheet(employee.FromEmployeeFormDTO());
+            _userService.SetEmployeeId(user,newEmployee.Id);
             return Created();
-
         }
 
-        
+
         [Authorize(Roles = "Administration,Director,Admin")]
         [HttpPost("NewEmployee")]
         public ActionResult<EmployeeFormDTO> NewEmployee([FromForm] FullEmployeeFormDTO employee) 
@@ -76,5 +88,26 @@ namespace Zoo.API.Controllers
             _userService.SetEmployeeId(userTemp,employeeTemp.Id);
             return Created();
         }
+
+        [Authorize(Roles = "Director,Admin")]
+        [HttpPost("FireEmployee/{employeeId:int}")]
+        public ActionResult<EmployeeFormDTO> FireEmployee([FromRoute] int employeeId) 
+        {
+            Employee? employee = _employeeService.GetEmployeeByEmployeeId(employeeId);
+            if(employee is null) 
+            {
+                throw new EmployeeNotFound($"No employee found with id: {employeeId}.");
+            }
+            User? user = _userService.GetUser(employee.UserId);
+            if(user is null) 
+            {
+                throw new UserNotFoundException("An employee with no user account was found with employeeId: {employeeId}. Please fix this problem quickly.");
+            }
+            employee.User=user;
+            _employeeService.FireEmployee(employee, employeeId);
+            _userService.UnSetEmployeeId(user, employeeId);
+            return NoContent();
+        }
+
     }
 }

@@ -19,14 +19,14 @@ namespace Zoo.API.Controllers
         private readonly UserService _userService;
         private readonly AuthService _authService;
         private readonly EmployeeService _employeeService;
-        public UserController(UserService userService,AuthService authService,EmployeeService employeeService)
+        private readonly AddressService _addressService;
+        public UserController(UserService userService,AuthService authService,EmployeeService employeeService,AddressService addressService)
         {
             _userService=userService;
             _authService=authService;
             _employeeService=employeeService;
+            _addressService=addressService;
         }
-
-        //  Later the index of animals will be available
 
         [HttpPost("Register")]
         public ActionResult Register([FromBody] UserFormDTO user)
@@ -36,7 +36,6 @@ namespace Zoo.API.Controllers
                 throw new RegisterException("A valid form is required");
             }
             _userService.Register(user.FromUserForm());
-            //Console.WriteLine(User.GetUserID());
             return Created();
         }
 
@@ -76,20 +75,6 @@ namespace Zoo.API.Controllers
             string email = User.GetUserEmail();
             UserAccountDTO user = _userService.GetAccount(email).ToUserAccountDTO();
             return Ok(user);
-        }
-
-        [Authorize(Roles = $"Veterinarian,Administration,Director,Guide,Treasurer,Other,Admin")]
-        [HttpGet("MyAccount/MyEmployeeSheet")]
-        public ActionResult<EmployeeAccountDTO> MyEmployeeAccount() 
-        {
-            User user = _userService.GetAccount(User.GetUserEmail());
-            if(user.EmployeeId is null)
-            {
-                throw new UserNotFoundException("No Employee found");
-            }
-            Employee employee = _employeeService.GetEmployeeByEmployeeId(user.EmployeeId.Value)!;
-            employee.User=user;
-            return Ok(employee.ToEmployeeAccountDTO());
         }
 
         [Authorize]

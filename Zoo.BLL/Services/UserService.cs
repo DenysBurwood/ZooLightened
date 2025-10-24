@@ -59,6 +59,11 @@ namespace Zoo.BLL.Services
             return user;
         }
 
+        public User? GetUser(int id) 
+        {
+            return _userRepository.GetEntityById(id);
+        }
+
         public void EditAccount(User user, int id)
         {
             User? currentUser = _userRepository.GetEntityById(id);
@@ -78,6 +83,11 @@ namespace Zoo.BLL.Services
         public void SetEmployeeId(User user,int emplyeeId) 
         {
             user.EmployeeId=emplyeeId;
+            _userRepository.Update(user);
+        }
+        public void UnSetEmployeeId(User user,int employeeId) 
+        {
+            user.EmployeeId=null;
             _userRepository.Update(user);
         }
 

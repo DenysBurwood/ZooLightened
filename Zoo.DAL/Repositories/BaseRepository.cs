@@ -47,6 +47,7 @@ namespace Zoo.DAL.Repositories
         public virtual void Add(T entity)
         {
             _entities.Add(entity);
+            Console.WriteLine("entity.id:"+entity.Id);
             _context.SaveChanges();
         }
 

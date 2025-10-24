@@ -4,10 +4,6 @@ using Zoo.DL.Entities.Humans;
 
 namespace Zoo.DAL.Database.Configs
 {
-    /*/      I don't know if we should use this table, we'll discuss how to handle former employees and their salaries/functions
-     *       For instance, do we keep record of the old employees work, how to store data if they became users.
-     *       What aout a user deleting their account, ...
-//   */
     public class EmployeeConfig:IEntityTypeConfiguration<Employee>
     {
         public void Configure(EntityTypeBuilder<Employee> builder)
@@ -21,7 +17,7 @@ namespace Zoo.DAL.Database.Configs
 
             builder.HasOne(e => e.Address).WithMany(e => e.Employees).IsRequired();
 
-            builder.HasOne(e => e.User).WithOne(u => u.Employee);
+            builder.HasOne(e => e.User).WithOne(u => u.Employee).HasForeignKey<User>(u => u.EmployeeId);
 
         }
     }

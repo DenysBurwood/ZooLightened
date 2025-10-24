@@ -12,7 +12,7 @@ using Zoo.DAL.Contexts;
 namespace Zoo.DAL.Migrations
 {
     [DbContext(typeof(ZooContext))]
-    [Migration("20251021074616_ZooVerviers")]
+    [Migration("20251024082133_ZooVerviers")]
     partial class ZooVerviers
     {
         /// <inheritdoc />
@@ -252,7 +252,7 @@ namespace Zoo.DAL.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("Owner");
+                    b.ToTable("Owners");
                 });
 
             modelBuilder.Entity("Zoo.DL.Entities.Animal", b =>

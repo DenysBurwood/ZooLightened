@@ -6,17 +6,32 @@ namespace Zoo.API.Mappers
 {
     public static class EmployeeMapper
     {
-        public static EmployeeAccountDTO ToEmployeeAccountDTO(this Employee employee) 
+        public static EmployeeAccountDTO ToEmployeeAccountDTO(this Employee employee, User user, Address address) 
         {
             return new EmployeeAccountDTO()
             {
                 FirstName=employee.User.FirstName,
                 LastName=employee.User.LastName,
                 Email=employee.User.Email,
-                Address=employee.Address,
+                Address=new Address() 
+                {
+                    Street=address.Street,
+                    City=address.City,
+                    PostalCode=address.PostalCode,
+                    Country=address.Country,
+                    Number=address.Number,
+                },
                 StartDate=employee.StartDate,
                 EndDate=employee.EndDate,
-                EmployeeType=employee.EmployeeType,
+                EmployeeType=employee.EmployeeType.ToString(),
+                User=new User() 
+                {
+                    FirstName=user.FirstName,
+                    LastName =user.LastName,
+                    Email=user.Email,
+                    Password="Password",
+                    IsSubscribed=user.IsSubscribed,
+                }
             };
         }
 

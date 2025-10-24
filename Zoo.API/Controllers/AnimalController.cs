@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Zoo.API.DTOs.Animals;
 using Zoo.API.Mappers;
 using Zoo.BLL.Services;
+using Zoo.DL.Entities;
 using Zoo.DL.Entities.Humans;
 
 namespace Zoo.API.Controllers
@@ -18,9 +19,9 @@ namespace Zoo.API.Controllers
             _animalService = animalService;
         }
         [HttpGet()]
-        public ActionResult<AnimalIndexDTO> DisplaySomeAnimals([FromQuery] int page = 0, int sizePage=3)
+        public ActionResult<AnimalIndexDTO> DisplaySomeAnimals([FromQuery] int page = 0, int sizePage=3, string? query=null)
         {
-            List<AnimalIndexDTO> animals = _animalService.DisplayAnimals(page, sizePage).Select(a => a.ToAnimalIndexDTO()).ToList();
+            List<AnimalIndexDTO> animals = _animalService.DisplayAnimals(page, sizePage, query).Select(a => a.ToAnimalIndexDTO()).ToList();
             return Ok(animals);
         }
 
@@ -31,10 +32,10 @@ namespace Zoo.API.Controllers
         //    return Ok(animals);
         //}
 
-        [HttpGet("{id:int}")]
-        public ActionResult<AnimalIndexDTO> GetOne([FromRoute] int id) 
+        [HttpGet("{name}")]
+        public ActionResult<AnimalDetailsDTO> GetOne([FromRoute] string name) 
         {
-            AnimalIndexDTO animal = _animalService.GetAnimal(id).ToAnimalIndexDTO();
+            AnimalDetailsDTO animal = _animalService.GetAnimalByName(name).ToAnimalDetailsDTO();
             return Ok(animal);
         }
 
@@ -51,7 +52,7 @@ namespace Zoo.API.Controllers
         [HttpPost("Birth")]
         public ActionResult<AnimalFormDTO> AddOne([FromForm] AnimalFormDTO animal) 
         {
-            _animalService.AddAnimal(animal.FromAnimalFormDTO());
+            _animalService.AddAnimal(animal.FromAnimalFormDTO(), animal.SpeciesName);
             return Ok();
         }
 

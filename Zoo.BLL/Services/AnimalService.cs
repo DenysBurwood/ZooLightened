@@ -1,4 +1,5 @@
-﻿using Zoo.BLL.Exceptions;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Zoo.BLL.Exceptions;
 using Zoo.DAL.Repositories;
 using Zoo.DL.Entities;
 
@@ -12,9 +13,31 @@ namespace Zoo.BLL.Services
             _animalRepository = animalRepository;
         }
 
-        public List<Animal> DisplayAnimals(int page, int sizePage)
+        public List<Animal> DisplayAnimals(int page,int sizePage,string? query)
         {
-            List<Animal>? animals = _animalRepository.GetAll(page,sizePage).ToList();
+            Func<Animal,bool>? func = null;
+            string[]? queries = [];
+            //List<string> names = [];
+            //if(name is not null)
+            //{
+            //    names=name.Split(',').Select(n => n.Trim()).ToList();
+            //}
+            //Func<Animal,bool>? func = null;
+            //foreach(string animalName in names)
+            //{
+
+            //}
+            //Func<Animal,bool> func = (a) => { if(a.Name.Equals("")) { return true; } else { return false; } };
+            //if(query is not null) 
+            //{
+            //    queries = query.Split(',');
+            //    queries.Select(q => q.Trim());
+            //    Console.WriteLine(query);
+            //    Console.WriteLine(queries);
+
+            //    func=(animal) => (animal.Name.Equals());
+            //}
+            List<Animal>? animals = _animalRepository.GetAll(page,sizePage, func).ToList();
             if(animals.Count()==0) 
             {
                 throw new AnimalNotFoundException();
@@ -39,27 +62,47 @@ namespace Zoo.BLL.Services
             return _animalRepository.GetEntityById(id)!;
         }
 
+        public Animal GetAnimalByName(string name) 
+        {
+            Animal? animal = _animalRepository.GetAnimalByName(name);
+            if(animal is null) 
+            {
+                throw new AnimalNotFoundException($"The animal named {name} was not found");
+            }
+            animal.Species=GetSpecies().FirstOrDefault(sp => sp.Id==animal.SpeciesId);
+            animal.Owner=_animalRepository.GetOwnerByOwnerId(animal.OwnerId);
+            if(animal.Species is null) 
+            {
+                throw new NotFoundException("Species not found");
+            }
+            return animal;
+        }
+
         public List<AnimalSpecies> GetSpecies()
         {
             List<AnimalSpecies> animalSpecies = _animalRepository.GetSpecies();
             return animalSpecies;
         }
 
+        //public AnimalSpecies GetSpeciesBySpeciesId
+
         public int NumberAnimalSpecies(string speciesName) 
         {
             return _animalRepository.NumberAnimalSpecies(speciesName);
         }
 
-        public void AddAnimal(Animal animal) 
+        public void AddAnimal(Animal animal, string speciesName) 
         {
             if(animal is null) 
             {
                 throw new AnimalNotFoundException();
             }
-            if(_animalRepository.GetSpeciesById(animal.SpeciesId) is null) 
+            animal.Species=_animalRepository.GetSpeciesBySpeciesName(speciesName);
+            if(animal.Species is null) 
             {
-                throw new AnimalNotFoundException($"Species name of animal {animal.Name} with spieciesId: {animal.SpeciesId} not found");
+                throw new AnimalNotFoundException($"Species name of animal {animal.Name} not found");
             }
+            animal.SpeciesId=animal.Species.Id;
             _animalRepository.Add(animal);
         }
 
@@ -74,10 +117,6 @@ namespace Zoo.BLL.Services
             {
                 throw new AnimalNotFoundException($"Species name of animal with id {id} and spieciesId: {animal.SpeciesId} not found");
             }
-            //current.Name=animal.Name;
-            //current.SpeciesId=animal.SpeciesId;
-            //current.Sex=animal.Sex;
-            //current.Species=animal.Species;
             _animalRepository.Update(current);
         }
         public void DeleteAnimal(int id) 
@@ -151,5 +190,9 @@ namespace Zoo.BLL.Services
             _animalRepository.InsertAnimalMovement(animal, startdate, enddate, DL.Enum.Direction.IN);
 
         }
+
+
+
+
     }
 }

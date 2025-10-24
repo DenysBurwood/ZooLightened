@@ -11,7 +11,6 @@ namespace Zoo.DL.Entities.Humans
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public User User { get; set; } = null!;
-
         public int UserId { get; set; }
     }
 }

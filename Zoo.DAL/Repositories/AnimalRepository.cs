@@ -10,6 +10,7 @@ namespace Zoo.DAL.Repositories
         private readonly DbSet<Animal> _animals;
         private readonly DbSet<AnimalSpecies> _animalSpecies;       //  Adjoindre les espèces animales pour pouvoir récupérer le nom dans la liste d'animaux
         private readonly DbSet<AnimalMovement> _animalMovements;
+        private readonly DbSet<Owner> _owners;
         private readonly ZooContext _context;
 
         public AnimalRepository(ZooContext context):base(context)
@@ -18,6 +19,7 @@ namespace Zoo.DAL.Repositories
             _animals=context.Animals;
             _animalSpecies=context.AnimalSpecies;
             _animalMovements = context.AnimalMovements;
+            _owners=context.Owners;
         }
 
         public List<Animal> GetAllAnimals() 
@@ -27,9 +29,24 @@ namespace Zoo.DAL.Repositories
             return animals;
         }
 
+        public Animal? GetAnimalByName(string name) 
+        {
+            Animal? animal = _animals.FirstOrDefault(a => a.Name==name);
+            return animal;
+        }
+
         public AnimalSpecies? GetSpeciesById(int speciesId) 
         {
             return _animalSpecies.FirstOrDefault(x => x.Id==speciesId);
+        }
+        public AnimalSpecies? GetSpeciesBySpeciesName(string speciesName) 
+        {
+            return _animalSpecies.FirstOrDefault(sp => sp.Name==speciesName);
+        }
+
+        public Owner? GetOwnerByOwnerId(int ownerId) 
+        {
+            return _owners.FirstOrDefault(y => y.Id==ownerId);
         }
 
         public List<AnimalSpecies> GetSpecies()

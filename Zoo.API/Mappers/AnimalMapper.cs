@@ -11,7 +11,7 @@ namespace Zoo.API.Mappers
             {
                 Name = Animal.Name,
                 SpeciesName=Animal.Species.Name,
-                Sex=Animal.Sex,
+                Sex=Animal.Sex.ToString(),
             };
         }
 
@@ -21,16 +21,31 @@ namespace Zoo.API.Mappers
             {
                 Name=animal.Name,
                 Sex=animal.Sex,
-                SpeciesId=animal.Species.Id,
+                SpeciesName=animal.Species.Name,
                 OwnerId=animal.Owner.Id,
             };
         }
+
+        public static AnimalDetailsDTO ToAnimalDetailsDTO(this Animal animal) 
+        {
+            return new AnimalDetailsDTO()
+            {
+                Name=animal.Name,
+                OwnerName=animal.Owner is null ? null : animal.Owner.Name,
+                SpeciesName=animal.Species.Name,
+                BirthDate=animal.BirthDate,
+                RIPDate=animal.RIPDate,
+                Sex=animal.Sex.ToString(),
+                IsAvailable=animal.IsAvailable,
+            };
+        }
+         
         public static Animal FromAnimalFormDTO(this AnimalFormDTO animalForm) 
         {
             return new Animal()
             {
                 Name=animalForm.Name,
-                SpeciesId=animalForm.SpeciesId,
+                //SpeciesId=animalForm.,
                 OwnerId=animalForm.OwnerId,
                 Sex = animalForm.Sex,
                 BirthDate=animalForm.BirthDate,
