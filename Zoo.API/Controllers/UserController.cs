@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Zoo.API.DTOs.Employees;
 using Zoo.API.DTOs.Users;
 using Zoo.API.Mappers;
 using Zoo.API.Services;
@@ -8,7 +7,6 @@ using Zoo.API.Tools;
 using Zoo.BLL.Exceptions;
 using Zoo.BLL.Services;
 using Zoo.DL.Entities.Humans;
-using Zoo.DL.Enum;
 
 namespace Zoo.API.Controllers
 {

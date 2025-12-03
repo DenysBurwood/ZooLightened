@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Zoo.DL.Entities;
-using Zoo.DL.Entities.Humans;
 using Zoo.DL.Enum;
 
 namespace Zoo.API.DTOs.Employees
 {
     public class EmployeeFormDTO
     {
-        [Required(ErrorMessage = "This field is required")]
+        [Required]
+        [Range(1,int.MaxValue,ErrorMessage = "A positive owner Id")]
         public int AddressId { get; set; }
 
         [Required]
@@ -19,6 +18,7 @@ namespace Zoo.API.DTOs.Employees
         public DateTime? EndDate { get; set; }
 
         [Required]
-        public string UserEmail { get; set; }
+        [EmailAddress]
+        public string UserEmail { get; set; } = null!;
     }
 }

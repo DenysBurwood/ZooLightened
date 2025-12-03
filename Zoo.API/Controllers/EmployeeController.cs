@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Zoo.API.DTOs.Employees;
 using Zoo.API.Mappers;
@@ -69,7 +68,7 @@ namespace Zoo.API.Controllers
         }
 
 
-        [Authorize(Roles = "Administration,Director,Admin")]
+        //[Authorize(Roles = "Administration,Director,Admin")]
         [HttpPost("NewEmployee")]
         public ActionResult<EmployeeFormDTO> NewEmployee([FromForm] FullEmployeeFormDTO employee) 
         {

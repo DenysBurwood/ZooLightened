@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using Zoo.BLL.Exceptions;
 using Zoo.DAL.Repositories;
 using Zoo.DL.Entities;
 using Zoo.DL.Enum;
-
-
 
 namespace Zoo.BLL.Services
 {

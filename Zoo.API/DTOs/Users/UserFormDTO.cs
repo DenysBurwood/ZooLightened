@@ -6,9 +6,11 @@ namespace Zoo.API.DTOs.Users
     public class UserFormDTO
     {
         [Required]
+        [MaxLength(60,ErrorMessage = "Maximum 60 characters")]
         public string FirstName { get; set; } = null!;
 
         [Required]
+        [MaxLength(60,ErrorMessage = "Maximum 60 characters")]
         public string LastName { get; set; } = null!;
 
         [Required]

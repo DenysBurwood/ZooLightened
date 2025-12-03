@@ -1,6 +1,5 @@
 ﻿using Zoo.DL.Entities;
 using Zoo.DL.Entities.Humans;
-using Zoo.DL.Enum;
 
 namespace Zoo.API.DTOs.Employees
 {

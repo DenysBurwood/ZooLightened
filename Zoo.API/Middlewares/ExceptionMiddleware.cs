@@ -31,8 +31,6 @@ namespace Zoo.API.Middlewares
             int statusCode = 400;
             switch(ex) 
             {
-                //  Special exceptions to implement a unique behaviour.
-                //  At the current time, everything is identical, we'll discuss on it later.
                 case LoginException e:
                     await SendResponse(context, e);
                     break;

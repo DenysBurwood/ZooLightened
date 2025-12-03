@@ -26,12 +26,10 @@ namespace Zoo.API.Services
                     //new Claim(ClaimTypes.Upn, user.LastName),
                 };
 
-            //  Creadantial pour signer le token (clé + algorithme)
             string secretKey = _config["Jwt:Key"];
-            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)); //  Premier niveau de cryptage
-            SigningCredentials creds = new SigningCredentials(key,SecurityAlgorithms.HmacSha256);      //  Deuxième niveau de cryptage
+            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+            SigningCredentials creds = new SigningCredentials(key,SecurityAlgorithms.HmacSha256);
 
-            //  Géération du token
             JwtSecurityToken token = new JwtSecurityToken(
                     _config["Jwt:Issuer"],
                     _config["Jwt:Audience"],
@@ -39,7 +37,6 @@ namespace Zoo.API.Services
                     expires: DateTime.Now.AddDays(1),
                     signingCredentials: creds
                 );
-            //Console.WriteLine(token.RawAuthenticationTag);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }

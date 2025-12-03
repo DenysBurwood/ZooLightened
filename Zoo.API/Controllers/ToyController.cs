@@ -1,14 +1,9 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using Zoo.API.DTOs;
 using Zoo.API.Mappers;
 using Zoo.BLL.Exceptions;
 using Zoo.BLL.Services;
 using Zoo.DL.Entities;
-using Zoo.DL.Entities.Humans;
 
 namespace Zoo.API.Controllers
 {

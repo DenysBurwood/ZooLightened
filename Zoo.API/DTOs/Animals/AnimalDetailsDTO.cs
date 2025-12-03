@@ -1,6 +1,4 @@
-﻿using Zoo.DL.Entities;
-using Zoo.DL.Enum;
-
+﻿
 namespace Zoo.API.DTOs.Animals
 {
     public class AnimalDetailsDTO
