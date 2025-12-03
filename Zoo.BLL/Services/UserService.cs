@@ -18,7 +18,6 @@ namespace Zoo.BLL.Services
             {
                     throw new RegisterException("Email already registered");
             }
-            //  Hash of password
             user!.Password=Argon2.Hash(user.Password);
             _userRepository.Add(user);
         }

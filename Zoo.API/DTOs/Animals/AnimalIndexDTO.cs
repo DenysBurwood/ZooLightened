@@ -1,5 +1,4 @@
-﻿using Zoo.DL.Enum;
-
+﻿
 namespace Zoo.API.DTOs.Animals
 {
     public class AnimalIndexDTO

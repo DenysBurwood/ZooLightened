@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Zoo.API.DTOs.Animals;
 using Zoo.API.Mappers;
 using Zoo.BLL.Services;
-using Zoo.DL.Entities;
-using Zoo.DL.Entities.Humans;
 
 namespace Zoo.API.Controllers
 {
@@ -24,13 +22,6 @@ namespace Zoo.API.Controllers
             List<AnimalIndexDTO> animals = _animalService.DisplayAnimals(page, sizePage, query).Select(a => a.ToAnimalIndexDTO()).ToList();
             return Ok(animals);
         }
-
-        //[HttpGet("IndexFull")]
-        //public ActionResult<AnimalIndexDTO> DisplayAllAnimals()
-        //{
-        //    List<AnimalIndexDTO> animals = _animalService.DisplayAnimals().Select(a => a.ToAnimalIndexDTO()).ToList();
-        //    return Ok(animals);
-        //}
 
         [HttpGet("{name}")]
         public ActionResult<AnimalDetailsDTO> GetOne([FromRoute] string name) 
@@ -80,7 +71,6 @@ namespace Zoo.API.Controllers
             _animalService.DeleteAnimal(id);
             return Ok();
         }
-
 
     }
 }

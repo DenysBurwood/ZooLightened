@@ -14,7 +14,6 @@ namespace Zoo.DAL.Database.Configs
             builder.Property(asp => asp.Id).ValueGeneratedOnAdd();
             builder.Property(asp => asp.Name).IsRequired();
             builder.Property(asp => asp.Description).IsRequired();
-            //builder.Property(asp => asp.Animals);
 
             builder.HasMany(asp => asp.Animals).WithOne(a => a.Species);
         }

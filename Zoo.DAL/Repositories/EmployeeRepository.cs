@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Zoo.DAL.Contexts;
-using Zoo.DL.Entities;
 using Zoo.DL.Entities.Humans;
 using Zoo.DL.Enum;
 

@@ -6,6 +6,7 @@ namespace Zoo.API.DTOs.Animals
     {
 
         [Required]
+        [Range(1,int.MaxValue,ErrorMessage = "A positive owner Id")]
         public int Id { get; set; }
 
         [Required]

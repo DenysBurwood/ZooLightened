@@ -6,7 +6,6 @@ namespace Zoo.API.DTOs.Employees
 {
     public class FullEmployeeFormDTO
     {
-
         //  EmployeeFormDTO
         [Required]
         public EmployeeType EmployeeType { get; set; }
@@ -19,9 +18,11 @@ namespace Zoo.API.DTOs.Employees
 
         //  UserFormDTO
         [Required]
+        [MaxLength(60, ErrorMessage = "Maximum 60 characters")]
         public string FirstName { get; set; } = null!;
 
         [Required]
+        [MaxLength(60,ErrorMessage = "Maximum 60 characters")]
         public string LastName { get; set; } = null!;
 
         [Required]

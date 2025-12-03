@@ -1,12 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Zoo.DAL.Contexts;
 using Zoo.DL.Entities;
 
@@ -23,23 +17,6 @@ namespace Zoo.DAL.Repositories
             _context = context;
             _entities = context.Set<T>();
         }
-
-        //public List<T> GetAll(int page = 0, int nbPage = 10, Func<T, bool>? predicate = null)
-        //{
-
-        //    IEnumerable<T> query = _entities;
-
-        //    if (predicate != null)
-        //    {
-        //        query = query.Where(predicate);
-        //    }
-
-        //    return query
-        //        .OrderBy(p => p.Id)
-        //        .Skip(page * nbPage)
-        //        .Take(nbPage)
-        //        .ToList();
-        //}
 
         public List<T> GetAll(int page = 0,int nbPage = 10,Expression<Func<T, bool>>? predicate = null,params string[]? includes)
         {

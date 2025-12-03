@@ -5,6 +5,7 @@ namespace Zoo.API.DTOs
     public class AnimalReceptionFormDto
     {
         [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "A positive integer")]
         public int AnimalId { get; set; }
 
         [Required]

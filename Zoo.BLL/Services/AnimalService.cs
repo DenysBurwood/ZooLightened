@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Zoo.BLL.Exceptions;
+﻿using Zoo.BLL.Exceptions;
 using Zoo.DAL.Repositories;
 using Zoo.DL.Entities;
-using Zoo.DL.Enum;
 
 namespace Zoo.BLL.Services
 {
@@ -30,7 +28,6 @@ namespace Zoo.BLL.Services
             for(int i = 0; i<animals.Count(); i++) 
             {
                 animals[i].Species = species[i];
-                //animals.ElementAt(i).Species = species[i];
             }
             return animals;
         }
@@ -67,8 +64,6 @@ namespace Zoo.BLL.Services
             List<AnimalSpecies> animalSpecies = _animalRepository.GetSpecies();
             return animalSpecies;
         }
-
-        //public AnimalSpecies GetSpeciesBySpeciesId
 
         public int NumberAnimalSpecies(string speciesName) 
         {
