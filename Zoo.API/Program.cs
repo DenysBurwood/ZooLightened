@@ -97,12 +97,25 @@ builder.Services.AddAuthentication(option =>
     };
 });
 
+#region CORS
+builder.Services.AddCors(service =>
+{
+    service.AddPolicy("FFA", policy =>
+    {
+        policy.AllowAnyOrigin();
+        policy.AllowAnyMethod();
+        policy.AllowAnyHeader();
+    });
+
+    // TODO : Add more CORS policies for production
+});
+#endregion
 
 
+// Configure the HTTP request pipeline.
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -110,6 +123,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("FFA");
 
 app.UseMiddleware<ExceptionMiddleware>();
 
