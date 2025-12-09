@@ -24,38 +24,40 @@ VALUES
 INSERT INTO AnimalSpecies (Name, Description)
 VALUES
 ('Lion', 'Big cat'),
-('Giraffe', 'Tall animal'),
-('Elephant', 'Huge mammal'),
+('Girafe', 'Tall animal'),
+('Eléphant', 'Huge mammal'),
 ('Panda', 'Bamboo eater'),
-('Kangaroo', 'Marsupial'),
-('Penguin', 'Flightless bird');
+('Kangourou', 'Marsupial'),
+('Pingouin', 'Flightless bird'),
+('Colvert', 'Canard qui fait couin couin'),
+('Mandarin', 'Canard qui fait cancan');
 
 -- ======================================
 -- 4) Animal
 -- ======================================
 INSERT INTO Animal (Name, Sex, SpeciesId, OwnerId, IsAvailable, BirthDate, RIPDate)
 VALUES
-('Leo', 0, 1, 2, 0, '2018-05-10', NULL),
+('Leo', 2, 1, 2, 0, '2018-05-10', NULL),
 ('Gigi', 0, 2, 3, 0, '2019-07-15', NULL),
 ('Tiggy', 0, 1, 4, 0, '2017-03-20', NULL),
-('Dumbo', 0, 3, 1, 0, '2015-01-01', NULL),
+('Dumbo', 2, 3, 1, 0, '2015-01-01', NULL),
 ('Zara', 0, 2, 2, 0, '2016-11-11', NULL),
-('Pandy', 0, 4, 3, 0, '2020-02-02', NULL),
-('Kanga', 0, 5, 1, 0, '2018-08-08', NULL),
-('Pingu', 0, 6, 4, 0, '2021-01-01', NULL),
+('Pandy', 2, 4, 3, 0, '2020-02-02', NULL),
+('Yann', 2, 7, 1, 0, '2018-08-08', NULL),
+('Yoann', 2, 8, 4, 0, '2021-01-01', NULL),
 ('Flamy', 0, 6, 1, 0, '2019-09-09', NULL),
-('Bear', 0, 1, 2, 0, '2016-12-12', NULL),
+('Bear', 2, 1, 2, 0, '2016-12-12', NULL),
 ('Wolfie', 0, 1, 1, 0, '2017-07-07', NULL),
-('Momo', 0, 2, 3, 0, '2018-10-10', NULL),
+('Momo', 2, 2, 3, 0, '2018-10-10', NULL),
 ('Foxy', 0, 1, 1, 0, '2019-03-03', NULL),
-('Hippo', 0, 3, 4, 0, '2015-05-05', NULL),
-('Rhiny', 0, 3, 2, 0, '2014-04-04', NULL),
+('Hippo', 2, 3, 4, 0, '2015-05-05', NULL),
+('Rhiny', 2, 3, 2, 0, '2014-04-04', NULL),
 ('Chee', 0, 1, 1, 0, '2020-06-06', NULL),
-('Leo2', 0, 1, 3, 0, '2017-09-09', NULL),
+('Leo2', 2, 1, 3, 0, '2017-09-09', NULL),
 ('Cammy', 0, 5, 1, 0, '2016-01-01', NULL),
-('Otto', 0, 6, 4, 0, '2018-12-12', NULL),
+('Otto', 2, 6, 4, 0, '2018-12-12', NULL),
 ('Koala', 0, 5, 2, 0, '2019-11-11', NULL),
-('Deer', 0, 2, 1, 0, '2017-02-02', NULL),
+('Deer', 2, 2, 1, 0, '2017-02-02', NULL),
 ('Eagle', 0, 6, 3, 1, '2016-03-03', NULL);
 
 -- ======================================
