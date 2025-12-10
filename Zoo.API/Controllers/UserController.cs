@@ -78,20 +78,23 @@ namespace Zoo.API.Controllers
         }
 
         [Authorize]
-        [HttpPost("MyAccount")]
-        public ActionResult<UserEditFormDTO> MyAccount([FromForm] UserEditFormDTO user)
+        [HttpPut("EditAccount")]
+        public ActionResult<UserEditFormDTO> MyAccount([FromBody] UserFormDTO user)
         {
             if(user is null||!ModelState.IsValid) 
             {
                 throw new RegisterException("Incomplete informations to fill edit the account.");
             }
-            int id=User.GetUserID();
-            _userService.EditAccount(user.FromUserEditForm(), id);
-            return Ok();
+            int id=_userService.GetAccount(user.Email).Id;
+            _userService.EditAccount(user.FromUserForm(), id);
+            Employee? employee = _employeeService.GetEmployeeByEmployeeId(id);
+            string token = _authService.GenerateToken(user.FromUserForm(),employee);
+            Console.WriteLine(token);
+            return Ok(new { token });
         }
 
         [Authorize]
-        [HttpGet("Delete")]
+        [HttpDelete("Delete")]
         public ActionResult Delete() 
         {
             if(!User.GetRole().Equals("Client")) 
