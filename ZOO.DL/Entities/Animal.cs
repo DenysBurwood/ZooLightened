@@ -6,6 +6,7 @@ namespace Zoo.DL.Entities
     {
         public string Name { get; set; } = null!;
         public Sex Sex { get; set; }
+
         public int SpeciesId { get; set; }
 
         public AnimalSpecies Species { get; set; } = null!;

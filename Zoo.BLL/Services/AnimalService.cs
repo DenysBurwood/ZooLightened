@@ -109,18 +109,10 @@ namespace Zoo.BLL.Services
             _animalRepository.Add(animal);
         }
 
-        public void Modify(int id, Animal animal) 
+        public void Modify(int id, Animal animal)
         {
-            if(animal is null)
-            {
-                throw new AnimalNotFoundException();
-            }
-            Animal? current = _animalRepository.GetEntityById(id);
-            if(_animalRepository.GetSpeciesById(animal.SpeciesId) is null || current is null)
-            {
-                throw new AnimalNotFoundException($"Species name of animal with id {id} and spieciesId: {animal.SpeciesId} not found");
-            }
-            _animalRepository.Update(current);
+            if (animal is null) throw new AnimalNotFoundException();
+            _animalRepository.Update(id, animal);
         }
         public void DeleteAnimal(int id) 
         {

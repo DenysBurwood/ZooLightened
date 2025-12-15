@@ -20,7 +20,7 @@ namespace Zoo.API.Controllers
             _animalRentalService = animalRentalService;
         }
 
-        [Authorize(Roles = "Director,Admin,Veterinarian")]
+        //[Authorize(Roles = "Director,Admin,Veterinarian")]
         [HttpPatch("UpdateAnimalMovements")]
         public ActionResult<AnimalIndexDTO> UpdateAnimalMovements()
         {
@@ -28,7 +28,7 @@ namespace Zoo.API.Controllers
             return Ok();
         }
 
-        [Authorize(Roles = "Director,Admin")]
+        //[Authorize(Roles = "Director,Admin")]
         [HttpPost("GetMovementsToHandle")]
         public ActionResult<List<AnimalMovementDto>> GetMovementsToHandle([FromForm] int page = 0, [FromForm] int nbPage = 10)
         {
@@ -43,7 +43,7 @@ namespace Zoo.API.Controllers
             return Ok(movementDtos);
         }
 
-        [Authorize(Roles = "Director,Admin")]
+        //[Authorize(Roles = "Director,Admin")]
         [HttpPost("Rent")]
         public ActionResult<AnimalRentFormDto> RentAnimal([FromForm] AnimalRentFormDto animal)
         {
@@ -55,7 +55,7 @@ namespace Zoo.API.Controllers
             return Ok();
         }
 
-        [Authorize(Roles = "Director,Admin")]
+        //[Authorize(Roles = "Director,Admin")]
         [HttpPost("HireNew")]
         public ActionResult<AnimalIndexDTO> HireNewAnimal([FromForm] AnimalFormDTO animalform, [FromForm] AnimalHireFormDto hireform)
         {
@@ -67,7 +67,7 @@ namespace Zoo.API.Controllers
             return Ok();
         }
 
-        [Authorize(Roles = "Director,Admin")]
+        //[Authorize(Roles = "Director,Admin")]
         [HttpPost("HireExisting")]
         public ActionResult<AnimalIndexDTO> HireExistingAnimal([FromForm] AnimalHireFormDto animal)
         {
@@ -79,7 +79,7 @@ namespace Zoo.API.Controllers
             return Ok();
         }
 
-        [Authorize(Roles = "Admin,Administration")]
+        //[Authorize(Roles = "Admin,Administration")]
         [HttpPost("Receive")]
         public ActionResult<AnimalReceptionFormDto> ReceiveAnimal([FromForm] AnimalReceptionFormDto animal)
         {
@@ -91,7 +91,7 @@ namespace Zoo.API.Controllers
             return Ok($"The animal {animal.AnimalId} has just been received !");
         }
 
-        [Authorize(Roles = "Admin,Administration")]
+        //[Authorize(Roles = "Admin,Administration")]
         [HttpPost("Dispatch")]
         public ActionResult<AnimalDispatchingFormDto> DispatchAnimal([FromForm] AnimalDispatchingFormDto animal)
         {

@@ -10,9 +10,11 @@ namespace Zoo.API.Mappers
         {
             return new AnimalIndexDTO()
             {
+                Id = Animal.Id,
                 Name = Animal.Name,
                 SpeciesName=Animal.Species.Name,
                 Sex=Animal.Sex.ToString(),
+                SexId = (int)Animal.Sex,
             };
         }
 
@@ -23,7 +25,9 @@ namespace Zoo.API.Mappers
                 Name=animal.Name,
                 Sex=animal.Sex,
                 SpeciesName=animal.Species.Name,
-                OwnerId=animal.Owner.Id,
+                OwnerId =animal.OwnerId,
+                BirthDate=animal.BirthDate,
+                RIPDate=animal.RIPDate,
             };
         }
 
@@ -31,26 +35,29 @@ namespace Zoo.API.Mappers
         {
             return new AnimalDetailsDTO()
             {
+                Id=animal.Id,
                 Name=animal.Name,
                 OwnerName=animal.Owner is null ? null : animal.Owner.Name,
+                OwnerId=animal.OwnerId,
                 SpeciesName=animal.Species.Name,
                 BirthDate=animal.BirthDate,
                 RIPDate=animal.RIPDate,
                 Sex=animal.Sex.ToString(),
+                SexId=(int)animal.Sex,
                 IsAvailable=animal.IsAvailable,
             };
         }
-         
-        public static Animal FromAnimalFormDTO(this AnimalFormDTO animalForm) 
+
+        public static Animal FromAnimalFormDTO(this AnimalFormDTO dto)
         {
-            return new Animal()
+            return new Animal
             {
-                Name=animalForm.Name,
-                //SpeciesId=animalForm.,
-                OwnerId=animalForm.OwnerId,
-                Sex = animalForm.Sex,
-                BirthDate=animalForm.BirthDate,
-                RIPDate=animalForm.RIPDate,
+                Name = dto.Name,
+                Sex = dto.Sex,
+                OwnerId = dto.OwnerId,
+                BirthDate = dto.BirthDate,
+                RIPDate = dto.RIPDate,
+                Species = new AnimalSpecies { Name = dto.SpeciesName }
             };
         }
 

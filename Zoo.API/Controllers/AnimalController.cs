@@ -39,6 +39,15 @@ namespace Zoo.API.Controllers
             return Ok(animal);
         }
 
+        [HttpGet("ById/{id}")]
+        public ActionResult<AnimalDetailsDTO> GetAnimal([FromRoute] int id)
+        {
+            AnimalDetailsDTO animal = _animalService.GetAnimal(id).ToAnimalDetailsDTO();
+            return Ok(animal);
+        }
+    
+
+
         [HttpGet("AnimalSpecies")]
         public ActionResult<List<AnimalSpeciesDTO>> GetSpecies()
         {
@@ -48,23 +57,23 @@ namespace Zoo.API.Controllers
             return animalSpecies;
         }
 
-        [Authorize(Roles = "Admin,Veterinarian")]
+        //[Authorize(Roles = "Admin,Veterinarian")]
         [HttpPost("Birth")]
-        public ActionResult<AnimalFormDTO> AddOne([FromForm] AnimalFormDTO animal) 
+        public ActionResult<AnimalFormDTO> AddOne([FromBody] AnimalFormDTO animal) 
         {
             _animalService.AddAnimal(animal.FromAnimalFormDTO(), animal.SpeciesName);
             return Ok();
         }
 
-        [Authorize(Roles = "Admin,Veterinarian")]
-        [HttpPatch("Modification")]
-        public ActionResult<AnimalFormDTO> Modify([FromForm] AnimalFormDTO animal,[FromForm] int id) 
+        //[Authorize(Roles = "Admin,Veterinarian")]
+        [HttpPatch("Modification/{id}")]
+        public IActionResult Modify([FromRoute] int id, [FromBody] AnimalFormDTO animal)
         {
             _animalService.Modify(id, animal.FromAnimalFormDTO());
             return Ok();
         }
 
-        [Authorize(Roles = "Admin,Veterinarian")]
+        //[Authorize(Roles = "Admin,Veterinarian")]
         [HttpPost("Death")]
         public ActionResult<AnimalFormDTO> DeleteOne([FromForm] int id) 
         {

@@ -16,9 +16,15 @@ namespace Zoo.DAL.Database.Configs
             builder.Property(a => a.Name).IsRequired();
             builder.Property(a => a.Sex).IsRequired();
 
-            builder.HasOne(a => a.Species).WithMany(asp => asp.Animals).IsRequired();
+            builder.HasOne(a => a.Species)
+               .WithMany(asp => asp.Animals)
+               .HasForeignKey(a => a.SpeciesId)
+               .IsRequired();
 
-            builder.HasOne(a => a.Owner).WithMany(o => o.Animals).IsRequired();
+            builder.HasOne(a => a.Owner)
+               .WithMany(o => o.Animals)
+               .HasForeignKey(a => a.OwnerId)
+               .IsRequired();
 
             builder.HasMany(a => a.AnimalMovements).WithOne(am => am.Animal);
 
