@@ -10,5 +10,7 @@ namespace Zoo.API.DTOs.Animals
         public string Sex { get; set; }
 
         public int SexId { get; set; }
+
+ 
     }
 }

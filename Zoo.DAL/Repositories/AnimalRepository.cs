@@ -101,7 +101,7 @@ namespace Zoo.DAL.Repositories
             current.OwnerId = entity.OwnerId;
             current.BirthDate = entity.BirthDate;
             current.RIPDate = entity.RIPDate;
-
+            current.Description = entity.Description;
            
             current.SpeciesId = species.Id;
 

@@ -35,30 +35,74 @@ VALUES
 -- ======================================
 -- 4) Animal
 -- ======================================
-INSERT INTO Animal (Name, Sex, SpeciesId, OwnerId, IsAvailable, BirthDate, RIPDate)
+INSERT INTO Animal (Name, Sex, SpeciesId, OwnerId, IsAvailable, BirthDate, RIPDate, Description)
 VALUES
-('Leo', 2, 1, 2, 0, '2018-05-10', NULL),
-('Gigi', 0, 2, 3, 0, '2019-07-15', NULL),
-('Tiggy', 0, 1, 4, 0, '2017-03-20', NULL),
-('Dumbo', 2, 3, 1, 0, '2015-01-01', NULL),
-('Zara', 0, 2, 2, 0, '2016-11-11', NULL),
-('Pandy', 2, 4, 3, 0, '2020-02-02', NULL),
-('Yann', 2, 7, 1, 0, '2018-08-08', NULL),
-('Yoann', 2, 8, 4, 0, '2021-01-01', NULL),
-('Flamy', 0, 6, 1, 0, '2019-09-09', NULL),
-('Bear', 2, 1, 2, 0, '2016-12-12', NULL),
-('Wolfie', 0, 1, 1, 0, '2017-07-07', NULL),
-('Momo', 2, 2, 3, 0, '2018-10-10', NULL),
-('Foxy', 0, 1, 1, 0, '2019-03-03', NULL),
-('Hippo', 2, 3, 4, 0, '2015-05-05', NULL),
-('Rhiny', 2, 3, 2, 0, '2014-04-04', NULL),
-('Chee', 0, 1, 1, 0, '2020-06-06', NULL),
-('Leo2', 2, 1, 3, 0, '2017-09-09', NULL),
-('Cammy', 0, 5, 1, 0, '2016-01-01', NULL),
-('Otto', 2, 6, 4, 0, '2018-12-12', NULL),
-('Koala', 0, 5, 2, 0, '2019-11-11', NULL),
-('Deer', 2, 2, 1, 0, '2017-02-02', NULL),
-('Eagle', 0, 6, 3, 1, '2016-03-03', NULL);
+('Leo', 2, 1, 2, 0, '2018-05-10', NULL,
+'Leo est un lion adulte au tempérament calme et réfléchi. Il passe une grande partie de ses journées à observer silencieusement son environnement, allongé à l’ombre ou au soleil selon la saison. Très attaché à son territoire, il préfère éviter les conflits inutiles mais sait imposer le respect lorsque c’est nécessaire. Leo est également connu pour sa patience et sa capacité à analyser les situations avant d’agir, ce qui en fait un leader naturel et respecté par les autres animaux autour de lui.'),
+
+('Gigi', 0, 2, 3, 0, '2019-07-15', NULL,
+'Gigi est une girafe curieuse et pleine d’énergie, toujours attirée par ce qui se passe autour d’elle. Elle aime explorer son espace en se déplaçant lentement mais sûrement, utilisant sa grande taille pour observer des zones inaccessibles aux autres animaux. Gigi est sociable et apprécie la compagnie, même si elle peut parfois se montrer un peu distraite. Elle passe beaucoup de temps à se nourrir des feuilles les plus hautes, prenant son temps et savourant chaque instant.'),
+
+('Tiggy', 0, 1, 4, 0, '2017-03-20', NULL,
+'Tiggy est une lionne vive et attentive, dotée d’un fort instinct protecteur. Elle est particulièrement vigilante envers les membres de son groupe et n’hésite pas à intervenir lorsqu’elle perçoit un danger. Malgré son sérieux apparent, Tiggy aime jouer et courir lorsqu’elle se sent en confiance. Elle combine agilité, intelligence et rapidité, ce qui fait d’elle une chasseuse efficace. Son comportement équilibré en fait une présence rassurante pour ceux qui l’entourent.'),
+
+('Dumbo', 2, 3, 1, 0, '2015-01-01', NULL,
+'Dumbo est un éléphant imposant mais extrêmement doux. Doté d’une excellente mémoire, il se souvient des lieux, des habitudes et des individus qu’il a croisés au fil des années. Il avance lentement, avec assurance, et inspire naturellement le calme. Dumbo est très sociable et apprécie les interactions paisibles avec son environnement. Il joue souvent un rôle stabilisateur au sein du groupe, grâce à son tempérament posé et sa grande expérience.'),
+
+('Zara', 0, 2, 2, 0, '2016-11-11', NULL,
+'Zara est une girafe élégante reconnaissable à son pelage distinctif. Elle se déplace avec grâce et semble toujours attentive à ce qui l’entoure. Bien qu’elle soit indépendante, Zara n’est jamais loin des autres et garde un œil vigilant sur son environnement. Elle apprécie les moments calmes passés à se nourrir, mais peut aussi se montrer curieuse face à la nouveauté. Sa présence apporte une impression de sérénité et d’équilibre.'),
+
+('Pandy', 2, 4, 3, 0, '2020-02-02', NULL,
+'Pandy est un panda paisible et gourmand, dont la principale occupation est de manger du bambou. Il peut passer des heures à s’alimenter sans se presser, profitant pleinement de chaque moment. D’un naturel tranquille, il évite toute agitation inutile et préfère les environnements calmes. Malgré son apparence nonchalante, Pandy est observateur et réagit rapidement lorsqu’il se sent menacé. Son comportement détendu en fait un animal particulièrement apprécié.'),
+
+('Yann', 2, 7, 1, 0, '2018-08-08', NULL,
+'Yann est un colvert très sociable et expressif. Il se fait facilement remarquer par ses vocalisations fréquentes et son comportement dynamique. À l’aise aussi bien dans l’eau que sur la terre ferme, il passe beaucoup de temps à nager et à interagir avec les autres canards. Yann est curieux et n’hésite pas à s’approcher pour observer ce qui l’intrigue. Son énergie constante apporte de la vie à son environnement.'),
+
+('Yoann', 2, 8, 4, 0, '2021-01-01', NULL,
+'Yoann est un canard mandarin élégant, connu pour son plumage coloré et son attitude discrète. Contrairement à d’autres canards plus bruyants, il préfère rester en retrait et observer calmement. Yoann est très méthodique dans ses déplacements et choisit soigneusement les endroits où il se repose. Il apprécie les zones calmes et peu fréquentées, où il peut évoluer sans stress. Sa beauté naturelle attire souvent l’attention malgré sa réserve.'),
+
+('Flamy', 0, 6, 1, 0, '2019-09-09', NULL,
+'Flamy est une femelle pingouin énergique et joueuse. Elle adore nager et passe beaucoup de temps dans l’eau, où elle se montre rapide et agile. Sur la terre ferme, elle est souvent en mouvement, glissant ou marchant avec entrain. Flamy est sociable et apprécie la présence de ses congénères, avec lesquels elle interagit régulièrement. Son dynamisme constant la rend facilement reconnaissable au sein du groupe.'),
+
+('Bear', 2, 1, 2, 0, '2016-12-12', NULL,
+'Bear est un lion puissant à l’allure imposante. Il dégage une grande assurance et sait se faire respecter sans avoir besoin de démonstrations excessives. Son rugissement profond est souvent entendu, marquant clairement sa présence. Malgré son apparence intimidante, Bear est réfléchi et préfère maintenir l’ordre plutôt que provoquer des conflits. Il passe beaucoup de temps à se reposer, conservant son énergie pour les moments réellement importants.'),
+
+('Wolfie', 0, 1, 1, 0, '2017-07-07', NULL,
+'Wolfie est une lionne agile et rapide, toujours attentive à ce qui se passe autour d’elle. Elle excelle dans les déplacements discrets et sait se fondre dans son environnement. Très observatrice, elle anticipe facilement les situations et réagit avec précision. Wolfie apprécie les moments de calme, mais se montre redoutablement efficace lorsqu’une action est nécessaire. Son intelligence et sa vivacité en font un atout précieux pour le groupe.'),
+
+('Momo', 2, 2, 3, 0, '2018-10-10', NULL,
+'Momo est une girafe calme et posée, appréciée pour son comportement paisible. Elle passe beaucoup de temps à observer le paysage, profitant de sa hauteur pour surveiller les alentours. Peu stressée par les changements, Momo s’adapte facilement aux nouvelles situations. Elle aime les routines et les environnements stables. Sa nature tranquille contribue à instaurer une atmosphère sereine autour d’elle.'),
+
+('Foxy', 0, 1, 1, 0, '2019-03-03', NULL,
+'Foxy est une jeune lionne pleine de curiosité et d’énergie. Elle explore constamment son environnement, testant ses capacités et affinant ses réflexes. Encore en phase d’apprentissage, elle observe attentivement les adultes et imite leurs comportements. Foxy est joueuse et parfois téméraire, mais montre déjà de bons instincts. Sa vivacité et son enthousiasme annoncent un fort potentiel pour l’avenir.'),
+
+('Hippo', 2, 3, 4, 0, '2015-05-05', NULL,
+'Hippo est un éléphant massif à l’attitude bienveillante. Il se déplace lentement mais avec assurance, inspirant un sentiment de sécurité. Très attaché à son groupe, il veille à maintenir une cohésion harmonieuse. Hippo est patient et tolérant, supportant aisément la présence des plus jeunes. Sa force tranquille et son comportement protecteur en font une figure centrale au sein de son environnement.'),
+
+('Rhiny', 2, 3, 2, 0, '2014-04-04', NULL,
+'Rhiny est un éléphant expérimenté, marqué par de nombreuses années d’observation et de vie en groupe. Il agit rarement sans réfléchir et privilégie toujours les solutions calmes. Son comportement posé influence positivement les autres animaux, qui semblent naturellement se fier à lui. Rhiny apprécie les moments de repos prolongés et les interactions paisibles. Sa sagesse se ressent dans chacun de ses gestes.'),
+
+('Chee', 0, 1, 1, 0, '2020-06-06', NULL,
+'Chee est une jeune lionne attentive et énergique. Elle apprend rapidement et montre déjà une grande capacité d’adaptation. Très curieuse, elle observe attentivement son environnement et les comportements des autres lions. Chee alterne entre des phases de jeu intense et des moments de calme où elle se repose longuement. Sa progression rapide laisse présager un avenir prometteur au sein du groupe.'),
+
+('Leo2', 2, 1, 3, 0, '2017-09-09', NULL,
+'Leo2 est un lion plutôt solitaire, préférant les zones calmes et éloignées de l’agitation. Il apprécie les longues périodes de repos et choisit soigneusement ses déplacements. Bien qu’il soit moins sociable, il n’est pas agressif et tolère la présence des autres lorsqu’elle est respectueuse. Leo2 est indépendant et sûr de lui, avançant à son propre rythme sans chercher à dominer.'),
+
+('Cammy', 0, 5, 1, 0, '2016-01-01', NULL,
+'Cammy est un kangourou vif et curieux, toujours prêt à explorer de nouveaux espaces. Elle se déplace avec agilité et maîtrise parfaitement ses sauts. Cammy est attentive à son environnement et réagit rapidement au moindre changement. Sociable sans être envahissante, elle apprécie la compagnie tout en conservant son indépendance. Son énergie constante la rend très active au quotidien.'),
+
+('Otto', 2, 6, 4, 0, '2018-12-12', NULL,
+'Otto est un pingouin calme et endurant, reconnu pour ses excellentes capacités de nage. Il préfère les comportements mesurés et évite les excès d’agitation. Très organisé, Otto suit des routines bien établies et semble apprécier la stabilité. Dans l’eau, il se montre précis et efficace, tandis que sur la terre ferme, il adopte une attitude posée. Sa constance inspire confiance.'),
+
+('Koala', 0, 5, 2, 0, '2019-11-11', NULL,
+'Koala est un kangourou doux et prudent, toujours attentif à ce qui l’entoure. Elle prend rarement des risques inutiles et privilégie les zones qu’elle connaît bien. Koala observe longuement avant d’agir, ce qui lui permet d’éviter les situations dangereuses. Elle apprécie les moments calmes et les déplacements contrôlés. Son comportement réfléchi contraste avec celui des kangourous plus impulsifs.'),
+
+('Deer', 2, 2, 1, 0, '2017-02-02', NULL,
+'Deer est une girafe imposante au tempérament très paisible. Il se distingue par sa capacité à rester calme même dans des situations inhabituelles. Peu réactif aux perturbations, Deer préfère continuer ses activités sans se presser. Il passe de longues heures à se nourrir et à observer tranquillement son environnement. Sa stabilité et son assurance naturelle en font une présence rassurante.'),
+
+('Eagle', 0, 6, 3, 1, '2016-03-03', NULL,
+'Eagle est une pingouin plus âgée, au comportement calme et réfléchi. Moins active qu’autrefois, elle privilégie désormais le repos et les déplacements mesurés. Elle conserve néanmoins une grande expérience, acquise au fil des années. Eagle observe beaucoup et intervient rarement, mais son attitude inspire le respect. Sa présence discrète apporte une certaine sagesse au groupe.');
+
 
 -- ======================================
 -- 5) AnimalMovement

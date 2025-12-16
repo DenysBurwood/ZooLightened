@@ -22,5 +22,7 @@ namespace Zoo.DL.Entities
         public DateTime? RIPDate {  get; set; }
 
         public List<AnimalMovement>? AnimalMovements { get; set; }
+
+        public string? Description { get; set; } = null!;
     }
 }

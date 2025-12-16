@@ -18,18 +18,18 @@ namespace Zoo.API.Mappers
             };
         }
 
-        public static AnimalFormDTO ToAnimalFormDTO(this Animal animal) 
-        {
-            return new AnimalFormDTO()
-            {
-                Name=animal.Name,
-                Sex=animal.Sex,
-                SpeciesName=animal.Species.Name,
-                OwnerId =animal.OwnerId,
-                BirthDate=animal.BirthDate,
-                RIPDate=animal.RIPDate,
-            };
-        }
+        //public static AnimalFormDTO ToAnimalFormDTO(this Animal animal) 
+        //{
+        //    return new AnimalFormDTO()
+        //    {
+        //        Name=animal.Name,
+        //        Sex=animal.Sex,
+        //        SpeciesName=animal.Species.Name,
+        //        OwnerId =animal.OwnerId,
+        //        BirthDate=animal.BirthDate,
+        //        RIPDate=animal.RIPDate,
+        //    };
+        //}
 
         public static AnimalDetailsDTO ToAnimalDetailsDTO(this Animal animal) 
         {
@@ -45,6 +45,7 @@ namespace Zoo.API.Mappers
                 Sex=animal.Sex.ToString(),
                 SexId=(int)animal.Sex,
                 IsAvailable=animal.IsAvailable,
+                Description=animal.Description,
             };
         }
 
@@ -57,7 +58,8 @@ namespace Zoo.API.Mappers
                 OwnerId = dto.OwnerId,
                 BirthDate = dto.BirthDate,
                 RIPDate = dto.RIPDate,
-                Species = new AnimalSpecies { Name = dto.SpeciesName }
+                Species = new AnimalSpecies { Name = dto.SpeciesName },
+                Description = dto.Description,
             };
         }
 

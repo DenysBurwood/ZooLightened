@@ -18,5 +18,7 @@ namespace Zoo.API.DTOs.Animals
         public bool IsAvailable { get; set; }
         public DateTime BirthDate { get; set; }
         public DateTime? RIPDate { get; set; }
+
+        public string? Description { get; set; }
     }
 }

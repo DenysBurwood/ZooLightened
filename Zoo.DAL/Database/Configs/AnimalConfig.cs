@@ -33,6 +33,8 @@ namespace Zoo.DAL.Database.Configs
             builder.Property(a => a.BirthDate).IsRequired();
 
             builder.Property(a => a.RIPDate);
+
+            builder.Property(a => a.Description);
         }
     }
 }
