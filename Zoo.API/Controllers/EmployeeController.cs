@@ -70,7 +70,7 @@ namespace Zoo.API.Controllers
 
         //[Authorize(Roles = "Administration,Director,Admin")]
         [HttpPost("NewEmployee")]
-        public ActionResult<EmployeeFormDTO> NewEmployee([FromForm] FullEmployeeFormDTO employee) 
+        public ActionResult<EmployeeFormDTO> NewEmployee([FromBody] FullEmployeeFormDTO employee) 
         {
             if(employee is null||!ModelState.IsValid) 
             {
