@@ -10,10 +10,11 @@ namespace Zoo.API.DTOs.Animals
         public string Name { get; set; } = null!;
         public Sex Sex { get; set; }
 
-        [Required]
+        
         public string SpeciesName { get; set; } = null!;
+
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "A positive owner Id")]
+        [Range(0, int.MaxValue, ErrorMessage = "A positive owner Id")]
         public int OwnerId { get; set; }
 
         [Required]

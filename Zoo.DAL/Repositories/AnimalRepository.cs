@@ -84,14 +84,28 @@ namespace Zoo.DAL.Repositories
 
         }
 
-        //  Update not working properly. Need to further inquire inside.
-        public void Update(Animal entity)
+        public void Update(int id, Animal entity)
         {
-            //Animal current = _animals.FirstOrDefault(x => x.Id==entity.Id)!;
-            //current.Name=entity.Name;
-            //current.SpeciesId=entity.SpeciesId;
-            //current.Sex=entity.Sex;
-            //current.Species=entity.Species;
+            var current = _context.Set<Animal>()
+                .Include(a => a.Species)
+                .FirstOrDefault(a => a.Id == id);
+
+            if (current is null) throw new Exception($"Animal {id} not found");
+
+            var species = _animalSpecies.FirstOrDefault(s => s.Name == entity.Species.Name);
+
+            if (species is null) throw new Exception($"Species '{entity.Species.Name}' not found");
+
+            current.Name = entity.Name;
+            current.Sex = entity.Sex;
+            current.OwnerId = entity.OwnerId;
+            current.BirthDate = entity.BirthDate;
+            current.RIPDate = entity.RIPDate;
+
+           
+            current.SpeciesId = species.Id;
+
+
             _context.SaveChanges();
         }
 

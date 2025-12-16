@@ -20,31 +20,12 @@ namespace Zoo.BLL.Services
         {
             Func<Animal,bool>? func = null;
             string[]? queries = [];
-            //List<string> names = [];
-            //if(name is not null)
-            //{
-            //    names=name.Split(',').Select(n => n.Trim()).ToList();
-            //}
-            //Func<Animal,bool>? func = null;
-            //foreach(string animalName in names)
-            //{
 
-            //}
-            //Func<Animal,bool> func = (a) => { if(a.Name.Equals("")) { return true; } else { return false; } };
-            //if(query is not null) 
-            //{
-            //    queries = query.Split(',');
-            //    queries.Select(q => q.Trim());
-            //    Console.WriteLine(query);
-            //    Console.WriteLine(queries);
-
-            //    func=(animal) => (animal.Name.Equals());
-            //}
             List<Animal>? animals = _animalRepository.GetAll(page,sizePage).ToList();
-            if(animals.Count()==0) 
-            {
-                throw new AnimalNotFoundException();
-            }
+            //if(animals.Count()==0) 
+            //{
+            //    throw new AnimalNotFoundException();
+            //}
             List<AnimalSpecies> species = animals.Select(animal => animal.Species=_animalRepository.GetSpeciesById(animal.SpeciesId)!).ToList();
             for(int i = 0; i<animals.Count(); i++) 
             {
@@ -109,18 +90,10 @@ namespace Zoo.BLL.Services
             _animalRepository.Add(animal);
         }
 
-        public void Modify(int id, Animal animal) 
+        public void Modify(int id, Animal animal)
         {
-            if(animal is null)
-            {
-                throw new AnimalNotFoundException();
-            }
-            Animal? current = _animalRepository.GetEntityById(id);
-            if(_animalRepository.GetSpeciesById(animal.SpeciesId) is null || current is null)
-            {
-                throw new AnimalNotFoundException($"Species name of animal with id {id} and spieciesId: {animal.SpeciesId} not found");
-            }
-            _animalRepository.Update(current);
+            if (animal is null) throw new AnimalNotFoundException();
+            _animalRepository.Update(id, animal);
         }
         public void DeleteAnimal(int id) 
         {

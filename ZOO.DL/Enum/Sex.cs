@@ -3,10 +3,9 @@ namespace Zoo.DL.Enum
 {
     public enum Sex
     {
-        Female,
+        Femelle,
         Hermaphrodite,
-        Male,
-        Genderless,
+        Mâle,
         Other,
     }
 }

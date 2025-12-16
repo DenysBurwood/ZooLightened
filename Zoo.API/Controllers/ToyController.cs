@@ -34,7 +34,7 @@ namespace Zoo.API.Controllers
             return Ok(dtos);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("Donation")]
 
         public ActionResult<ToyIndexDto> Donate([FromBody] ToyDonationFormDto form)
