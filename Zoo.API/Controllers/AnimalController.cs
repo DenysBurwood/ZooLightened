@@ -58,7 +58,7 @@ namespace Zoo.API.Controllers
         }
 
         //[Authorize(Roles = "Admin,Veterinarian")]
-        [HttpPost("Birth")]
+        [HttpPost("Create")]
         public ActionResult<AnimalFormDTO> AddOne([FromBody] AnimalFormDTO animal) 
         {
             _animalService.AddAnimal(animal.FromAnimalFormDTO(), animal.SpeciesName);
@@ -74,8 +74,8 @@ namespace Zoo.API.Controllers
         }
 
         //[Authorize(Roles = "Admin,Veterinarian")]
-        [HttpPost("Death")]
-        public ActionResult<AnimalFormDTO> DeleteOne([FromForm] int id) 
+        [HttpPost("Delete")]
+        public ActionResult<AnimalFormDTO> DeleteOne([FromBody] int id) 
         {
             _animalService.DeleteAnimal(id);
             return Ok();

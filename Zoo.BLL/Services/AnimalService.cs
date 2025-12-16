@@ -20,31 +20,12 @@ namespace Zoo.BLL.Services
         {
             Func<Animal,bool>? func = null;
             string[]? queries = [];
-            //List<string> names = [];
-            //if(name is not null)
-            //{
-            //    names=name.Split(',').Select(n => n.Trim()).ToList();
-            //}
-            //Func<Animal,bool>? func = null;
-            //foreach(string animalName in names)
-            //{
 
-            //}
-            //Func<Animal,bool> func = (a) => { if(a.Name.Equals("")) { return true; } else { return false; } };
-            //if(query is not null) 
-            //{
-            //    queries = query.Split(',');
-            //    queries.Select(q => q.Trim());
-            //    Console.WriteLine(query);
-            //    Console.WriteLine(queries);
-
-            //    func=(animal) => (animal.Name.Equals());
-            //}
             List<Animal>? animals = _animalRepository.GetAll(page,sizePage).ToList();
-            if(animals.Count()==0) 
-            {
-                throw new AnimalNotFoundException();
-            }
+            //if(animals.Count()==0) 
+            //{
+            //    throw new AnimalNotFoundException();
+            //}
             List<AnimalSpecies> species = animals.Select(animal => animal.Species=_animalRepository.GetSpeciesById(animal.SpeciesId)!).ToList();
             for(int i = 0; i<animals.Count(); i++) 
             {
