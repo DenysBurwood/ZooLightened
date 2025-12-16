@@ -22,7 +22,10 @@ namespace Zoo.DAL.Database.Configs
             builder.Property(u => u.Password).IsRequired();
 
             
-            builder.HasOne(u => u.Employee).WithOne(e => e.User).HasForeignKey<Employee>(e => e.Id);
+            //builder.HasOne(u => u.Employee).WithOne(e => e.User).HasForeignKey<Employee>(e => e.Id);
+        //  probablement plutôt :
+          builder.HasOne(u => u.Employee).WithOne(e => e.User).HasForeignKey<Employee>(e => e.UserId);
+        //  on a comme problème que employee.id est lié à user.id au lieu de employee.userID lié à user.id
 
 
         }

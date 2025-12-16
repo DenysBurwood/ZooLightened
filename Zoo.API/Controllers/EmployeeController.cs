@@ -32,7 +32,8 @@ namespace Zoo.API.Controllers
         [HttpGet("MyEmployeeSheet")]
         public ActionResult<EmployeeAccountDTO> MyEmployeeAccount()
         {
-            User user = _userService.GetAccount(User.GetUserEmail());
+            string email = _userService.GetUser(User.GetUserID())!.Email;
+            User user = _userService.GetAccount(email);
             Address address = new Address();
             if(user.EmployeeId is null)
             {

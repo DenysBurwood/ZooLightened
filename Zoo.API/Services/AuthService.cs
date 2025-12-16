@@ -21,9 +21,9 @@ namespace Zoo.API.Services
             List<Claim> claims = new List<Claim>(){
                     new Claim(ClaimTypes.Sid, user.Id.ToString()),
                     new Claim(ClaimTypes.Role, employee is null ? "Client" : employee.EmployeeType.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Name, user.FirstName),
-                    new Claim(ClaimTypes.Upn, user.LastName),
+                    //new Claim(ClaimTypes.Email, user.Email),
+                    //new Claim(ClaimTypes.Name, user.FirstName),
+                    //new Claim(ClaimTypes.Upn, user.LastName),
                 };
 
             //  Creadantial pour signer le token (clé + algorithme)

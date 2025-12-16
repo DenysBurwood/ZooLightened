@@ -11,6 +11,7 @@ namespace Zoo.API.Tools
 
         public static string GetUserEmail(this ClaimsPrincipal claim) 
         {
+            //  We got rid of the email in our claims
             return claim.FindFirst(ClaimTypes.Email)!.Value;
         }
 

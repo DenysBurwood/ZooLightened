@@ -162,6 +162,8 @@ namespace Zoo.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
@@ -180,6 +182,9 @@ namespace Zoo.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Employee", (string)null);
                 });
@@ -381,7 +386,7 @@ namespace Zoo.DAL.Migrations
 
                     b.HasOne("Zoo.DL.Entities.Humans.User", "User")
                         .WithOne("Employee")
-                        .HasForeignKey("Zoo.DL.Entities.Humans.Employee", "Id")
+                        .HasForeignKey("Zoo.DL.Entities.Humans.Employee", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

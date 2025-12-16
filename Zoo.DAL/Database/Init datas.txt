@@ -98,11 +98,11 @@ VALUES
 -- ======================================
 INSERT INTO [User] (FirstName, LastName, Email, Password, EmployeeId, IsSubscribed)
 VALUES
-('Alice', 'Martin', 'alice.martin@zooverviers.be', 'Password123!', NULL, 1),
-('Bob', 'Dupont', 'bob.dupont@zoobrussels.be', 'Password123!', NULL, 1),
-('Carla', 'Janssen', 'carla.janssen@zooantwerp.be', 'Password123!', NULL, 1),
-('David', 'Leroy', 'david.leroy@safariliege.be', 'Password123!', NULL, 1),
-('Eve', 'Thomas', 'eve.thomas@zooverviers.be', 'Password123!', NULL, 1);
+('Alice', 'Martin', 'alice.martin@zooverviers.be', 'Password123!', 1, 1),
+('Bob', 'Dupont', 'bob.dupont@zoobrussels.be', 'Password123!', 2, 1),
+('Carla', 'Janssen', 'carla.janssen@zooantwerp.be', 'Password123!', 3, 1),
+('David', 'Leroy', 'david.leroy@safariliege.be', 'Password123!', 4, 1),
+('Eve', 'Thomas', 'eve.thomas@zooverviers.be', 'Password123!', 5, 1);
 
 -- ======================================
 -- 7) Employee

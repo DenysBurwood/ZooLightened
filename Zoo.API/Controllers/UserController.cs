@@ -72,7 +72,7 @@ namespace Zoo.API.Controllers
         [HttpGet("MyAccount")]
         public ActionResult<UserAccountDTO> MyAccount()
         {
-            string email = User.GetUserEmail();
+            string email = _userService.GetUser(User.GetUserID())!.Email;
             UserAccountDTO user = _userService.GetAccount(email).ToUserAccountDTO();
             return Ok(user);
         }
@@ -101,8 +101,8 @@ namespace Zoo.API.Controllers
             {
                 throw new NotAllowedException("An employee cannot delete its user account");
             }
-
-            _userService.Delete(_userService.GetAccount(User.GetUserEmail()));
+            string email = _userService.GetUser(User.GetUserID())!.Email;
+            _userService.Delete(_userService.GetAccount(email));
             return Ok();
         }
     }

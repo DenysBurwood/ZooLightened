@@ -8,7 +8,6 @@ using Zoo.API.Services;
 using Zoo.BLL.Services;
 using Zoo.DAL.Contexts;
 using Zoo.DAL.Repositories;
-using Zoo.DL.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -115,6 +114,8 @@ builder.Services.AddCors(service =>
 // Configure the HTTP request pipeline.
 
 var app = builder.Build();
+
+app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
 {
