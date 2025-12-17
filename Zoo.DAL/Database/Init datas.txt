@@ -166,11 +166,55 @@ VALUES
 -- ======================================
 INSERT INTO Toy (SpeciesId, Name, Description, ImagePath, MinimumAmountperDonation, WishedTotalAmount, StartDate, EndDate, Status)
 VALUES
-(1, 'Lion Ball', 'Soft toy for lions', NULL, 10, 100, '2025-01-01', NULL, 0),
-(2, 'Giraffe Rope', 'Chew rope for giraffes', NULL, 15, 120, '2025-02-01', NULL, 0),
-(3, 'Elephant Drum', 'Toy drum for elephants', NULL, 20, 200, '2025-03-01', NULL, 0),
-(4, 'Panda Bamboo Toy', 'Bamboo shaped toy', NULL, 5, 50, '2025-04-01', NULL, 0),
-(5, 'Kangaroo Pouch Toy', 'Interactive pouch toy', NULL, 8, 80, '2025-05-01', NULL, 0);
+(1, 
+ 'Plateforme d’observation et d’ombrage pour lions',
+ 'Cet aménagement vise à installer une grande plateforme surélevée dans l’enclos des lions, combinant zones d’ombre, surfaces d’observation et espaces de repos. Elle permettra aux lions de se positionner en hauteur, favorisant leurs comportements naturels de surveillance du territoire, tout en les protégeant de la chaleur lors des périodes estivales. Le financement couvre la conception, les matériaux renforcés, l’installation sécurisée et l’adaptation à l’environnement existant.',
+ NULL, 
+ 25, 
+ 15000, 
+ '2025-01-01', 
+ NULL, 
+ 0),
+
+(2, 
+ 'Extension verticale de l’enclos des girafes',
+ 'Ce projet consiste à aménager une extension verticale dans l’enclos des girafes, avec des structures adaptées à leur morphologie. L’objectif est d’augmenter la hauteur exploitable pour l’alimentation, la stimulation et l’observation, tout en améliorant leur bien-être général. Les fonds serviront à la construction de supports renforcés, à la plantation de végétation adaptée et à la sécurisation de l’ensemble pour les animaux comme pour les soigneurs.',
+ NULL, 
+ 30, 
+ 22000, 
+ '2025-02-01', 
+ NULL, 
+ 0),
+
+(3, 
+ 'Bassin interactif et zone de boue pour éléphants',
+ 'Ce financement permettra la création d’un bassin d’eau renforcé accompagné d’une zone de boue naturelle pour les éléphants. Ces infrastructures sont essentielles à leur santé physique et mentale, favorisant le jeu, la régulation thermique et les comportements sociaux. Le projet inclut les travaux de terrassement, l’étanchéité, les systèmes de renouvellement de l’eau et l’aménagement sécurisé des abords.',
+ NULL, 
+ 50, 
+ 45000, 
+ '2025-03-01', 
+ NULL, 
+ 0),
+
+(4, 
+ 'Aménagement d’un espace de nourrissage enrichi pour pandas',
+ 'Cet aménagement vise à créer une zone dédiée au nourrissage et à l’enrichissement comportemental des pandas. L’installation comprendra des structures en bois et en matériaux naturels permettant de dissimuler le bambou et de stimuler la recherche de nourriture. Le financement couvre la conception écologique, les matériaux durables et l’installation adaptée aux besoins spécifiques de l’espèce.',
+ NULL, 
+ 20, 
+ 12000, 
+ '2025-04-01', 
+ NULL, 
+ 0),
+
+(5, 
+ 'Parcours de déplacement et d’enrichissement pour kangourous',
+ 'Ce projet a pour objectif de créer un parcours structuré au sein de l’enclos des kangourous, favorisant le déplacement, les sauts et l’exploration. Il comprendra des zones de sol différenciées, des obstacles naturels et des espaces de repos sécurisés. Les fonds collectés permettront de financer les travaux d’aménagement, les matériaux résistants et l’intégration harmonieuse dans l’environnement existant.',
+ NULL, 
+ 20, 
+ 18000, 
+ '2025-05-01', 
+ NULL, 
+ 0);
 
 -- ======================================
 -- 9) ToyDonation
