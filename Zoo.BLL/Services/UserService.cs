@@ -94,5 +94,16 @@ namespace Zoo.BLL.Services
         {
             _userRepository.Delete(user);
         }
+
+        public bool CheckPassword(int userId,string password) 
+        {
+            User? user = _userRepository.GetEntityById(userId);
+            if(user is null) 
+            {
+                throw new UserNotFoundException();
+            }
+            bool equal = Argon2.Verify(user.Password,password);
+            return equal;
+        }
     }
 }

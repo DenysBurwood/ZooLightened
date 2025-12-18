@@ -45,6 +45,24 @@ namespace Zoo.API.Controllers
             return Ok(displayedEmployee);
         }
 
+        [Authorize(Roles = $"Veterinarian,Administration,Director,Guide,Treasurer,Other,Admin")]
+        [HttpGet("EmployeeSheet/{employeeId}")]
+        public ActionResult<EmployeeAccountDTO> CheckEmployeeAccount([FromRoute] int employeeId) 
+        {
+            Employee? employee = _employeeService.GetEmployeeByEmployeeId(employeeId);
+            if(employee==null) 
+            {
+                throw new EmployeeNotFound();
+            }
+            EmployeeAccountDTO employeeView = new EmployeeAccountDTO();
+            User user = _userService.GetUser(employee.UserId)!;
+            Address address = _addressService.GetAddress(employee.AddressId);
+            employeeView=employee.ToEmployeeAccountDTO(user, address);
+            return Ok(employeeView);
+        }
+
+
+
         [Authorize(Roles = "Administration,Director,Admin")]
         [HttpPost("NewEmployeeSheet")]
         public ActionResult EmployeeSheet([FromForm] EmployeeFormDTO employee)
