@@ -75,6 +75,20 @@ namespace Zoo.API.Controllers
             return Ok(user);
         }
 
+
+        [HttpPost("Account/{userId}")]
+        public ActionResult<UserAccountDTO> Account([FromRoute] int userId)
+        {
+            User? userValid = _userService.GetUser(userId);
+            if(userValid==null)
+            {
+                throw new UserNotFoundException();
+            }
+            UserAccountDTO user = userValid!.ToUserAccountDTO();
+            return Ok(user);
+        }
+
+
         [Authorize]
         [HttpPut("EditAccount")]
         public ActionResult<UserEditFormDTO> MyAccount([FromBody] UserFormDTO user)
@@ -93,15 +107,24 @@ namespace Zoo.API.Controllers
 
         [Authorize]
         [HttpDelete("Delete")]
-        public ActionResult Delete() 
+        public ActionResult Delete(int userId, string password) 
         {
+            bool completion;
             if(!User.GetRole().Equals("Client")) 
             {
                 throw new NotAllowedException("An employee cannot delete its user account");
             }
+            if(string.IsNullOrEmpty(password)) 
+            {
+                throw new UserNotFoundException("No password received...");
+            }
             string email = _userService.GetUser(User.GetUserID())!.Email;
-            _userService.Delete(_userService.GetAccount(email));
-            return Ok();
+            completion=_userService.CheckPassword(userId,password);
+            if(completion) 
+            {
+                _userService.Delete(_userService.GetAccount(email));
+            }
+            return Ok(completion);
         }
     }
 }
